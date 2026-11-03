@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  push:
+    branches: [main, 'ng[0-9]*']
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npm test
+        env:
+          CHROME_BIN: /usr/bin/google-chrome
+      - name: Inspect package contents
+        run: cd dist/easy-mat-ui && npm pack --dry-run

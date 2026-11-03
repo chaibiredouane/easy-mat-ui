@@ -1,0 +1,100 @@
+.hover {
+  cursor: pointer;
+}
+
+.no-border {
+  border: transparent;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.tab-space {
+  padding: 0 0 50px 0;
+}
+
+.xx-large,
+.x-large {
+  font-size: xx-large !important;
+}
+
+.xx-small {
+  font-size: xx-small !important;
+}
+
+.x-small {
+  font-size: x-small !important;
+}
+
+.small {
+  font-size: small !important;
+}
+
+.required {
+  color: #f44336;
+}
+
+.zoom_in {
+  color: #00bcd4 !important;
+}
+
+.zoom_out {
+  color: #ffb804 !important;
+}
+
+.zoom_out, .zoom_in {
+  font-size: 1.6em !important;
+  cursor: pointer;
+}
+
+.isReadOnly {
+  color: #4e656f;
+  font-weight: 100 !important;
+}
+
+.shadow-5 {
+  text-shadow: 0 5px 5px #555555;
+}
+
+.shadow-title {
+  text-shadow: 0 10px 10px #c2c0c0;
+  color: #5a0023;
+  font-weight: 500;
+}
+
+.shadow-lg {
+  font-size: x-large !important;
+  text-shadow: 0 5px 5px #c2c0c0;
+  color: #5a0023 !important;
+}
+
+.card-pricing h6 {
+  color: #5a0023;
+}
+
+.x-small-column {
+  width: 32px !important;
+  min-width: 32px !important;
+  max-width: 32px !important;
+  flex: 0 0 32px !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
+}
+
+.small-column {
+  min-width: 56px;
+}
+
+.medium-column {
+  min-width: 100px;
+}
+
+.large-column {
+  min-width: 150px;
+}
+
+.x-large-column {
+  min-width: 200px;
+}

@@ -1,0 +1,20 @@
+:host {
+  display: block;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+/* Filter button of the toolbar: only useful below 1024px, where the header filters are folded away. */
+.filter-toggle {
+  display: none !important;
+}
+
+.filter-toggle.active {
+  box-shadow: var(--focus-ring);
+}
+
+@media (max-width: 1023.98px) {
+  .filter-toggle {
+    display: inline-flex !important;
+  }
+}

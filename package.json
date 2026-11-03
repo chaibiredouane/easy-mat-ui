@@ -1,0 +1,47 @@
+{
+  "name": "easy-mat-ui-workspace",
+  "version": "20.0.0",
+  "private": true,
+  "scripts": {
+    "ng": "ng",
+    "start": "npm run snippets && ng serve demo",
+    "build:demo": "npm run snippets && ng build demo --configuration development",
+    "build": "ng build easy-mat-ui",
+    "watch": "ng build easy-mat-ui --watch --configuration development",
+    "test": "ng test --watch=false --browsers=ChromeHeadless",
+    "pack": "npm run build && cd dist/easy-mat-ui && npm pack",
+    "snippets": "node scripts/embed-snippets.cjs",
+    "build:site": "npm run snippets && ng build demo --configuration production && node scripts/build-site.cjs"
+  },
+  "dependencies": {
+    "tslib": "^2.8.1"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "20.3.9",
+    "@angular/cdk": "20.2.9",
+    "@angular/cli": "~20.3.0",
+    "@angular/common": "20.3.9",
+    "@angular/compiler": "20.3.9",
+    "@angular/compiler-cli": "20.3.9",
+    "@angular/core": "20.3.9",
+    "@angular/forms": "20.3.9",
+    "@angular/material": "20.2.9",
+    "@angular/platform-browser": "20.3.9",
+    "@ngx-translate/core": "^16.0.0",
+    "@ngx-translate/http-loader": "^16.0.0",
+    "@types/jasmine": "~5.1.0",
+    "jasmine-core": "~5.6.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.2.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.1.0",
+    "ng-packagr": "20.3.2",
+    "rxjs": "7.8.2",
+    "sass": "^1.89.2",
+    "typescript": "~5.8.3",
+    "zone.js": "0.15.1",
+    "bootstrap": "^5.3.7",
+    "flag-icons": "^7.5.0"
+  }
+}

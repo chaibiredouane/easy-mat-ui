@@ -1,0 +1,31 @@
+name: Bug report
+description: Report something that does not work as expected
+labels: [bug]
+body:
+  - type: input
+    id: version
+    attributes:
+      label: Package and version
+      placeholder: easy-mat-ui-ng20 20.0.0
+    validations:
+      required: true
+  - type: input
+    id: angular
+    attributes:
+      label: Angular and Angular Material versions
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: Include what you expected to happen.
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: A minimal reproduction (for example a StackBlitz project) helps a lot.
+    validations:
+      required: true

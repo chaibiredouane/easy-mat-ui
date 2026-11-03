@@ -1,0 +1,253 @@
+# easy-mat-ui
+
+[![npm](https://img.shields.io/npm/v/easy-mat-ui-ng20.svg)](https://www.npmjs.com/package/easy-mat-ui-ng20)
+[![CI](https://github.com/chaibiredouane/easy-mat-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/chaibiredouane/easy-mat-ui/actions/workflows/ci.yml)
+[![Angular](https://img.shields.io/badge/Angular-20-dd0031.svg)](https://angular.dev)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+**[Live demo](__SITE_URL__/)** · **[Documentation](__SITE_URL__/docs/)** · [npm](https://www.npmjs.com/package/easy-mat-ui-ng20) · [Changelog](CHANGELOG.md)
+
+A set of customizable Angular Material components built around a configurable **data table**:
+filtering, sorting, pagination, typed columns, expandable rows, tabbed child tables, a toolbar,
+a configurable **create / edit / view dialog** and a **multi-select** control, with
+[ngx-translate](https://github.com/ngx-translate/core) based i18n.
+
+## Features
+
+- `lib-easy-table` / `lib-easy-table-basic`: a Material table driven by a single `EasyTableConfig` object.
+- Typed columns (`MatColumnTyped`): text, number, date, date-time, icon, icon-and-text, button, dropdown list, image
+  (flags), password and filter columns.
+- **Column filters** under the titles (a compact text input or a multi-select per column), global search, sorting,
+  pagination, sticky columns and a header that stays pinned while the rows scroll.
+- Expandable rows with **child tables**, or several child tables in **tabs** (`childConfig`).
+- `EasyDialogService`: a configurable dialog to create, edit or view a record.
+- `lib-easy-multi-select`: a searchable multi-select with select-all, clear, read-only and compact modes.
+- **Light and dark themes** switchable at runtime (`EasyThemeService`), driven by CSS variables.
+- Responsive layout (tables adapt below 768 px and 1024 px) and no WCAG 2 A/AA violation reported by axe-core on the demo.
+- Shared models, enums and configuration classes exported from one entry point.
+
+## Requirements and supported versions
+
+This package targets **Angular 20**. Each Angular major version has its own package so that applications
+are never forced to upgrade:
+
+| Angular | Package | Library version |
+|---|---|---|
+| 20 | `easy-mat-ui-ng20` | `20.x.x` |
+| 21 | `easy-mat-ui-ng21` | `21.x.x` (planned) |
+
+Peer dependencies: `@angular/core`, `@angular/common`, `@angular/forms`, `@angular/cdk`,
+`@angular/material`, `@angular/platform-browser` (all `^20.0.0`), `@ngx-translate/core` `^16`,
+`bootstrap` `^5`, `rxjs` `^7`. Optional: `@ngx-translate/http-loader`, `flag-icons` (country columns).
+
+## Installation
+
+```bash
+npm install easy-mat-ui-ng20
+```
+
+Install the peer dependencies if your project does not have them yet:
+
+```bash
+ng add @angular/material
+npm install @ngx-translate/core @ngx-translate/http-loader bootstrap
+```
+
+The components use Material icons. `ng add @angular/material` normally takes care of it; otherwise add the
+font to your `index.html`:
+
+```html
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+```
+
+### Bundle size budget
+
+A new Angular project fails `ng build` in production with *"bundle initial exceeded maximum budget"* once Angular Material
+and this library are added: two components embed the Bootstrap stylesheet (a slimmer stylesheet is planned for 20.1). Raise the
+initial budget in `angular.json` (measured: about 1.9 MB raw, 254 kB transferred, for the quick start below):
+
+```json
+"budgets": [
+  { "type": "initial", "maximumWarning": "2.5MB", "maximumError": "4MB" }
+]
+```
+
+## Quick start
+
+Provide ngx-translate once in your application config:
+
+```typescript
+import { ApplicationConfig } from '@angular/core';
+import { provideTranslateService } from '@ngx-translate/core';
+
+export const appConfig: ApplicationConfig = {
+  providers: [provideTranslateService({ defaultLanguage: 'en' })]
+};
+```
+
+Use the table in a standalone component:
+
+```typescript
+import { Component } from '@angular/core';
+import { EasyTableComponent, EasyTableConfig, MatColumnTyped } from 'easy-mat-ui-ng20';
+
+@Component({
+  selector: 'app-users',
+  standalone: true,
+  imports: [EasyTableComponent],
+  template: `<lib-easy-table [config]="config"></lib-easy-table>`
+})
+export class UsersComponent {
+  config: Partial<EasyTableConfig> = {
+    data: [
+      { id: 1, name: 'Alice' },
+      { id: 2, name: 'Bob' }
+    ],
+    displayedColumns: [
+      new MatColumnTyped({ name: 'id' }),
+      new MatColumnTyped({ name: 'name' })
+    ],
+    canCreate: true,
+    canUpdate: true,
+    canDelete: true
+  };
+}
+```
+
+Table events are exposed as outputs: `addItem`, `editItem`, `viewItem`, `deleteItem`, `customAction`,
+`clickField`, and more (see `EasyTableComponent`).
+
+## Dialog example
+
+```typescript
+import { inject } from '@angular/core';
+import { CRUD, EasyDialogService, MatColumnTyped } from 'easy-mat-ui-ng20';
+
+const dialog = inject(EasyDialogService);
+
+dialog.open({
+  title: 'Edit user',
+  pk: 'id',
+  action: CRUD.UPDATE,
+  data: { id: 1, name: 'Alice' },
+  fields: [
+    new MatColumnTyped({ name: 'id', order: 1 }),
+    new MatColumnTyped({ name: 'name', order: 2, isRequired: true })
+  ]
+}).afterClosed().subscribe(result => console.log(result?.event, result?.data));
+```
+
+## Demo application
+
+The repository contains a runnable demo in [`projects/demo`](projects/demo). It needs no backend: a mock service
+(`GeoService`) returns Observables like a real `HttpClient` service would, so replacing it is the only change a real
+application needs.
+
+```bash
+git clone https://github.com/chaibiredouane/easy-mat-ui.git
+cd easy-mat-ui
+npm ci
+npm start          # http://localhost:4200
+```
+
+It shows what the library is for: **almost nothing to code**. Every page is four small files, in the same layout:
+
+| File | Role |
+|---|---|
+| `<page>.config.ts` | The whole configuration: columns, dialog fields, table options, tabs |
+| `<page>.html` | A few lines: `<lib-easy-table [config]="..." [childConfig]="...">` and its events |
+| `<page>.ts` | Loads data from the service and saves the dialog results |
+| `<page>.scss` | Page styles |
+
+Three pages, built on every country of the world (Algeria first) and their cities:
+
+1. **Countries and their cities**: expandable rows; the child table is loaded when a row opens.
+2. **Child tables in tabs**: `childConfig` as an array, one tab per configuration.
+3. **Cities of any country**: one full table with header filters, flags, status icons and a complete
+   add / edit / view / delete dialog.
+
+Each page has a *Show the code of this page* panel with its real source files, and the header has a
+Light / Dark / System theme switcher.
+
+Key points of the configuration:
+
+- `childConfig` takes one configuration, or an array to get tabs (`tabTitle`, `tabIcon`).
+- `isExpanded: true` on the parent adds the expand button; `extendRow` tells you which row opened.
+- `sortedBy: ''` keeps the order given by your service (the default sorts by text).
+- Rebuild a table configuration (a new `EasyTableConfig`) whenever its data changes.
+
+The demo data lives under `projects/demo/src/app/data` and is **not** part of the npm package. Countries and cities
+come from [GeoNames](https://www.geonames.org/) (CC BY 4.0), the administrative divisions of Algeria from Wikipedia
+(CC BY-SA 4.0): see `DATA-LICENSE.md` and `WORLD-DATA-SOURCES.md` in that folder. Populations are source values of varying
+years, not a census.
+
+## Themes
+
+Light and dark themes are driven by CSS variables (`--text-color`, `--card-bg`, `--border-color`,
+`--color-primary-blue`, `--radius-md`, `--shadow-md`, ...), so an application can override them without touching the
+library. `EasyThemeService` switches theme at runtime, without reloading the page:
+
+```typescript
+import { inject } from '@angular/core';
+import { EasyThemeService } from 'easy-mat-ui-ng20';
+
+const theme = inject(EasyThemeService);
+theme.setTheme('dark');     // 'light' | 'dark' | 'system' (follows the operating system, live)
+theme.toggle();
+theme.theme();              // the applied theme, as a signal
+```
+
+The service does nothing until you call it, never stores anything unless you give it a `storageKey`
+(`EASY_THEME_OPTIONS`), and only adds the `dark-theme` class to `<body>` (the class the library stylesheet already
+used) and a `data-easy-theme` attribute on `<html>`. Applications that toggle `dark-theme` themselves keep working.
+Material components follow when your Angular Material theme uses `color-scheme` (for example `mat.theme`).
+
+## Responsive and accessibility
+
+Below 768 px, tables size their columns to their content and scroll horizontally, and the sticky actions column shrinks
+to its buttons so the data stays visible. The demo is checked at 320, 375, 430, 768, 1024, 1440 and 1920 px in both
+themes (no horizontal overflow, no console error) and with axe-core (no WCAG 2 A/AA violation on the demo pages).
+
+## Styles
+
+Components embed their own styles. To also get the shared classes (`green`, `red`, `taupe`, `bg-*`,
+spacing and Material overrides), add the stylesheet to the `styles` array of your `angular.json`:
+
+```json
+"styles": [
+  "node_modules/easy-mat-ui-ng20/styles/styles.scss",
+  "node_modules/flag-icons/css/flag-icons.min.css"
+]
+```
+
+`flag-icons` is only needed for flag columns (`ColumnType.IMAGE` with a country code such as `fr`); its stylesheet is not bundled with the components.
+
+> **Troubleshooting:** with the Angular `application` builder, the `flag-icons` stylesheet can fail in
+> development with `Two output files share the same path but have different contents: media/xx.svg`.
+> Set `"outputHashing": "media"` in the `development` configuration of the `build` target of your
+> `angular.json`.
+
+## Versioning
+
+The first number of the library version is the supported Angular major version (`20.x.x` supports
+Angular 20). The remaining numbers follow [Semantic Versioning](https://semver.org/):
+PATCH for bug fixes, MINOR for backward-compatible features, MAJOR for breaking changes within the
+same Angular line. See [CHANGELOG.md](CHANGELOG.md).
+
+## Development
+
+```bash
+npm ci
+npm start         # runs the demo application
+npm run build   # builds the library into dist/easy-mat-ui
+npm test        # runs the unit tests (headless Chrome)
+```
+
+## Contributing
+
+Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) and the
+[Code of Conduct](CODE_OF_CONDUCT.md). Report vulnerabilities as described in [SECURITY.md](SECURITY.md).
+
+## License
+
+[MIT](LICENSE)

@@ -1,0 +1,545 @@
+.mat-mdc-table {
+  width: 100% !important;
+  table-layout: auto !important;
+  background-color: var(--card-bg) !important;
+  color: var(--text-color) !important;
+}
+
+.table-responsive {
+  overflow-x: auto;
+  overflow-y: auto;
+  max-height: var(--easy-table-max-height, 75vh);
+  -webkit-overflow-scrolling: touch;
+}
+
+.mat-mdc-header-cell {
+  font-size: var(--table-header-size, 14px);
+  font-weight: 600;
+  letter-spacing: var(--table-header-spacing, normal);
+  text-transform: var(--table-header-transform, none);
+  color: var(--table-header-text, var(--text-color)) !important;
+}
+
+tr.mat-mdc-header-row {
+  height: 56px;
+  font-weight: 600;
+  background-color: var(--table-header-bg, var(--card-bg)) !important;
+}
+
+tr.mat-mdc-row,
+tr.mat-mdc-footer-row {
+  height: 48px;
+  color: var(--text-color);
+}
+
+th.mat-mdc-header-cell,
+td.mat-mdc-cell,
+td.mat-mdc-footer-cell {
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-color) !important;
+}
+
+tr.mat-mdc-row:nth-child(odd),
+.mat-mdc-row:nth-child(odd),
+.gray {
+  background-color: var(--bg-gray) !important;
+}
+
+tr.mat-mdc-row:nth-child(even),
+.mat-mdc-row:nth-child(even) {
+  background-color: var(--card-bg) !important;
+}
+
+td.mat-mdc-cell {
+  background-color: transparent !important;
+}
+
+mat-paginator {
+  background-color: var(--card-bg) !important;
+  color: var(--color-primary-blue-strong, var(--color-primary-blue)) !important;
+}
+
+.disable {
+  background-color: var(--bg-readonly) !important;
+  opacity: 0.5;
+  color: #a09e9e;
+}
+
+.selected-row {
+  background-color: var(--hover-color) !important;
+  box-shadow: 0px 5px 5px var(--card-shadow) !important;
+  font-weight: bold;
+}
+
+.mat-mdc-row:hover {
+  background-color: var(--hover-color) !important;
+
+  td.mat-mdc-cell {
+    background-color: var(--hover-color) !important;
+  }
+}
+
+.sticky-left {
+  position: sticky;
+  left: 0;
+  z-index: 10;
+  background-color: var(--card-bg) !important;
+}
+
+.sticky-right {
+  position: sticky;
+  right: 0;
+  z-index: 10;
+  background-color: var(--card-bg) !important;
+}
+
+
+.selected-row-green-bg td.mat-mdc-cell {
+  background-color: var(--row-selected-bg, #b8c9d2) !important;
+  font-weight: 600 !important;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.selected-row-green-bg td.mat-mdc-cell:first-child {
+  border-left: 4px solid var(--row-selected-border, #4a7c93) !important;
+}
+
+body.dark-theme .selected-row-green-bg td.mat-mdc-cell {
+  background-color: var(--row-selected-bg, #2c4a68) !important;
+  color: #f8fafc !important;
+}
+
+body.dark-theme {
+  tr.mat-mdc-row:nth-child(odd),
+  .mat-mdc-row:nth-child(odd) {
+    background-color: var(--bg-gray) !important;
+
+    td.mat-mdc-cell {
+      background-color: var(--bg-gray) !important;
+    }
+  }
+
+  tr.mat-mdc-row:nth-child(even),
+  .mat-mdc-row:nth-child(even) {
+    background-color: var(--card-bg) !important;
+
+    td.mat-mdc-cell {
+      background-color: var(--card-bg) !important;
+    }
+  }
+
+  tr.example-detail-row {
+    background-color: var(--card-bg) !important;
+
+    > td.mat-mdc-cell {
+      background-color: var(--card-bg) !important;
+    }
+  }
+}
+
+.mat-mdc-table {
+  table-layout: fixed;
+
+  td.cell-ellipsis {
+    max-width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+
+.mat-mdc-table {
+  th.mat-column-actions,
+  td.mat-column-actions {
+    /* Shrinks to its buttons: the data columns share all the remaining width. */
+    width: 1%;
+    min-width: var(--easy-actions-col-width, 132px);
+    white-space: nowrap;
+    overflow: visible;
+    position: sticky;
+    right: 0;
+    z-index: 5;
+    box-shadow: -4px 0 6px -4px var(--card-shadow, rgba(0, 0, 0, 0.15));
+  }
+
+  th.mat-column-actions {
+    z-index: 6;
+    background-color: var(--table-header-bg, var(--card-bg)) !important;
+  }
+
+  tr.mat-mdc-row:nth-child(odd) td.mat-column-actions {
+    background-color: var(--bg-gray) !important;
+  }
+
+  tr.mat-mdc-row:nth-child(even) td.mat-column-actions {
+    background-color: var(--card-bg) !important;
+  }
+
+  tr.mat-mdc-row:hover td.mat-column-actions {
+    background-color: var(--hover-color) !important;
+  }
+
+  tr.selected-row-green-bg td.mat-column-actions {
+    background-color: var(--row-selected-bg, #b8c9d2) !important;
+  }
+}
+
+body.dark-theme .mat-mdc-table tr.selected-row-green-bg td.mat-column-actions {
+  background-color: var(--row-selected-bg, #2c4a68) !important;
+}
+
+
+.action-link button.icon-only {
+  outline: none !important;
+  box-shadow: none !important;
+  -webkit-tap-highlight-color: transparent;
+
+  &:focus,
+  &:focus-visible,
+  &:active {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  .mat-mdc-button-persistent-ripple::before,
+  .mat-mdc-focus-indicator::before,
+  .mat-focus-indicator::before {
+    opacity: 0 !important;
+    background-color: transparent !important;
+  }
+
+  .mat-ripple-element {
+    display: none !important;
+  }
+
+  &:hover mat-icon {
+    filter: brightness(0.85);
+  }
+}
+
+
+.action-link button.mat-mdc-icon-button,
+.action-link button.icon-only {
+  --mat-icon-button-state-layer-color: transparent;
+  --mat-icon-button-ripple-color: transparent;
+  --mdc-icon-button-state-layer-color: transparent;
+  --mat-icon-button-hover-state-layer-opacity: 0;
+  --mat-icon-button-focus-state-layer-opacity: 0;
+  --mat-icon-button-pressed-state-layer-opacity: 0;
+  background-color: transparent !important;
+
+  &.cdk-focused,
+  &.cdk-keyboard-focused,
+  &.cdk-mouse-focused,
+  &.cdk-program-focused,
+  &.mat-mdc-focus-indicator {
+    outline: none !important;
+    box-shadow: none !important;
+    background-color: transparent !important;
+  }
+
+  .mat-mdc-button-persistent-ripple,
+  .mat-mdc-button-persistent-ripple::before,
+  .mdc-icon-button__ripple,
+  .mdc-icon-button__ripple::before,
+  .mat-mdc-focus-indicator::before,
+  .mat-focus-indicator::before,
+  &.cdk-focused::before,
+  &.cdk-keyboard-focused::before,
+  &.cdk-program-focused::before,
+  &::before,
+  &::after {
+    display: none !important;
+    opacity: 0 !important;
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+  }
+}
+
+
+.table-responsive {
+  --easy-scroll-thumb: #b8c4cc;
+  --easy-scroll-thumb-hover: #8fa0ab;
+  --easy-scroll-track: transparent;
+  scrollbar-width: thin;
+  scrollbar-color: var(--easy-scroll-thumb) var(--easy-scroll-track);
+
+  &::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--easy-scroll-track);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--easy-scroll-thumb);
+    border-radius: 8px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: var(--easy-scroll-thumb-hover);
+  }
+}
+
+body.dark-theme .table-responsive {
+  --easy-scroll-thumb: #4b5563;
+  --easy-scroll-thumb-hover: #6b7a8c;
+}
+
+.mat-mdc-table tr.mat-mdc-row.selected-row-green-bg td.mat-mdc-cell.mat-column-actions {
+  background-color: var(--row-selected-bg, #b8c9d2) !important;
+}
+
+body.dark-theme .mat-mdc-table tr.mat-mdc-row.selected-row-green-bg td.mat-mdc-cell.mat-column-actions {
+  background-color: var(--row-selected-bg, #2c4a68) !important;
+}
+
+
+.mat-mdc-table tr.mat-mdc-row.selected-row-green-bg,
+.mat-mdc-table tr.mat-mdc-row.selected-row-green-bg:hover {
+  background-color: var(--row-selected-bg, #b8c9d2) !important;
+
+  td.mat-mdc-cell,
+  td.mat-mdc-cell.mat-column-actions {
+    background-color: var(--row-selected-bg, #b8c9d2) !important;
+  }
+}
+
+body.dark-theme .mat-mdc-table tr.mat-mdc-row.selected-row-green-bg,
+body.dark-theme .mat-mdc-table tr.mat-mdc-row.selected-row-green-bg:hover {
+  background-color: var(--row-selected-bg, #2c4a68) !important;
+
+  td.mat-mdc-cell,
+  td.mat-mdc-cell.mat-column-actions {
+    background-color: var(--row-selected-bg, #2c4a68) !important;
+  }
+}
+
+
+.example-element-detail .mat-mdc-table tr.mat-mdc-row.selected-row-green-bg,
+.example-element-detail .mat-mdc-table tr.mat-mdc-row.selected-row-green-bg:hover {
+  background-color: #c5dccd !important;
+
+  td.mat-mdc-cell,
+  td.mat-mdc-cell.mat-column-actions {
+    background-color: #c5dccd !important;
+  }
+}
+
+body.dark-theme .example-element-detail .mat-mdc-table tr.mat-mdc-row.selected-row-green-bg,
+body.dark-theme .example-element-detail .mat-mdc-table tr.mat-mdc-row.selected-row-green-bg:hover {
+  background-color: #8fad9d !important;
+
+  td.mat-mdc-cell,
+  td.mat-mdc-cell.mat-column-actions {
+    background-color: #8fad9d !important;
+  }
+}
+
+
+.table-responsive {
+  container-type: inline-size;
+  container-name: easy-table-scroller;
+}
+
+.example-element-detail > .card {
+  box-sizing: border-box;
+  position: sticky;
+  left: 5px;
+  flex: none;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  width: calc(100cqw - 10px);
+  max-width: calc(100cqw - 10px);
+  min-width: 0;
+}
+
+.mat-mdc-table.mat-mdc-table tr.mat-mdc-row.zebra-odd:not(.selected-row-green-bg) {
+  &, > td.mat-mdc-cell {
+    background-color: var(--bg-gray) !important;
+  }
+}
+
+.mat-mdc-table.mat-mdc-table tr.mat-mdc-row.zebra-even:not(.selected-row-green-bg) {
+  &, > td.mat-mdc-cell {
+    background-color: var(--card-bg) !important;
+  }
+}
+
+.mat-mdc-table.mat-mdc-table tr.mat-mdc-row.zebra-odd:not(.selected-row-green-bg):hover,
+.mat-mdc-table.mat-mdc-table tr.mat-mdc-row.zebra-even:not(.selected-row-green-bg):hover {
+  &, > td.mat-mdc-cell {
+    background-color: var(--hover-color) !important;
+  }
+}
+
+th.mat-sort-header.text-center {
+  ::ng-deep .mat-sort-header-container,
+  ::ng-deep .mat-sort-header-content {
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+  }
+
+  ::ng-deep .mat-sort-header-container {
+    position: relative;
+  }
+
+  ::ng-deep .mat-sort-header-arrow {
+    position: absolute;
+    right: 0;
+    margin: 0;
+  }
+}
+
+th.mat-sort-header.text-end {
+  ::ng-deep .mat-sort-header-container,
+  ::ng-deep .mat-sort-header-content {
+    justify-content: flex-end;
+  }
+}
+
+th.mat-sort-header-disabled {
+  ::ng-deep .mat-sort-header-container,
+  ::ng-deep .mat-sort-header-content {
+    display: block;
+    width: 100%;
+    border-bottom: 0;
+  }
+
+  ::ng-deep .mat-sort-header-arrow {
+    display: none;
+  }
+}
+
+.mat-mdc-table th.nowrap-header .header-label {
+  white-space: nowrap;
+}
+
+/*
+ * Header filters that are switched off (column without enableFilter) are only hidden in the markup. They must not
+ * keep their width either: each one used to reserve 200px, which made every column at least that wide.
+ */
+.mat-mdc-table th .header-filter lib-easy-multi-select.visibility-hidden {
+  display: none !important;
+}
+
+/*
+ * Narrow screens. The table asks for 130px per column plus 132px for the actions, which made the sticky actions
+ * column absorb the surplus width and cover the whole screen. Below 768px the table sizes its columns to their
+ * content, scrolls horizontally when needed, and the actions column shrinks to its buttons (still sticky).
+ */
+@media (max-width: 768px) {
+  .mat-mdc-table.mat-mdc-table {
+    table-layout: auto !important;
+    width: max-content !important;
+    min-width: 100% !important;
+  }
+
+  .mat-mdc-table th.mat-column-actions,
+  .mat-mdc-table td.mat-column-actions {
+    width: 1% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .mat-mdc-table th.mat-mdc-header-cell,
+  .mat-mdc-table td.mat-mdc-cell {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .mat-mdc-table td.mat-mdc-cell:not(.mat-column-actions) {
+    min-width: 64px;
+  }
+}
+
+/*
+ * Table header. Titles and column filters share one layout, so every column has the same structure and height
+ * whether it can be filtered or not (a column without a filter keeps an invisible placeholder of the same size).
+ * The header stays pinned at the top while the rows scroll.
+ */
+.mat-mdc-table th.mat-mdc-header-cell {
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  background-color: var(--table-header-bg, var(--card-bg));
+}
+
+.mat-mdc-table th.sticky-left,
+.mat-mdc-table th.sticky-right,
+.mat-mdc-table th.mat-column-actions {
+  top: 0;
+}
+
+.mat-mdc-table.has-filters th.mat-mdc-header-cell {
+  vertical-align: top;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.mat-mdc-table th .header-label {
+  display: flex;
+  align-items: center;
+  min-height: 24px; /* the tallest content (a header icon) sets the line for every column */
+}
+
+.mat-mdc-table th .header-filter {
+  height: 32px;
+  margin-top: 6px;
+  min-width: 0;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.mat-mdc-table th .header-filter.filter-off {
+  visibility: hidden;
+}
+
+.mat-mdc-table th .header-text-filter {
+  width: 100%;
+  min-width: 90px;
+  height: 32px;
+  padding: 0 10px;
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius-sm);
+  background: var(--input-bg);
+  color: var(--input-text);
+  font: inherit;
+  font-size: 13px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.mat-mdc-table th .header-text-filter::placeholder {
+  color: var(--input-placeholder);
+}
+
+.mat-mdc-table th .header-text-filter:hover {
+  border-color: var(--input-border-hover);
+}
+
+.mat-mdc-table th .header-text-filter:focus-visible {
+  outline: none;
+  border-color: var(--input-border-hover);
+  box-shadow: var(--focus-ring);
+}
+
+/* Below 1024px the filters are folded away and opened from the filter button of the toolbar. */
+@media (max-width: 1023.98px) {
+  .mat-mdc-table:not(.filters-open) th .header-filter {
+    display: none !important;
+  }
+
+  .mat-mdc-table.has-filters:not(.filters-open) th.mat-mdc-header-cell {
+    vertical-align: middle;
+  }
+}

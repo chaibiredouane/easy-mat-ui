@@ -1,0 +1,145 @@
+@use '@angular/material' as mat;
+
+/*
+ * Angular Material theme. `color-scheme: light dark` lets Material follow the theme chosen by
+ * EasyThemeService, which sets the CSS `color-scheme` on <html> (light, dark or the OS preference).
+ */
+html {
+  color-scheme: light dark;
+  @include mat.theme((color: mat.$azure-palette, typography: Roboto, density: 0));
+}
+
+:root {
+  --text-muted: #5b6b82;
+  --code-bg: #f6f8fc;
+  --demo-accent: #1f6f8b; /* 5.6:1 with white text */
+  --demo-on-accent: #ffffff;
+  --code-color: #7a2e5a;
+}
+
+body.dark-theme {
+  --text-muted: #9aa8b6;
+  --code-bg: #0b1220;
+  --code-color: #e6b3d2;
+  --demo-accent: #8eb3c7; /* 8:1 with dark text */
+  --demo-on-accent: #0b1220;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--background-color);
+  color: var(--text-color);
+  font-family: Roboto, 'Helvetica Neue', Arial, sans-serif;
+  -webkit-text-size-adjust: 100%;
+}
+
+code {
+  color: var(--code-color);
+}
+
+/* Arabic names. */
+.rtl {
+  direction: rtl;
+  unicode-bidi: plaintext;
+}
+
+/*
+ * Top navigation tabs. Same design as the child-table tabs of lib-easy-table (flat, rounded, green when
+ * active), re-declared here because the library keeps those rules inside its own component.
+ */
+.showcase-tabs {
+  --mat-tab-header-divider-height: 0;
+  --mat-tab-header-inactive-label-text-color: var(--tab-inactive-text);
+  --mat-tab-header-inactive-hover-label-text-color: var(--text-color);
+  --mat-tab-header-inactive-focus-label-text-color: var(--text-color);
+  --mat-tab-header-active-label-text-color: var(--tab-active-text);
+  --mat-tab-header-active-hover-label-text-color: var(--tab-active-text);
+  --mat-tab-header-active-focus-label-text-color: var(--tab-active-text);
+  --tab-inactive-text: #5b6770;
+  --tab-active-text: #ffffff;
+}
+
+body.dark-theme .showcase-tabs {
+  --tab-inactive-text: #a6a8b8;
+}
+
+.showcase-tabs .mat-mdc-tab-header {
+  padding-top: 6px;
+  border: none;
+  background: transparent;
+}
+
+.showcase-tabs .mdc-tab-indicator,
+.showcase-tabs .mdc-tab__ripple,
+.showcase-tabs .mat-mdc-tab-ripple {
+  display: none;
+}
+
+.showcase-tabs .mat-mdc-tab {
+  flex-grow: 0;
+  height: 40px;
+  min-width: auto;
+  padding: 0 16px;
+  margin: 0 3px;
+  border-radius: var(--radius-md);
+  opacity: 1;
+  background: transparent;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.showcase-tabs .mat-mdc-tab:hover:not(.mdc-tab--active) {
+  background: var(--hover-color);
+}
+
+.showcase-tabs .mat-mdc-tab .mdc-tab__text-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.875rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+.showcase-tabs .mat-mdc-tab .mdc-tab__text-label {
+  color: var(--tab-inactive-text) !important;
+}
+
+.showcase-tabs .mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
+  color: var(--tab-active-text) !important;
+}
+
+.showcase-tabs .mat-mdc-tab .tab-icon {
+  width: 18px;
+  height: 18px;
+  font-size: 18px;
+  line-height: 18px;
+  color: inherit;
+}
+
+.showcase-tabs .mat-mdc-tab.mdc-tab--active {
+  background: var(--tab-active-bg);
+}
+
+.showcase-tabs .mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
+  font-weight: 500;
+}
+
+.showcase-tabs .mat-mdc-tab:focus-visible {
+  outline: 2px solid var(--color-primary-blue);
+  outline-offset: 2px;
+}
+
+.showcase-tabs .mat-mdc-tab-body-wrapper {
+  padding-top: 12px;
+}
+
+@media (max-width: 600px) {
+  .showcase-tabs .mat-mdc-tab {
+    height: 44px;
+    padding: 0 12px;
+  }
+}

@@ -1,0 +1,254 @@
+@if (config.withToolbar) {
+  <lib-table-toolbar
+    [config]="config.toolbarConfig"
+    [isPreview]="config.isPreview"
+    [searchTableField]="searchTableField"
+    [readonly]="config.readonly"
+    [canCreate]="config.canCreate"
+    [canExport]="config.canExport"
+    [customColumnFilter]="config.customColumnFilter"
+    (searchTableFieldChange)="searchTableField = $event; applyFilterFromToolbar()"
+    (applyFilterEvent)="applyFilter($event)"
+    (filterTypeEvent)="filterType()"
+    (clearTableFilterEvent)="clearTableFilter()"
+    (addItem)="onAddItem()"
+    (exportToCsv)="exportToCsv()"
+    (customAction)="onCustomAction()"
+    (close)="onLogout()"
+    (toggleChanged)="OnToggleChanged($event)">
+    @if (config.withFilterInHeader) {
+      <button type="button" class="btn-mini-fab bg-blue filter-toggle" [ngClass]="config.btnSize"
+              [class.active]="filtersOpen" [attr.aria-pressed]="filtersOpen"
+              [title]="'FILTERS' | translate" [attr.aria-label]="'FILTERS' | translate"
+              (click)="filtersOpen = !filtersOpen">
+        <mat-icon>filter_list</mat-icon>
+      </button>
+    }
+  </lib-table-toolbar>
+  <br>
+}
+
+<div class="row p-0">
+  <div class="col-md-12 p-0" [ngClass]="config.fontSize">
+    <div class="table-responsive">
+      @if (config.expandableGroups) {
+        <div class="collapse-controls">
+          @for (group of availableGroups; track group) {
+            @if (group !== '_ungrouped') {
+              <button mat-button (click)="toggleGroup(group)"
+                      [ngClass]="expandedGroups[group] ? 'active-item' : 'inactive-item'">
+                {{ group }} {{ expandedGroups[group] ? '▲' : '▼' }}
+              </button>
+            }
+          }
+        </div>
+      }
+
+      <table mat-table [dataSource]="dataSource" matSort [class.filters-open]="filtersOpen" [class.has-filters]="config.withFilterInHeader && hasColumnFilters"
+             [class.mat-elevation-z2]="config.isPreview"
+             [class.mat-elevation-z8]="!config.isPreview" class="mat-mdc-table w-100"
+             [style.min-width.px]="getTableMinWidth()">
+
+        @for (grouped of groupedColumns; track grouped[0]) {
+          @if (grouped[0] !== '_ungrouped') {
+            <tr class="group-header-row">
+              <th [attr.colspan]="grouped[1].length" class="group-header-cell">
+                <button type="button" (click)="toggleGroup(grouped[0])">
+                  <mat-icon>{{ expandedGroups[grouped[0]] ? 'expand_less' : 'expand_more' }}</mat-icon>
+                  {{ grouped[0] }}
+                </button>
+              </th>
+            </tr>
+          }
+
+          @for (col of grouped[1]; track col.name) {
+            @if (grouped[0] === '_ungrouped' || expandedGroups[grouped[0]]) {
+
+              <ng-container [matColumnDef]="col.name">
+                <th mat-header-cell *matHeaderCellDef
+                    mat-sort-header
+                    [disabled]="config.withFilterInHeader || col.name === '#' || col.name === 'actions'"
+                    [ngClass]="[col.size, col.stickyClass, col.groupClass || ('group' + getGroupIndex(grouped[0]))]"
+                    class="custom-th-cell">
+                  <div class="header-label">
+                    @if (col.headerIcon) {
+                      <span class="material-icons hover"
+                            [title]="col.translateTitle || col.name">{{ col.headerIcon }}</span>
+                    } @else {
+                      <span>{{ (col.translateTitle || col.name) | translate }}</span>
+                    }
+                  </div>
+                  @if (config.withFilterInHeader && hasColumnFilters) {
+                    <div class="header-filter" [class.filter-off]="!col.enableFilter" [attr.aria-hidden]="!col.enableFilter || null">
+                      @if (col.enableFilter) {
+                        @if (col.filterType === 'text') {
+                          <input class="header-text-filter" type="search" autocomplete="off"
+                                 [value]="columnFilterText[col.name] ?? ''"
+                                 [placeholder]="'FILTER' | translate"
+                                 [attr.aria-label]="(col.translateTitle || col.name) | translate"
+                                 (click)="$event.stopPropagation()"
+                                 (input)="onColumnTextFilter($any($event.target).value, col)"/>
+                        } @else {
+                          <lib-easy-multi-select #multiSelectDropdown
+                                                 [data]="col.filterList"
+                                                 [valueField]="'value'"
+                                                 [displayField]="'value'"
+                                                 (change)="onChangeMultiSelect($event, col)"
+                                                 [title]="col.translateTitle || col.name"
+                                                 [placeholder]="'FILTER' | translate"
+                                                 [compact]="true"
+                                                 [selectedData]="getSelectedList(col)"
+                                                 [noPlaceholderNoHint]="true"
+                                                 [padding]="'pd-t-l-5 h-50'">
+                          </lib-easy-multi-select>
+                        }
+                      }
+                    </div>
+                  }
+                </th>
+
+                @if (col.name === '#') {
+                  <td mat-cell *matCellDef="let element; let i = index"
+                      [ngClass]="[col.stickyClass, col.size]"
+                      title="ID = {{element[col.id]}}">
+                    {{ i + 1 }}
+                  </td>
+                } @else if (col.name === 'actions') {
+                  <td mat-cell *matCellDef="let element; " class="text-center action-link"
+                      [ngClass]="[col.stickyClass]">
+                    <div class="d-inline-flex gap-1 align-items-center">
+                      @if (!config.readonly && config.canAuditTrail) {
+                        <button mat-icon-button class="icon-only primary audit"
+                                title="{{ (config.toolbarConfig.translations.auditTrailBtn) | translate }}"
+                                (click)="onAuditTrail(element)">
+                          <mat-icon>history</mat-icon>
+                        </button>
+                      }
+                      <button mat-icon-button class="icon-only taupe"
+                              title="{{ (config.toolbarConfig.translations.linkBtn) | translate }}"
+                              (click)="onViewItem(element)">
+                        <mat-icon>visibility</mat-icon>
+                      </button>
+                      @if (!config.readonly && config.canUpdate) {
+                        <button mat-icon-button class="icon-only success {{element.statusName}}"
+                                title="{{ (config.toolbarConfig.translations.editBtn) | translate }}"
+                                (click)="onEditItem(element)">
+                          <mat-icon>edit</mat-icon>
+                        </button>
+                      }
+                      @if (!config.readonly && config.canDelete) {
+                        <button mat-icon-button class="icon-only danger"
+                                title="{{ (config.toolbarConfig.translations.deleteBtn) | translate }}"
+                                (click)="onDeleteItem(element)">
+                          <mat-icon>delete_forever</mat-icon>
+                        </button>
+                      }
+                    </div>
+                  </td>
+                } @else {
+                  @if (col.isOverwriting) {
+                    <td mat-cell *matCellDef="let element" [ngClass]="col.stickyClass">
+                      @if (col.type === ColumnType.DROPDOWNLIST) {
+                        <lib-easy-multi-select [data]="col.filterList" [valueField]="'value'"
+                                               [displayField]="'value'"
+                                               (change)="onChangeMultiSelect($event, col, false)"
+                                               [title]="col.name"
+                                               [selectedData]="getSelectedData(element, col)"
+                                               [noPlaceholderNoHint]="true"
+                                               [padding]="'pd-t-l-5 h-50'">
+                        </lib-easy-multi-select>
+                      } @else {
+                        <input class="form-control form-control-sm cell-input hover h-40"
+                               [ngClass]="col.type === ColumnType.NUMBER ? 'input-overwrite overwrite' : 'bg-white'"
+                               [value]="element[col.name] ?? null"
+                               (change)="onOverwrite(element, col, $event)"/>
+                      }
+                    </td>
+                  } @else {
+                    @switch (col.type) {
+                      @case (ColumnType.ICON) {
+                        <td mat-cell *matCellDef="let element" class="text-center hover action-link"
+                            [title]="col.title ? getTitleColumn(col, element) : getIconTitle(col, element[col.name])"
+                            [ngClass]="[col.stickyClass]"
+                            (click)="onFieldClick(col, element)">
+                          <mat-icon [class]="MatTabCommon.getCssClasses(col, element)">
+                            {{ getIconColumn(col, element) }}
+                          </mat-icon>
+                        </td>
+                      }
+                      @case (ColumnType.ICON_AND_TEXT) {
+                        <td mat-cell *matCellDef="let element"
+                            class="action-link d-flex align-items-center gap-1"
+                            [ngClass]="[col.stickyClass]">
+                          <button mat-mini-fab class="btn btn-link p-0"
+                                  [class]="MatTabCommon.getCssClasses(col, element)"
+                                  [title]="getIconTitle(col, element[col.name])">
+                            <mat-icon>{{ getIconColumn(col, element) }}</mat-icon>
+                          </button>
+                          <strong>{{ element[col.name] | translate }}</strong>
+                        </td>
+                      }
+                      @case (ColumnType.PASSWORD) {
+                        <td mat-cell *matCellDef="let element">
+                          <div class="password-cell" [ngClass]="[col.cssClass, col.stickyClass]">
+                            <span class="masked-text">
+                              {{ isPasswordVisible[element[col.name]] ? element[col.name] : getMaskedValue(element[col.name]) }}
+                            </span>
+                            <button type="button" class="toggle-btn"
+                                    (click)="togglePassword(element[col.name])"
+                                    tabindex="-1" aria-label="Toggle password visibility">
+                              <mat-icon>
+                                {{ isPasswordVisible[element[col.name]] ? 'visibility_off' : 'visibility' }}
+                              </mat-icon>
+                            </button>
+                          </div>
+                        </td>
+                      }
+                      @case (ColumnType.BUTTON) {
+                        <td mat-cell *matCellDef="let element"
+                            [title]="getTitleColumn(col, element)"
+                            [ngClass]="[col.stickyClass]">
+                          <button class="p-0 w-100 no-border"
+                                  [class]="MatTabCommon.getCssClasses(col, element)">
+                            {{ element[col.displayColumn ?? col.name] | translate }}
+                          </button>
+                        </td>
+                      }
+                      @case (ColumnType.IMAGE) {
+                        <td mat-cell *matCellDef="let element" class="text-center" [ngClass]="[col.stickyClass]">
+                          <span [class]="'fi fi-' + (element[col.name] | lowercase)" [title]="element[col.name]"> </span>
+                        </td>
+                      }
+                      @default {
+                        <td mat-cell *matCellDef="let element"
+                            [ngClass]="[col.stickyClass]"
+                            class="hover cell-ellipsis"
+                            [class]="MatTabCommon.getCssClasses(col, element)"
+                            [title]="getTitleColumn(col, element) || element[col.name]">
+                          {{ MatTabCommon.displayFormatTyped(col, element[col.name]) }}
+                        </td>
+                      }
+                    }
+                  }
+                }
+              </ng-container>
+            }
+          }
+        }
+
+        <tr mat-header-row *matHeaderRowDef="getDisplayedColumnNames()"></tr>
+
+        <tr mat-row *matRowDef="let row; columns: getDisplayedColumnNames(); let i = index"
+            [class.zebra-odd]="i % 2 === 0"
+            [class.zebra-even]="i % 2 === 1"
+            [class.selected-row-green-bg]="getSelectedRow(row)"
+            (click)="manageSelectedRow(row)"></tr>
+
+      </table>
+    </div>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 50]"
+                   showFirstLastButtons
+                   [class.opacity-0]="config.isPreview"></mat-paginator>
+  </div>
+</div>

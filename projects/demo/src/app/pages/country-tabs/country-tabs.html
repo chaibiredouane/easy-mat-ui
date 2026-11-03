@@ -1,0 +1,20 @@
+<app-page-header
+  icon="tab"
+  title="Child tables in tabs"
+  subtitle="Pass an array to childConfig and every configuration becomes a tab. Expand a country: the first tab lists all its cities (editable), the second its ten largest (read-only).">
+  <app-unit-switch />
+</app-page-header>
+
+@if (isReady) {
+  <div class="table-wrap">
+    <lib-easy-table
+      [config]="tableConfig"
+      [childConfig]="tabsConfig"
+      (extendRow)="onExtendRow($event)"
+      (childDialogResult)="onChildDialogResult($event)"
+      (deleteChildItem)="onDeleteChild($event)">
+    </lib-easy-table>
+  </div>
+}
+
+<app-code-panel folder="pages/country-tabs" />

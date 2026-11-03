@@ -1,0 +1,16 @@
+<div class="easy-confirm" role="alertdialog" aria-modal="true" aria-labelledby="easy-confirm-title" aria-describedby="easy-confirm-message">
+  <span class="easy-confirm-icon" aria-hidden="true">
+    <span class="easy-confirm-icon-pulse"></span>
+    <mat-icon>{{ data.icon ?? 'delete_forever' }}</mat-icon>
+  </span>
+  <h2 class="easy-confirm-title" id="easy-confirm-title">{{ data.title | translate }}</h2>
+  <p class="easy-confirm-message" id="easy-confirm-message">{{ data.message | translate }}</p>
+  <div class="easy-confirm-actions">
+    <button type="button" class="easy-confirm-btn easy-confirm-cancel" (click)="close(false)">
+      {{ data.cancel | translate }}
+    </button>
+    <button type="button" class="easy-confirm-btn easy-confirm-delete" (click)="close(true)">
+      {{ data.confirm | translate }}
+    </button>
+  </div>
+</div>

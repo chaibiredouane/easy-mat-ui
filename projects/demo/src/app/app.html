@@ -1,0 +1,39 @@
+<header class="bar">
+  <h1 class="brand-title">
+    <a class="brand" href="#" (click)="$event.preventDefault(); index.set(0)">
+      <mat-icon aria-hidden="true">widgets</mat-icon>
+      <span>Easy Mat UI</span>
+      <span class="ver">ng20 &middot; 20.0.0</span>
+    </a>
+  </h1>
+  <div class="spacer"></div>
+  <div class="theme" role="radiogroup" aria-label="Theme">
+    @for (t of themes; track t.id) {
+      <button type="button" role="radio" [attr.aria-checked]="mode() === t.id" [class.on]="mode() === t.id" [attr.aria-label]="t.label + ' theme'" [title]="t.label" (click)="setTheme(t.id)">
+        <mat-icon aria-hidden="true">{{ t.icon }}</mat-icon><span class="txt">{{ t.label }}</span>
+      </button>
+    }
+  </div>
+</header>
+
+<main>
+  <mat-tab-group class="showcase-tabs" mat-stretch-tabs="false" mat-align-tabs="start" animationDuration="150ms" [selectedIndex]="index()" (selectedIndexChange)="index.set($event)" aria-label="Demo pages">
+    @for (p of pages; track p.id) {
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="tab-icon" aria-hidden="true">{{ p.icon }}</mat-icon>{{ p.label }}
+        </ng-template>
+        <ng-template matTabContent>
+          <div class="page">
+            @switch (p.id) {
+              @case ('overview') { <app-overview (open)="open($event)" /> }
+              @case ('countries') { <app-countries /> }
+              @case ('tabs') { <app-country-tabs /> }
+              @case ('cities') { <app-cities /> }
+            }
+          </div>
+        </ng-template>
+      </mat-tab>
+    }
+  </mat-tab-group>
+</main>

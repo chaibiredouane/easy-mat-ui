@@ -1,0 +1,106 @@
+.mat-mdc-form-field-appearance-legacy .mat-mdc-form-field-underline {
+  background-color: var(--color-green) !important;
+}
+
+.mat-mdc-form-field-hint-wrapper {
+  display: none !important;
+}
+
+.mat-mdc-form-field.mat-focused .mat-mdc-form-field-ripple {
+  background-color: transparent !important;
+}
+
+.mat-mdc-form-field.mat-focused .mat-mdc-form-field-label {
+  color: var(--color-green) !important;
+}
+
+.vertical-center {
+  align-items: center !important;
+  justify-content: space-between;
+}
+
+.audit {
+  background-color: transparent;
+  box-shadow: 1px 2px #b4b3b3;
+  color: #e91e63;
+}
+
+.h-17 {
+  height: 17px;
+  box-sizing: border-box;
+  line-height: normal;
+}
+
+@supports (-webkit-appearance: none) and (not (-moz-appearance: none)) {
+  .h-17 {
+    padding-top: 15px;
+  }
+}
+
+input.password {
+  border: none;
+  background: transparent;
+  font-family: monospace;
+  color: var(--input-text);
+}
+
+::ng-deep .mat-mdc-form-field.mat-form-field-appearance-fill .mat-mdc-text-field-wrapper {
+  background-color: var(--input-bg) !important;
+}
+
+::ng-deep .mat-mdc-form-field.mat-form-field-appearance-fill .mat-mdc-text-field-wrapper:hover {
+  background-color: var(--input-bg) !important;
+}
+
+::ng-deep .mat-mdc-form-field.mat-form-field-appearance-fill .mat-mdc-text-field-wrapper:focus-within {
+  background-color: var(--input-bg) !important;
+}
+
+::ng-deep .mat-mdc-form-field.mat-form-field-appearance-fill .mat-mdc-form-field-focus-overlay {
+  background-color: transparent !important;
+}
+
+::ng-deep .mat-mdc-text-field-wrapper {
+  border-radius: 4px !important;
+  box-shadow: none !important;
+}
+
+.input-overwrite {
+  width: 50px;
+  margin: 2px;
+  background-image: none;
+}
+
+.overwrite {
+  background-color: var(--input-bg);
+  text-align: center;
+  border-radius: 5px;
+  font-weight: bold;
+  color: var(--color-red);
+  box-shadow: 0px 0px 5px #6192d1;
+  -webkit-box-shadow: 0px 0px 5px #6192d1;
+  -webkit-padding: 3px;
+  border-width: 2px;
+  border-color: transparent;
+  border-style: inset;
+}
+
+body.dark-theme {
+  .cdk-overlay-container {
+    .mat-mdc-menu-panel,
+    .mat-mdc-select-panel,
+    .mat-mdc-dialog-container {
+      background-color: var(--card-bg) !important;
+      color: var(--text-color) !important;
+    }
+
+    .mat-mdc-option {
+      color: var(--text-color) !important;
+
+      &:hover,
+      &.mdc-list-item--selected {
+        background-color: var(--hover-color) !important;
+      }
+    }
+  }
+}

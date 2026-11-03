@@ -1,0 +1,33 @@
+name: Deploy site
+
+# Builds the demo and the documentation pages and publishes them to Firebase Hosting.
+# It only runs once the repository variable FIREBASE_PROJECT_ID is set (Settings > Secrets and variables > Actions),
+# together with the secret FIREBASE_SERVICE_ACCOUNT (a service account key of the Firebase project).
+# Optional variable: SITE_URL (the public address, e.g. https://my-project.web.app).
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    if: ${{ vars.FIREBASE_PROJECT_ID != '' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build:site
+        env:
+          SITE_URL: ${{ vars.SITE_URL }}
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          projectId: ${{ vars.FIREBASE_PROJECT_ID }}
+          channelId: live

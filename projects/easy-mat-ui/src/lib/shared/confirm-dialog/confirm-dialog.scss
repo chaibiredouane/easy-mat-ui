@@ -1,0 +1,267 @@
+:host {
+  display: block;
+}
+
+.easy-confirm {
+  --easy-confirm-accent: var(--color-red, #f44438);
+  --easy-confirm-accent-light: color-mix(in srgb, var(--easy-confirm-accent) 88%, #ffffff);
+  --easy-confirm-accent-dark: color-mix(in srgb, var(--easy-confirm-accent) 88%, #000000);
+  --easy-confirm-text: var(--text-color, #212529);
+  --easy-confirm-surface: var(--card-bg, #ffffff);
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 36px 28px 26px;
+  overflow: hidden;
+  text-align: center;
+  color: var(--easy-confirm-text);
+  border-radius: 16px;
+  background:
+    radial-gradient(
+      120% 60% at 50% 0%,
+      color-mix(in srgb, var(--easy-confirm-accent) 5%, transparent) 0%,
+      transparent 65%
+    ),
+    var(--easy-confirm-surface);
+  transform-origin: 50% 100%;
+  animation: easy-confirm-enter 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 30%;
+    right: 30%;
+    height: 2px;
+    border-radius: 0 0 2px 2px;
+    background: linear-gradient(90deg, transparent, var(--easy-confirm-accent), transparent);
+    opacity: 0.5;
+  }
+}
+
+.easy-confirm-icon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 10px;
+  border-radius: 16px;
+  background: linear-gradient(
+    145deg,
+    var(--easy-confirm-accent-light) 0%,
+    var(--easy-confirm-accent-dark) 100%
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.1),
+    0 10px 18px -10px color-mix(in srgb, var(--easy-confirm-accent) 60%, transparent);
+  transform: perspective(240px) rotateX(6deg);
+  animation: easy-confirm-icon-pop 0.5s 0.08s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+
+  mat-icon {
+    position: relative;
+    width: 28px;
+    height: 28px;
+    font-size: 28px;
+    color: #ffffff !important;
+    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.2));
+  }
+}
+
+.easy-confirm-icon-pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1.5px solid var(--easy-confirm-accent);
+  opacity: 0;
+  animation: easy-confirm-pulse 2.8s 0.6s ease-out infinite;
+}
+
+.easy-confirm-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.easy-confirm-message {
+  max-width: 32ch;
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: color-mix(in srgb, var(--easy-confirm-text) 62%, transparent);
+}
+
+.easy-confirm-actions {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  margin-top: 22px;
+}
+
+.easy-confirm-btn {
+  flex: 1;
+  height: 42px;
+  border-radius: 10px;
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-blue, #6b95aa);
+    outline-offset: 2px;
+  }
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.easy-confirm-cancel {
+  color: var(--easy-confirm-text);
+  background-color: transparent;
+  border: 1px solid var(--border-color, #b8c9d2);
+
+  &:hover {
+    background-color: var(--hover-color, #f1f6fb);
+    border-color: var(--input-border-hover, #6b95aa);
+    box-shadow: 0 6px 12px -8px rgba(16, 24, 40, 0.2);
+  }
+}
+
+.easy-confirm-delete {
+  color: #ffffff;
+  border: none;
+  background-image: linear-gradient(
+    180deg,
+    var(--easy-confirm-accent-light) 0%,
+    var(--easy-confirm-accent-dark) 100%
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 6px 12px -6px color-mix(in srgb, var(--easy-confirm-accent) 55%, transparent);
+
+  &:hover {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.22),
+      0 10px 18px -8px color-mix(in srgb, var(--easy-confirm-accent) 65%, transparent);
+  }
+
+  &:active {
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.22);
+  }
+}
+
+@keyframes easy-confirm-enter {
+  from {
+    opacity: 0;
+    transform: perspective(800px) translateY(14px) rotateX(-6deg) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes easy-confirm-icon-pop {
+  from {
+    opacity: 0;
+    transform: perspective(240px) rotateX(6deg) scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: perspective(240px) rotateX(6deg) scale(1);
+  }
+}
+
+@keyframes easy-confirm-pulse {
+  0% {
+    opacity: 0.25;
+    transform: scale(1);
+  }
+  70%,
+  100% {
+    opacity: 0;
+    transform: scale(1.45);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .easy-confirm,
+  .easy-confirm-icon {
+    animation: none;
+  }
+
+  .easy-confirm-icon-pulse {
+    display: none;
+  }
+
+  .easy-confirm-btn {
+    transition: none;
+
+    &:hover {
+      transform: none;
+    }
+  }
+}
+
+::ng-deep body.dark-theme {
+  .easy-confirm {
+    background:
+      radial-gradient(
+        120% 60% at 50% 0%,
+        color-mix(in srgb, var(--easy-confirm-accent) 9%, transparent) 0%,
+        transparent 65%
+      ),
+      var(--card-bg, #1e2428);
+  }
+
+  .easy-confirm-icon {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.22),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.25),
+      0 0 16px -6px color-mix(in srgb, var(--easy-confirm-accent) 40%, transparent);
+  }
+
+  .easy-confirm-cancel {
+    border-color: rgba(255, 255, 255, 0.16);
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.07);
+      border-color: rgba(255, 255, 255, 0.28);
+      box-shadow: none;
+    }
+  }
+}
+
+::ng-deep .easy-confirm-panel {
+  --mat-dialog-container-shape: 16px;
+  --mat-dialog-container-color: var(--card-bg, #ffffff);
+  --mat-dialog-container-elevation-shadow:
+    0 0 0 1px rgba(16, 24, 40, 0.06),
+    0 2px 4px rgba(16, 24, 40, 0.06),
+    0 8px 16px -4px rgba(16, 24, 40, 0.1),
+    0 24px 40px -12px rgba(16, 24, 40, 0.2),
+    0 48px 80px -24px rgba(16, 24, 40, 0.28);
+}
+
+::ng-deep body.dark-theme .easy-confirm-panel {
+  --mat-dialog-container-elevation-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 8px 16px -6px rgba(0, 0, 0, 0.45),
+    0 28px 56px -16px rgba(0, 0, 0, 0.7);
+}

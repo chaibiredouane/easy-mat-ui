@@ -1,0 +1,59 @@
+<mat-form-field class="w-100 flex-grow-1" [class.underline-style]="!formField" [ngClass]="padding"
+                [appearance]="$any(appearance)" [floatLabel]="formField ? 'auto' : 'always'">
+  @if (formField || (!noPlaceholderNoHint && !hidePlaceholder)) {
+    <mat-label>
+      {{ title | translate }}
+    </mat-label>
+  }
+  <mat-select [formControl]="multiSelectControl" multiple #opts [panelClass]="uniqueId" [aria-label]="title | translate" [placeholder]="placeholder"
+              (openedChange)="searchCtrl.setValue('')">
+    <div class="checkbox-container container-fluid w-100 flex-grow-1">
+      <mat-checkbox
+        color="primary"
+        [checked]="selected(opts) === 'all'"
+        [indeterminate]="selected(opts) === 'some'"
+        (change)="toggleSelection(opts)"
+        matTooltip="{{getTooltips(opts) | translate }}"
+        matTooltipPosition="above">
+      </mat-checkbox>
+
+      <mat-form-field class="w-100 flex-grow-1 search-field">
+        <input matInput #input placeholder="{{ 'SEARCH' | translate }}" class="w-100 flex-grow-1"
+               [formControl]="searchCtrl"
+               (keydown)="onKeydown($event, input)"/>
+        <mat-icon class="hover icon-clean" matSuffix (click)="clear()" title="{{'CLEAR' | translate}}">cleaning_services</mat-icon>
+      </mat-form-field>
+
+      <mat-icon class="hover" (click)="opts.close()"
+                title="{{ 'CLOSE' | translate }}">close
+      </mat-icon>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="options">
+      @if (searchCtrl.value && !opts.options.length) {
+        <div class="no-data">
+          {{ 'NO_RESULTS_FOUND' | translate }} "{{ searchCtrl.value }}"
+        </div>
+      }
+      <mat-option class="select-color"
+                  *ngFor="let item of filteredMultiSelect | async "
+                  [value]="item[valueField]"
+                  (onSelectionChange)="onSelectionChange($event)"
+      >{{ item[displayField] }}
+      </mat-option>
+    </div>
+  </mat-select>
+  @if (clearable && hidePlaceholder) {
+    <button matSuffix class="btn-mini-fab bg-yellow" [ngClass]="['btn-small']"
+            title="{{ 'CLEAR' | translate }}"
+            (click)="$event.stopPropagation(); resetSelection()">
+      <mat-icon>cleaning_services</mat-icon>
+    </button>
+  }
+</mat-form-field>
+
+@if (!noPlaceholderNoHint && data.length === 0) {
+  <div class="no-data-hint">
+    {{ 'NO_OPTIONS' | translate }}
+  </div>
+}

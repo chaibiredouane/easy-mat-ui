@@ -1,0 +1,133 @@
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  background: var(--card-bg);
+  color: var(--card-text);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+}
+
+.brand-title {
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  color: inherit;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.05rem;
+
+  &:focus-visible {
+    outline: 2px solid var(--demo-accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+.ver {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--hover-color);
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 400;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.theme {
+  display: inline-flex;
+  padding: 3px;
+  gap: 2px;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+
+  button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    min-width: 36px;
+    min-height: 36px;
+    padding: 0 12px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--card-text);
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.82rem;
+    transition: background-color 0.2s;
+
+    mat-icon {
+      width: 18px;
+      height: 18px;
+      font-size: 18px;
+    }
+
+    &:hover:not(.on) {
+      background: var(--hover-color);
+    }
+
+    &.on {
+      background: var(--demo-accent);
+      color: var(--demo-on-accent);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--demo-accent);
+      outline-offset: 2px;
+    }
+  }
+}
+
+main {
+  max-width: 2400px;
+  margin: 0 auto;
+  padding: 8px clamp(12px, 2vw, 40px) 40px;
+}
+
+.page {
+  padding-top: 8px;
+  min-width: 0;
+}
+
+@media (max-width: 600px) {
+  .bar {
+    padding: 6px 10px;
+    gap: 6px;
+  }
+
+  .ver,
+  .theme .txt {
+    display: none;
+  }
+
+  .theme button {
+    width: 44px;
+    min-height: 44px;
+    padding: 0;
+  }
+
+  main {
+    padding: 4px 10px 32px;
+  }
+}

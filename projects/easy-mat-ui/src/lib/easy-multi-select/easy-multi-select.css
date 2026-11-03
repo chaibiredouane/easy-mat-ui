@@ -1,0 +1,187 @@
+.full-width {
+  width: 100%;
+}
+
+.select-header {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  gap: 8px;
+  flex-wrap: nowrap;
+  overflow: hidden;
+}
+
+.search-field {
+  flex: 1;
+  min-width: 0;
+}
+
+mat-form-field.search-field {
+  margin: 0;
+}
+
+::ng-deep .mat-mdc-select-value,
+::ng-deep .mat-mdc-select-value-text,
+::ng-deep .mat-mdc-select-placeholder {
+  color: var(--text-color, #ffffff) !important;
+}
+
+::ng-deep .mat-mdc-select-arrow {
+  color: var(--text-color, #ffffff) !important;
+}
+
+::ng-deep .checkbox-container {
+  display: flex !important;
+  align-items: center !important;
+  background-color: var(--card-bg, #1e293b) !important;
+  border-bottom: 1px solid var(--border-color, #334155);
+  padding: 8px 12px !important;
+  gap: 8px;
+}
+
+::ng-deep .checkbox-container .mat-mdc-form-field {
+  input.mat-mdc-input-element,
+  .mat-mdc-input-element {
+    color: var(--text-color, #ffffff) !important;
+    -webkit-text-fill-color: var(--text-color, #ffffff) !important;
+    caret-color: var(--text-color, #ffffff) !important;
+  }
+
+  .mat-mdc-floating-label,
+  input::placeholder {
+    color: var(--text-color, #94a3b8) !important;
+    -webkit-text-fill-color: var(--text-color, #94a3b8) !important;
+    opacity: 0.8 !important;
+  }
+
+  .mdc-line-ripple,
+  .mat-mdc-form-field-subscript-wrapper {
+    display: none !important;
+  }
+}
+
+.icon-clean {
+  font-size: 16px !important;
+  width: 16px !important;
+  height: 16px !important;
+  line-height: 16px !important;
+}
+
+.hover {
+  cursor: pointer;
+  color: var(--text-color, #ffffff) !important;
+  border-radius: 50%;
+  padding: 2px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.hover:hover {
+  background-color: var(--hover-color, rgba(255, 255, 255, 0.15)) !important;
+  color: var(--color-primary-blue, #8eb3c7) !important;
+}
+
+::ng-deep div.mat-mdc-select-panel {
+  max-height: unset !important;
+  background-color: var(--card-bg, #1e293b) !important;
+  border: 1px solid var(--border-color, #334155);
+}
+
+.options {
+  max-height: 200px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: var(--card-bg, #1e293b) !important;
+}
+
+.select-color {
+  white-space: nowrap;
+  color: var(--text-color, #f8fafc) !important;
+}
+
+::ng-deep .mat-mdc-option {
+  background-color: var(--card-bg, #1e293b) !important;
+  color: var(--text-color, #f8fafc) !important;
+}
+
+::ng-deep .mat-mdc-option .mdc-list-item__primary-text {
+  color: var(--text-color, #f8fafc) !important;
+}
+
+::ng-deep .mat-mdc-option:hover,
+::ng-deep .mat-mdc-option.mdc-list-item--selected {
+  background-color: var(--hover-color, #334155) !important;
+}
+
+.pd-l-10 { padding-left: 10px; }
+.pd-r-10 { padding-right: 10px; }
+.pd-t-10 { padding-top: 10px; }
+
+.d-contents { display: contents; }
+
+.no-data {
+  color: var(--color-red, #f44438);
+  font-weight: bold;
+  text-align: center;
+  padding: 12px;
+}
+
+::ng-deep .mat-checkbox-layout { margin-top: 15px; }
+::ng-deep .mat-select-panel { min-width: 100% !important; }
+::ng-deep .cdk-overlay-pane { transform: none !important; }
+::ng-deep .mat-mdc-form-field-subscript-wrapper.mat-mdc-form-field-bottom-align {
+  display: none !important;
+}
+
+.btn-mini-fab,
+.btn-mini-fab mat-icon {
+  color: #ffffff !important;
+}
+
+/* Compact mode: a dense field that matches the text filters of the table header. */
+:host(.compact) {
+  display: block;
+  min-width: 90px;
+}
+
+:host(.compact) ::ng-deep .mat-mdc-form-field {
+  width: 100%;
+  height: auto !important;
+  padding: 0 !important;
+}
+
+:host(.compact) ::ng-deep .mat-mdc-text-field-wrapper {
+  height: 32px;
+  padding: 0 8px;
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius-sm);
+  background: var(--input-bg) !important;
+}
+
+:host(.compact) ::ng-deep .mat-mdc-text-field-wrapper:hover {
+  border-color: var(--input-border-hover);
+}
+
+:host(.compact) ::ng-deep .mat-mdc-form-field-infix {
+  display: flex;
+  align-items: center;
+  height: 30px;
+  min-height: 0;
+  padding: 0 !important;
+}
+
+:host(.compact) ::ng-deep .mdc-line-ripple {
+  display: none !important;
+}
+
+:host(.compact) ::ng-deep .mat-mdc-select-value,
+:host(.compact) ::ng-deep .mat-mdc-select-placeholder {
+  font-size: 13px;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+:host(.compact) ::ng-deep .mat-mdc-select-placeholder {
+  color: var(--input-placeholder) !important;
+  -webkit-text-fill-color: var(--input-placeholder) !important;
+}

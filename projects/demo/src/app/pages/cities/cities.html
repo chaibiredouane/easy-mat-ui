@@ -1,0 +1,26 @@
+<app-page-header
+  icon="location_city"
+  title="Cities of any country"
+  subtitle="Pick a country and its cities load on demand. One table, one configuration object: typed columns, header filters, status icons, pagination and a full add / edit / view / delete dialog.">
+  <label class="country">
+    <span>Country</span>
+    <select (change)="onCountryChange($event)" aria-label="Country">
+      @for (c of countries; track c.id) {
+        <option [value]="c.id" [selected]="c.id === country.id">{{ c.name }}</option>
+      }
+    </select>
+  </label>
+  <app-unit-switch />
+</app-page-header>
+
+@if (isReady) {
+  <div class="table-wrap">
+    <lib-easy-table
+      [config]="tableConfig"
+      (dialogResult)="onDialogResult($event)"
+      (deleteItem)="onDelete($event)">
+    </lib-easy-table>
+  </div>
+}
+
+<app-code-panel folder="pages/cities" />

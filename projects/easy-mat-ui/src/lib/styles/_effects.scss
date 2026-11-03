@@ -1,0 +1,44 @@
+.box-shadow {
+  box-shadow: 5px 5px 5px #555555;
+}
+
+.box-shadow-5 {
+  box-shadow: 0px 5px 5px #555555 !important;
+}
+
+.box-shadow-5-1 {
+  box-shadow: 0px 0px 5px 1px #555555 !important;
+}
+
+.bg-enable {
+  background: -webkit-gradient(linear, left top, left bottom, from(#ecf1fc), to(#FFF));
+  box-shadow: 5px 5px 5px #555555;
+  animation: blinker 3s linear infinite;
+  font-weight: bold;
+}
+
+.text-animation {
+  animation: blinker 3s linear infinite;
+}
+
+@keyframes blinker {
+  from {
+    font-size: 0.9em;
+  }
+  10% {
+    font-size: 0.5em;
+  }
+  50% {
+    font-size: 0.7em;
+  }
+  70% {
+    font-size: 0.8em;
+  }
+  to {
+    font-size: 0.9em;
+  }
+}
+
+.d-contents {
+  display: contents !important;
+}

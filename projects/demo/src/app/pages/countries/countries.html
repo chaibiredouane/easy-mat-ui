@@ -1,0 +1,22 @@
+<app-page-header
+  icon="public"
+  title="Countries and their cities"
+  subtitle="Every country of the world, Algeria first. Click the expand button of a row: the child table is loaded on demand with the cities of that country.">
+  <app-unit-switch />
+</app-page-header>
+
+@if (isReady) {
+  <div class="table-wrap">
+    <lib-easy-table
+      [config]="tableConfig"
+      [childConfig]="tableChildConfig"
+      (dialogResult)="onDialogResult($event)"
+      (deleteItem)="onDelete($event)"
+      (extendRow)="onExtendRow($event)"
+      (childDialogResult)="onChildDialogResult($event)"
+      (deleteChildItem)="onDeleteChild($event)">
+    </lib-easy-table>
+  </div>
+}
+
+<app-code-panel folder="pages/countries" />

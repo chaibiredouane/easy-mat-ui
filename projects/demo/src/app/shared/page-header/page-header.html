@@ -1,0 +1,10 @@
+<header class="page-header">
+  <span class="icon" aria-hidden="true"><mat-icon>{{ icon() }}</mat-icon></span>
+  <div class="text">
+    <h2>{{ title() }}</h2>
+    @if (subtitle()) {
+      <p>{{ subtitle() }}</p>
+    }
+  </div>
+  <div class="controls"><ng-content /></div>
+</header>

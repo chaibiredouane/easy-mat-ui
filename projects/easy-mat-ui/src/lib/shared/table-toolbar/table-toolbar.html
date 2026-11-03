@@ -1,0 +1,89 @@
+<div class="row p-0">
+  <div class="col-12 p-0 d-flex flex-wrap align-items-center gap-3">
+
+    @if (config.translations.title) {
+      <div class="d-flex align-items-center flex-grow-1 flex-shrink-0 min-width-250">
+        <div class="card-pricing d-flex align-items-center p-2">
+          <div class="card-icon icon-rose">
+            <i class="material-icons" [ngClass]="config.iconClass">{{ config.icon }}</i>
+          </div>
+          <div class="h6 bold text-uppercase ms-2 mb-0" role="heading" aria-level="2">{{ config.translations.title | translate }}</div>
+        </div>
+      </div>
+    }
+
+    @if (config.withGlobalFilter) {
+      <div class="flex-grow-1 flex-shrink-0 min-width-300" [ngClass]="isPreview ? 'opacity-0' : ''">
+        <div class="d-flex flex-wrap align-items-center gap-2">
+
+          <mat-form-field class="underline-style flex-grow-1 min-width-200">
+            <mat-label>{{ config.translations.search | translate }}</mat-label>
+            <input matInput [(ngModel)]="searchTableField" (keyup)="applyFilter($event)" autocomplete="off"/>
+            @if (showFilterOperator) {
+              <button mat-icon-button matSuffix (click)="filterType()" [title]="getTitleFilterOperator() | translate">
+                <mat-icon [ngClass]="getIconFilterOperator()">{{ getIconFilterOperator() }}</mat-icon>
+              </button>
+            }
+          </mat-form-field>
+
+          <ng-content select="[toolbarFilters]"></ng-content>
+
+          <div class="d-flex flex-wrap gap-1">
+            <ng-content></ng-content>
+
+            <button class="btn-mini-fab bg-yellow" [ngClass]="[config.btnSize]"
+                    [title]="config.translations.clear | translate"
+                    (click)="clearTableFilter()">
+              <mat-icon>cleaning_services</mat-icon>
+            </button>
+
+            @if (!readonly && canCreate) {
+              <button class="btn-mini-fab bg-taupe" [ngClass]="[config.btnSize]" [title]="config.translations.addBtn | translate"
+                      (click)="onAddItem()">
+                <mat-icon>add</mat-icon>
+              </button>
+            }
+
+            @if (canExport) {
+              <button class="btn-mini-fab bg-info" [ngClass]="[config.btnSize]" [title]="config.translations.exportBtn | translate"
+                      (click)="onExportToCsv()">
+                <mat-icon>file_download</mat-icon>
+              </button>
+            }
+
+            @if (config.customActionEnable) {
+              <button class="btn-mini-fab bg-taupe" [ngClass]="[config.btnSize, config.customRowActionClass]"
+                      [title]="config.translations.customActionTitle | translate" (click)="onCustomAction()">
+                <mat-icon>{{ config.customActionIcon ?? 'rocket_launch' }}</mat-icon>
+              </button>
+            }
+
+            @if (config.logout) {
+              <button class="btn-mini-fab bg-red" [ngClass]="[config.btnSize]"
+                      [title]="config.translations.close | translate"
+                      (click)="onClose()">
+                <mat-icon>logout</mat-icon>
+              </button>
+            }
+          </div>
+
+          @if (customColumnFilter && customColumnFilter.length > 1) {
+            <div class="w-100 text-end">
+              <mat-button-toggle-group class="no-border" #group="matButtonToggleGroup" multiple
+                                       (change)="onToggleChanged(group.value)">
+                @for (item of customColumnFilter; track item) {
+                  <mat-button-toggle [value]="item"
+                                     [ngClass]="getFilterColor(item)">
+                    <mat-icon class="xx-large">{{ getFilterIcon(item) }}</mat-icon>
+                  </mat-button-toggle>
+                }
+              </mat-button-toggle-group>
+            </div>
+          }
+
+        </div>
+      </div>
+    }
+
+  </div>
+</div>

@@ -1,0 +1,197 @@
+:root {
+  --color-primary-blue: #1f6f8b;
+  --color-primary-dark: #14506a;
+  --color-accent-taupe: #14506a;
+  --color-yellow: #f5a524;
+  --color-morning-blue: #7fb0c4;
+  --color-morning-clear-green: #e0f0f0;
+  --color-taupe: #52627a;
+  --color-red: #dc2626;
+  --color-orange: #f97316;
+  --color-green: #16a34a;
+
+  --bg-gray: #f8fafc;
+  --bg-readonly: #f1f5f9;
+  --background-color: #f4f7fb;
+  --text-color: #0f172a;
+  --border-color: #e2e8f0;
+  --hover-color: #eef4fb;
+  --active-shadow: #ffffff;
+  --bg-sidenav: #e2e8f0;
+  --shadow-border-color: #cbd5e1;
+
+  --input-bg: #ffffff;
+  --input-border: #cbd5e1;
+  --input-border-hover: #1f6f8b;
+  --input-text: #0f172a;
+  --input-placeholder: #64748b;
+  --input-icon: #64748b;
+
+  --card-bg: #ffffff;
+  --card-text: #0f172a;
+  --card-shadow: rgba(15, 23, 42, 0.08);
+
+  --footer-bg: #ffffff;
+  --footer-text: #1f6f8b;
+
+  /* Semantic status colors (aliases of the palette above, override freely). */
+  --color-info: #0891b2;
+  --color-success: var(--color-green);
+  --color-warning: var(--color-yellow);
+  --color-danger: var(--color-red);
+  --on-accent: #ffffff;
+  /* Brand blue for small text on surfaces: 4.6:1 on white (the plain brand blue is 3.2:1). */
+  --color-primary-blue-strong: #1f6f8b;
+
+  /* Interaction states. */
+  --focus-ring: 0 0 0 3px rgba(31, 111, 139, 0.28);
+  --disabled-bg: #eef2f7;
+  --disabled-text: #8a97a8;
+
+  /* Shape and elevation. */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06), 0 1px 1px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 6px 16px -6px rgba(15, 23, 42, 0.14);
+  --shadow-lg: 0 20px 40px -16px rgba(15, 23, 42, 0.2);
+
+  /* Table surface: selected row, header, child tabs. */
+  --row-selected-bg: #dbe9f4;
+  --row-selected-border: #1f6f8b;
+  --table-header-bg: #f8fafc;
+  --table-header-text: #475569;
+  --table-header-size: 12.5px;
+  --table-header-transform: uppercase;
+  --table-header-spacing: 0.04em;
+  --tab-active-bg: #1f6f8b;
+}
+
+body.dark-theme {
+  --color-primary-blue: #8eb3c7;
+  --color-primary-dark: #f04e37;
+  --color-accent-taupe: #e06666;
+  --color-morning-blue: #a3c4c3;
+  --color-morning-clear-green: #2a3b3c;
+  --color-taupe: #cbd5e1;
+
+  --bg-gray: #162032;
+  --card-bg: #1e293b;
+  --bg-readonly: #334155;
+  --background-color: #0f172a;
+  --text-color: #f8fafc;
+  --border-color: #334155;
+  --shadow-border-color: #99a6ad;
+  --hover-color: #1e293b;
+  --active-shadow: #0f172a;
+  --bg-sidenav: #1e293bcc;
+
+  --input-bg: #1e293b;
+  --input-border: #475569;
+  --input-border-hover: #8eb3c7;
+  --input-text: #f8fafc;
+  --input-placeholder: #94a3b8;
+  --input-icon: #94a3b8;
+
+  --card-text: #f8fafc;
+  --card-shadow: rgba(0, 0, 0, 0.4);
+
+  --footer-bg: transparent;
+  --footer-text: #f8fafc;
+
+  --color-primary-blue-strong: #8eb3c7;
+  --color-yellow: #ffb703;
+  --color-green: #4caf50;
+  --color-red: #f44438;
+  --color-orange: #ff6b35;
+  --color-info: #00bcd4;
+  --row-selected-bg: #2c4a68;
+  --row-selected-border: #8eb3c7;
+  --table-header-bg: var(--card-bg);
+  --table-header-text: var(--text-color);
+  --table-header-size: 14px;
+  --table-header-transform: none;
+  --table-header-spacing: normal;
+  --tab-active-bg: #2e7d32;
+  --focus-ring: 0 0 0 3px rgba(142, 179, 199, 0.45);
+  --disabled-bg: #1b2535;
+  --disabled-text: #64748b;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.6);
+}
+
+.taupe {
+  color: var(--color-accent-taupe) !important;
+}
+
+.taupe-light {
+  color: var(--color-taupe) !important;
+}
+
+.blue {
+  color: #0275d8 !important;
+}
+
+.royal-blue {
+  color: var(--color-primary-blue) !important;
+}
+
+.green {
+  color: var(--color-green) !important;
+}
+
+.red {
+  color: var(--color-red) !important;
+}
+
+.light-blue {
+  color: #b1cdee !important;
+}
+
+.yellow {
+  color: var(--color-yellow) !important;
+}
+
+.info {
+  color: #00bcd4 !important;
+}
+
+.grey {
+  color: #999999 !important;
+}
+
+.success {
+  color: #198754 !important;
+}
+
+.primary {
+  color: #0d6efd !important;
+}
+
+.danger {
+  color: #dc3545 !important;
+}
+
+.error {
+  color: #ff6347 !important;
+}
+
+.secondary {
+  color: #6c757d !important;
+}
+
+.warning {
+  color: #ffc107 !important;
+}
+
+.dark {
+  color: var(--text-color) !important;
+}
+
+.card {
+  background-color: var(--card-bg) !important;
+  color: var(--card-text) !important;
+  border-color: var(--border-color) !important;
+  box-shadow: 0 1px 5px 3px #99a6ad !important;
+}

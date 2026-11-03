@@ -1,0 +1,197 @@
+<div class="easy-dialog" [ngClass]="'action-' + config.action" [class.compact]="config.compact" [class.read-only]="isReadOnly">
+
+  <header class="easy-dialog-header">
+    <div class="easy-dialog-icon">
+      <mat-icon>{{ icon }}</mat-icon>
+    </div>
+    <h2 mat-dialog-title class="easy-dialog-title">
+      @if (config.showActionLabel) {
+        <span class="easy-dialog-action-label">{{ actionLabel }} :</span>
+      }
+      @if (subject) {
+        <span class="easy-dialog-subject">{{ subject }}</span>
+      }
+    </h2>
+  </header>
+
+  <mat-dialog-content class="easy-dialog-body" (input)="formError.set(false)">
+    @for (row of groupedFields; track $index) {
+      <div class="easy-dialog-row">
+        @for (column of row; track column.name) {
+          <div class="easy-dialog-field" [class.readonly-field]="isReadOnly || column.readonly" [style.--span]="column.gridSize || 6">
+            @switch (column.inputType) {
+              @case (InputType.Dropdown) {
+                @let ddl = dropdowns[column.name];
+                <mat-form-field [appearance]="config.appearance">
+                  <mat-label>{{ getHeaderName(column.name) }}</mat-label>
+                  <input matInput
+                         type="text"
+                         autocomplete="off"
+                         [formControl]="ddl.control"
+                         [matAutocomplete]="auto"
+                         [required]="isRequired(column)"/>
+                  @if (!isReadOnly && !column.readonly) {
+                    <mat-icon matSuffix class="easy-dialog-chevron">arrow_drop_down</mat-icon>
+                  }
+                  <mat-autocomplete #auto="matAutocomplete"
+                                    class="easy-dialog-panel-options"
+                                    [displayWith]="ddl.displayFn">
+                    @for (item of ddl.options$ | async; track $index) {
+                      <mat-option [value]="item">{{ ddl.displayFn(item) }}</mat-option>
+                    }
+                  </mat-autocomplete>
+                </mat-form-field>
+              }
+              @case (InputType.MultiSelect) {
+                <lib-easy-multi-select class="easy-dialog-multiselect"
+                                       [title]="getHeaderName(column.name)"
+                                       [data]="column.filterList ?? []"
+                                       [valueField]="$any(getMultiSelectValue(column))"
+                                       [displayField]="$any(getMultiSelectDisplay(column))"
+                                       [selectedData]="getMultiSelectSelection(column)"
+                                       [readOnly]="isReadOnly || !!column.readonly"
+                                       [appearance]="config.appearance"
+                                       [formField]="true"
+                                       padding="pd-0"
+                                       (change)="onMultiSelectChange(column, $event)">
+                </lib-easy-multi-select>
+              }
+              @case (InputType.Number) {
+                <mat-form-field [appearance]="config.appearance">
+                  <mat-label>{{ getHeaderName(column.name) }}</mat-label>
+                  <input matInput
+                         type="number"
+                         [(ngModel)]="data[column.name]"
+                         [required]="isRequired(column)"
+                         [readonly]="isReadOnly || column.readonly"/>
+                </mat-form-field>
+              }
+              @case (InputType.Date) {
+                @let dateControl = dateControls[column.name];
+                <mat-form-field [appearance]="config.appearance">
+                  <mat-label>{{ getHeaderName(column.name) }}</mat-label>
+                  <input matInput
+                         readonly
+                         autocomplete="off"
+                         [formControl]="dateControl"
+                         [matDatepicker]="picker"
+                         [required]="isRequired(column)"
+                         (click)="picker.open()"/>
+                  @if (dateControl.value && dateControl.enabled) {
+                    <button type="button" mat-icon-button matSuffix
+                            class="easy-dialog-clear"
+                            [title]="config.translations.clear | translate"
+                            [attr.aria-label]="config.translations.clear | translate"
+                            (click)="dateControl.setValue(null)">
+                      <mat-icon>clear</mat-icon>
+                    </button>
+                  }
+                  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker panelClass="easy-datepicker-panel"></mat-datepicker>
+                </mat-form-field>
+              }
+              @case (InputType.TextArea) {
+                <mat-form-field [appearance]="config.appearance">
+                  <mat-label>{{ getHeaderName(column.name) }}</mat-label>
+                  <textarea matInput
+                            class="easy-dialog-textarea"
+                            [(ngModel)]="data[column.name]"
+                            [required]="isRequired(column)"
+                            autocomplete="off"
+                            [rows]="getRowsFromSize(column.size)"
+                            [readonly]="isReadOnly || column.readonly"></textarea>
+                </mat-form-field>
+              }
+              @default {
+                <mat-form-field [appearance]="config.appearance">
+                  <mat-label>{{ getHeaderName(column.name) }}</mat-label>
+                  <input matInput
+                         [(ngModel)]="data[column.name]"
+                         [required]="isRequired(column)"
+                         [readonly]="isReadOnly || column.readonly"
+                         autocomplete="off"/>
+                  @if (data[column.name] && !(isReadOnly || column.readonly)) {
+                    <button type="button" mat-icon-button matSuffix
+                            class="easy-dialog-clear"
+                            [title]="config.translations.clear | translate"
+                            [attr.aria-label]="config.translations.clear | translate"
+                            (click)="data[column.name] = ''">
+                      <mat-icon>clear</mat-icon>
+                    </button>
+                  }
+                </mat-form-field>
+              }
+            }
+          </div>
+        }
+      </div>
+    }
+  </mat-dialog-content>
+
+  <footer class="easy-dialog-footer">
+    @if (confirmingClose()) {
+      <div class="easy-dialog-confirm" role="alertdialog">
+        <strong>{{ config.translations.unsavedTitle | translate }}</strong>
+        <span>{{ config.translations.unsavedMessage | translate }}</span>
+        <div class="easy-dialog-actions">
+          <button type="button" class="btn-mini-fab bg-green" [ngClass]="buttonSize"
+                  [title]="config.translations.confirmSave | translate" (click)="confirmSave()">
+            <mat-icon>check</mat-icon>
+          </button>
+          <button type="button" class="btn-mini-fab bg-red" [ngClass]="buttonSize"
+                  [title]="config.translations.discard | translate" (click)="discardChanges()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+      </div>
+    } @else {
+      @if (validationError; as error) {
+        <div class="easy-dialog-error" role="alert">
+          <span>{{ error | translate }}</span>
+        </div>
+      }
+      @if (formError()) {
+        <div class="easy-dialog-error" role="alert">
+          <strong>{{ config.translations.incompleteTitle | translate }}</strong>
+          <span>{{ config.translations.incompleteMessage | translate }}</span>
+        </div>
+      }
+      <div class="easy-dialog-footer-row">
+        <div class="easy-dialog-audit">
+          @if (auditCreated; as created) {
+            <small class="easy-dialog-audit-item"><mat-icon>person_add</mat-icon>{{ created }}</small>
+          }
+          @if (auditUpdated; as updated) {
+            <small class="easy-dialog-audit-item"><mat-icon>edit_note</mat-icon>{{ updated }}</small>
+          }
+        </div>
+        <div class="easy-dialog-actions">
+          @for (extra of visibleActions; track extra.id) {
+            <button type="button" class="btn-mini-fab" [ngClass]="[buttonSize, 'bg-' + (extra.color ?? 'blue')]"
+                    [disabled]="extra.disabled?.(data)"
+                    [title]="(extra.title ?? extra.id) | translate"
+                    (click)="onExtraAction(extra)">
+              <mat-icon>{{ extra.icon }}</mat-icon>
+            </button>
+          }
+          @if (!isReadOnly) {
+            <button type="button" class="btn-mini-fab bg-green" [ngClass]="buttonSize"
+                    [disabled]="isInvalidForm()"
+                    [title]="config.saveTitle | translate"
+                    (click)="doAction()">
+              <mat-icon>{{ config.saveIcon }}</mat-icon>
+            </button>
+          }
+          <button type="button" class="btn-mini-fab bg-red" [ngClass]="buttonSize"
+                  [title]="config.closeTitle | translate"
+                  (click)="closeDialog()">
+            <mat-icon>{{ config.closeIcon }}</mat-icon>
+          </button>
+        </div>
+        @if (auditInactive; as inactive) {
+          <span class="easy-dialog-audit-item easy-dialog-audit-inactive"><mat-icon>block</mat-icon>{{ inactive }}</span>
+        }
+      </div>
+    }
+  </footer>
+</div>

@@ -1,0 +1,13 @@
+<div class="unit-switch">
+  <span class="label" id="unit-label">Population</span>
+  <div class="seg" role="radiogroup" aria-labelledby="unit-label">
+    @for (u of units; track u.id) {
+      <button type="button" role="radio" [attr.aria-checked]="settings.unit() === u.id" [class.on]="settings.unit() === u.id" [title]="u.hint" (click)="setUnit(u.id)">{{ u.label }}</button>
+    }
+  </div>
+  <select aria-label="Number format locale" [value]="settings.locale()" (change)="setLocale($event)">
+    <option value="en">en: 1.2 M</option>
+    <option value="fr">fr: 1,2 M</option>
+    <option value="ar-DZ">ar-DZ</option>
+  </select>
+</div>

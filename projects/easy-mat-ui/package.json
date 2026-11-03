@@ -1,0 +1,59 @@
+{
+  "name": "easy-mat-ui-ng20",
+  "version": "20.0.0",
+  "description": "A customizable Angular Material library: data tables, dialogs and multi-select, with i18n support (Angular 20)",
+  "keywords": [
+    "angular",
+    "material",
+    "table",
+    "bootstrap",
+    "i18n",
+    "component",
+    "easy-mat-ui",
+    "angular-20",
+    "angular-library",
+    "mat-table",
+    "data-table"
+  ],
+  "author": "Redouane Chaibi (https://github.com/chaibiredouane)",
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/cdk": "^20.0.0",
+    "@angular/common": "^20.0.0",
+    "@angular/core": "^20.0.0",
+    "@angular/forms": "^20.0.0",
+    "@angular/material": "^20.0.0",
+    "@angular/platform-browser": "^20.0.0",
+    "@ngx-translate/core": "^16.0.0",
+    "@ngx-translate/http-loader": "^16.0.0",
+    "bootstrap": "^5.0.0",
+    "rxjs": "^7.0.0",
+    "flag-icons": "^7.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@ngx-translate/http-loader": {
+      "optional": true
+    },
+    "flag-icons": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "tslib": "^2.8.1"
+  },
+  "module": "fesm2022/easy-mat-ui.mjs",
+  "typings": "index.d.ts",
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chaibiredouane/easy-mat-ui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/chaibiredouane/easy-mat-ui/issues"
+  },
+  "homepage": "https://github.com/chaibiredouane/easy-mat-ui#readme"
+}

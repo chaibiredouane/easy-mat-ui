@@ -1,0 +1,54 @@
+<section class="hero">
+  <h2>Almost nothing to code.</h2>
+  <p class="lead">
+    Easy Mat UI turns a simple configuration object into a complete Angular Material data table with filters, dialogs,
+    child tables and tabs, light and dark themes. Browse the examples: each page lets you read its own code.
+  </p>
+  <div class="actions">
+    @for (p of pages; track p.id) {
+      <button type="button" class="card" (click)="open.emit(p.id)">
+        <mat-icon aria-hidden="true">{{ p.icon }}</mat-icon>
+        <span class="t">{{ p.title }}</span>
+        <span class="d">{{ p.text }}</span>
+      </button>
+    }
+  </div>
+</section>
+
+<section class="steps" aria-label="How it works">
+  @for (s of steps; track s.title; let i = $index) {
+    <article class="step">
+      <span class="n" aria-hidden="true">{{ i + 1 }}</span>
+      <mat-icon aria-hidden="true">{{ s.icon }}</mat-icon>
+      <h3>{{ s.title }}</h3>
+      <p>{{ s.text }}</p>
+    </article>
+  }
+</section>
+
+<section class="block">
+  <h3>The whole idea in 12 lines</h3>
+  <p class="muted">Install it, describe your table, put one component in the template.</p>
+  <pre tabindex="0"><code>{{ install }}</code></pre>
+  <pre tabindex="0"><code>{{ config }}</code></pre>
+  <pre tabindex="0"><code>{{ template }}</code></pre>
+</section>
+
+<section class="block">
+  <h3>Angular compatibility</h3>
+  <p class="muted">Checked by building and running the packaged library in clean applications.</p>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Angular</th><th>Status</th><th>Details</th></tr></thead>
+      <tbody>
+        @for (c of compatibility; track c.angular) {
+          <tr>
+            <td>{{ c.angular }}</td>
+            <td><span class="pill" [class]="'pill ' + c.status">{{ c.label }}</span></td>
+            <td>{{ c.note }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</section>

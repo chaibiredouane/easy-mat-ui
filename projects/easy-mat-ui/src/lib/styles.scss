@@ -1,0 +1,29 @@
+@use "bootstrap/scss/bootstrap";
+
+@use './styles/colors' as *;
+@use './styles/backgrounds' as *;
+@use './styles/buttons' as *;
+@use './styles/tables' as *;
+@use './styles/typography' as *;
+@use './styles/spacing' as *;
+@use './styles/effects' as *;
+@use './styles/material-overrides' as *;
+
+@media (max-width: 768px) {
+  .mat-header-cell, .mat-cell {
+    font-size: 12px;
+    padding: 0.25rem;
+  }
+
+  .action-link button {
+    padding: 0.25rem !important;
+  }
+
+  .btn-mini-fab mat-icon {
+    font-size: 18px;
+  }
+
+  mat-form-field {
+    width: 100% !important;
+  }
+}

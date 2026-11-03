@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Easy Mat UI – Angular Material data table library (open source)</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Open-source Angular Material library: a configurable data table with column filters, child tables, tabs, dialogs, multi-select and dark mode. Live demo.">
+  <meta name="keywords" content="angular material table, angular data table, mat-table, angular datagrid, angular multi select, angular child table, angular expandable rows, angular dialog form, angular dark mode, angular component library, easy-mat-ui">
+  <meta name="author" content="Redouane Chaibi">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="theme-color" content="#1f6f8b">
+  <link rel="canonical" href="__SITE_URL__/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Easy Mat UI">
+  <meta property="og:title" content="Easy Mat UI – Angular Material data table library">
+  <meta property="og:description" content="Configurable Angular Material data table: column filters, child tables, tabs, dialogs, multi-select, light and dark themes. MIT licensed.">
+  <meta property="og:url" content="__SITE_URL__/">
+  <meta property="og:image" content="__SITE_URL__/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Easy Mat UI: a configurable Angular Material data table">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Easy Mat UI – Angular Material data table library">
+  <meta name="twitter:description" content="Configurable Angular Material data table: column filters, child tables, tabs, dialogs, multi-select, light and dark themes.">
+  <meta name="twitter:image" content="__SITE_URL__/og-image.png">
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="alternate" type="text/plain" href="__SITE_URL__/llms.txt" title="llms.txt">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "__SITE_URL__/#website",
+        "url": "__SITE_URL__/",
+        "name": "Easy Mat UI",
+        "description": "Open-source Angular Material data table library with live demo and documentation.",
+        "inLanguage": "en"
+      },
+      {
+        "@type": "SoftwareSourceCode",
+        "@id": "__SITE_URL__/#source",
+        "name": "easy-mat-ui",
+        "description": "A configurable Angular Material data table with column filters, child tables, tabs, dialogs, a multi-select and light and dark themes.",
+        "codeRepository": "https://github.com/chaibiredouane/easy-mat-ui",
+        "programmingLanguage": "TypeScript",
+        "runtimePlatform": "Angular 20",
+        "license": "https://opensource.org/licenses/MIT",
+        "author": { "@type": "Person", "name": "Redouane Chaibi", "url": "https://github.com/chaibiredouane" }
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "__SITE_URL__/#app",
+        "name": "Easy Mat UI",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Web",
+        "url": "__SITE_URL__/",
+        "downloadUrl": "https://www.npmjs.com/package/easy-mat-ui-ng20",
+        "softwareVersion": "20.0.0",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "author": { "@type": "Person", "name": "Redouane Chaibi" }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is Easy Mat UI?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Easy Mat UI is an open-source Angular library built on Angular Material. A single configuration object produces a complete data table with filters, pagination, expandable rows, child tables and tabs, a create/edit/view dialog and a multi-select." }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I install Easy Mat UI?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Run npm install easy-mat-ui-ng20 in an Angular 20 project, then import EasyTableComponent, EasyTableConfig and MatColumnTyped from easy-mat-ui-ng20." }
+          },
+          {
+            "@type": "Question",
+            "name": "Which Angular versions does it support?",
+            "acceptedAnswer": { "@type": "Answer", "text": "easy-mat-ui-ng20 is built and supported for Angular 20. It was also tested to build and run on Angular 19 and 21 (not officially supported). Angular 18 and older do not work. Each Angular major version has its own package." }
+          },
+          {
+            "@type": "Question",
+            "name": "Does Easy Mat UI support dark mode?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. EasyThemeService.setTheme('light' | 'dark' | 'system') switches the theme at runtime without reloading the page. The themes are driven by CSS variables you can override." }
+          },
+          {
+            "@type": "Question",
+            "name": "Is it free?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. Easy Mat UI is released under the MIT license." }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body class="mat-typography">
+  <app-root>
+    <!--
+      Content for search engines, AI crawlers and visitors without JavaScript. Angular replaces it as soon as the
+      application starts.
+    -->
+    <main style="max-width: 760px; margin: 0 auto; padding: 32px 20px; font-family: Roboto, Arial, sans-serif; line-height: 1.6; color: #0f172a;">
+      <h1>Easy Mat UI: a configurable Angular Material data table</h1>
+      <p>
+        Easy Mat UI is an open-source (MIT) Angular library built on Angular Material. Describe your table in one
+        configuration object and the library provides column filters, search, sorting, pagination, expandable rows,
+        child tables and tabs, a create / edit / view dialog, a multi-select, and light and dark themes.
+      </p>
+      <h2>Features</h2>
+      <ul>
+        <li>Data table (<code>lib-easy-table</code>) with typed columns, text and multi-select column filters, a pinned header and pagination</li>
+        <li>Child tables and tabs: <code>childConfig</code> takes one configuration, or an array to get tabs</li>
+        <li>Dialog service for create, edit and view forms with text, number, date, text area, dropdown and multi-select fields</li>
+        <li>Reusable multi-select component with search, select-all and clear</li>
+        <li>Light and dark themes switchable at runtime (<code>EasyThemeService</code>), driven by CSS variables</li>
+        <li>Responsive layout and accessibility checks (no WCAG 2 A/AA violation found by axe-core on the demo)</li>
+      </ul>
+      <h2>Install</h2>
+      <pre><code>npm install easy-mat-ui-ng20</code></pre>
+      <p>Supports Angular 20 (package <code>easy-mat-ui-ng20</code>). Each Angular major version has its own package.</p>
+      <h2>Links</h2>
+      <ul>
+        <li><a href="https://github.com/chaibiredouane/easy-mat-ui">Source code on GitHub</a></li>
+        <li><a href="https://www.npmjs.com/package/easy-mat-ui-ng20">Package on npm</a></li>
+        <li><a href="docs/">Documentation</a></li>
+        <li><a href="llms.txt">llms.txt</a></li>
+      </ul>
+      <noscript><p>The interactive demo needs JavaScript. The documentation pages work without it.</p></noscript>
+    </main>
+  </app-root>
+</body>
+</html>
