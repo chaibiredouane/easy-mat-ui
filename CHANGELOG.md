@@ -11,11 +11,11 @@ follows [Semantic Versioning](https://semver.org/) (see [Versioning](README.md#v
 ### Fixed
 - `lib-easy-table` and `lib-easy-table-basic` no longer reorder the array they receive: they sort a copy. An array
   that is frozen or read-only (state frozen by a store, `Object.freeze`) used to throw `Cannot assign to read only
-  property` when the table rendered it.
+  property` when the table rendered it. (#15)
 - The default sort (`sortedBy: 'id'`) orders numbers as numbers: ids 1 to 12 are shown as 1, 2, 3 ... 12 instead of
-  1, 10, 11, 12, 2 ... 9. Text keeps being compared as text. Tables that rely on `sortedBy: ''` are not affected.
+  1, 10, 11, 12, 2 ... 9. Text keeps being compared as text. Tables that rely on `sortedBy: ''` are not affected. (#16)
 - The search field of the toolbar filters on every change of its value, not only on `keyup`. A new output,
-  `searchInput`, of `lib-table-toolbar` carries the event; `applyFilterEvent` is unchanged.
+  `searchInput`, of `lib-table-toolbar` carries the event; `applyFilterEvent` is unchanged. (#17)
 
 ## [20.0.5] - 2026-11-04
 
