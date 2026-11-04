@@ -43,11 +43,12 @@ const columns = [
     enableIcon: 'check_circle',
     disableIcon: 'cancel',
     stickyClass: 'text-center',
+    headerClass: 'text-center', // centre the title too
     conditionFn: (user: User) => user.active,
     cssClassFn: (user: User) => (user.active ? 'text-success' : 'text-danger')
   }),
   // View, edit and delete buttons of each row.
-  new MatColumnTyped({ name: 'actions', headerIcon: 'rule', stickyClass: 'text-center' })
+  new MatColumnTyped({ name: 'actions', headerIcon: 'rule', stickyClass: 'text-center', headerClass: 'text-center' })
 ];
 
 /** The form of the dialog: it opens for a new user and for a user to edit or view. */
