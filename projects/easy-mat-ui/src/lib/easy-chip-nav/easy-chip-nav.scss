@@ -1,0 +1,133 @@
+:host {
+  --easy-accent: var(--color-primary-blue-strong, #1f6f8b);
+  --easy-on-accent: #ffffff;
+
+  display: block;
+  min-width: 0;
+}
+
+:host-context(body.dark-theme) {
+  --easy-on-accent: #0b1220;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/*
+ * `--c` is the colour of the item (its own, or the accent of the theme). A coloured item shows white text on its
+ * colour when chosen, so give it a colour dark enough for that (4.5:1 or more).
+ */
+.chip {
+  --c: var(--easy-accent);
+  --c-text: var(--c);
+
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 0 8px 0 12px;
+  border: 1px solid color-mix(in srgb, var(--c) 38%, var(--border-color, #e2e8f0));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--c) 9%, var(--card-bg, #ffffff));
+  color: var(--card-text, #0f172a);
+  font: inherit;
+  font-size: 0.86rem;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.18s, border-color 0.18s, color 0.18s, transform 0.15s, box-shadow 0.15s;
+
+  mat-icon {
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+    color: var(--c-text);
+    transition: color 0.18s;
+  }
+
+  .n {
+    min-width: 26px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--c) 16%, transparent);
+    color: inherit;
+    font-size: 0.74rem;
+    font-weight: 600;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+    transition: background-color 0.18s;
+  }
+
+  /* No count: the text keeps the same space on the right as on the left. */
+  .t:last-child {
+    padding-inline-end: 4px;
+  }
+
+  &:hover:not(.on):not(:disabled) {
+    border-color: var(--c);
+    background: color-mix(in srgb, var(--c) 16%, var(--card-bg, #ffffff));
+    transform: translateY(-1px);
+  }
+
+  &.on {
+    border-color: var(--c);
+    background: var(--c);
+    color: #ffffff;
+    box-shadow: 0 4px 12px -4px color-mix(in srgb, var(--c) 70%, transparent);
+
+    mat-icon {
+      color: #ffffff;
+    }
+
+    .n {
+      background: rgba(255, 255, 255, 0.22);
+    }
+
+    /* The accent of the dark theme is light: dark text on it. */
+    &:not(.colored) {
+      color: var(--easy-on-accent);
+
+      mat-icon {
+        color: var(--easy-on-accent);
+      }
+    }
+  }
+
+  &:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--c);
+    outline-offset: 2px;
+  }
+}
+
+/* On the dark theme the icon of a coloured item uses a lighter shade of its colour. */
+:host-context(body.dark-theme) .chip.colored:not(.on) mat-icon {
+  color: color-mix(in srgb, var(--c) 55%, #ffffff);
+}
+
+@media (max-width: 600px) {
+  .chips {
+    flex-wrap: nowrap;
+    margin-inline: -12px;
+    padding: 2px 12px 8px;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .chip {
+    flex: none;
+    scroll-snap-align: start;
+  }
+}

@@ -1,0 +1,68 @@
+<ng-template #flag let-language>
+  @if (language.flagUrl) {
+    <img class="flag" [src]="language.flagUrl" alt="" aria-hidden="true" />
+  } @else if (language.flag) {
+    <span class="flag fi fi-{{ language.flag }}" aria-hidden="true"></span>
+  }
+</ng-template>
+
+@if (layout === 'inline') {
+  <div class="inline" role="radiogroup" [attr.aria-label]="ariaLabel || null">
+    @for (language of languages; track language.code) {
+      <button
+        type="button"
+        role="radio"
+        class="lang"
+        [class.on]="language.code === selected"
+        [attr.aria-checked]="language.code === selected"
+        [attr.lang]="language.code"
+        [attr.aria-label]="language.name"
+        [title]="language.name"
+        (click)="select(language)">
+        @if (showFlag) {
+          <ng-container *ngTemplateOutlet="flag; context: { $implicit: language }" />
+        }
+        @if (text(language)) {
+          <span class="name">{{ text(language) }}</span>
+        }
+      </button>
+    }
+  </div>
+} @else {
+  @if (current; as language) {
+    <button
+      type="button"
+      class="trigger"
+      [matMenuTriggerFor]="menu"
+      [attr.aria-label]="ariaLabel ? ariaLabel + ': ' + language.name : language.name"
+      [title]="ariaLabel || language.name">
+      @if (showFlag) {
+        <ng-container *ngTemplateOutlet="flag; context: { $implicit: language }" />
+      }
+      @if (text(language)) {
+        <span class="name" [attr.lang]="language.code">{{ text(language) }}</span>
+      }
+      <mat-icon class="chevron" aria-hidden="true">expand_more</mat-icon>
+    </button>
+  }
+
+  <mat-menu #menu="matMenu" class="easy-language-menu" xPosition="before">
+    @for (language of languages; track language.code) {
+      <button
+        mat-menu-item
+        type="button"
+        class="option"
+        role="menuitemradio"
+        [attr.aria-checked]="language.code === selected"
+        [attr.lang]="language.code"
+        (click)="select(language)">
+        <ng-container *ngTemplateOutlet="flag; context: { $implicit: language }" />
+        <span class="label">{{ listText(language) }}</span>
+        @if (language.code === selected) {
+          <!-- A span, not a bare mat-icon: Material would move a direct mat-icon before the text of the item. -->
+          <span class="check" aria-hidden="true"><mat-icon>check</mat-icon></span>
+        }
+      </button>
+    }
+  </mat-menu>
+}

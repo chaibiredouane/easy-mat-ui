@@ -1,0 +1,145 @@
+:host {
+  --easy-accent: var(--color-primary-blue-strong, #1f6f8b);
+  --easy-on-accent: #ffffff;
+
+  display: inline-flex;
+}
+
+:host-context(body.dark-theme) {
+  --easy-on-accent: #0b1220;
+}
+
+.flag {
+  flex: none;
+  width: 22px;
+  height: 16px;
+  border-radius: 3px;
+  background-size: cover;
+  object-fit: cover;
+  box-shadow: 0 0 0 1px color-mix(in srgb, currentColor 18%, transparent);
+}
+
+/* ---- layout="menu" ----------------------------------------------------------------------------------------------- */
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--card-text, #0f172a);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.85rem;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background: var(--hover-color, rgba(0, 0, 0, 0.06));
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--easy-accent);
+    outline-offset: 2px;
+  }
+
+  .chevron {
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
+    opacity: 0.7;
+  }
+
+  /* Arabic letters look small next to Latin ones at the same size. */
+  .name[lang='ar'] {
+    font-size: 1.12em;
+  }
+}
+
+/* The list lives in an overlay: its rules are scoped by the class of the menu. */
+::ng-deep .easy-language-menu .mat-mdc-menu-item .mat-mdc-menu-item-text {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-width: 190px;
+}
+
+::ng-deep .easy-language-menu .option[aria-checked='true'] {
+  background: var(--hover-color, rgba(0, 0, 0, 0.06));
+  font-weight: 500;
+}
+
+::ng-deep .easy-language-menu .option .label {
+  flex: 1;
+}
+
+::ng-deep .easy-language-menu .option[lang='ar'] .label {
+  font-size: 1.12em;
+}
+
+::ng-deep .easy-language-menu .option .check {
+  display: inline-flex;
+  color: var(--color-primary-blue-strong, #1f6f8b);
+}
+
+::ng-deep .easy-language-menu .option .check .mat-icon {
+  margin: 0;
+}
+
+/* ---- layout="inline" --------------------------------------------------------------------------------------------- */
+.inline {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: 999px;
+
+  .lang {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 38px;
+    min-height: 38px;
+    padding: 0 12px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--card-text, #0f172a);
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.82rem;
+    font-weight: 500;
+    transition: background-color 0.18s;
+
+    &:hover:not(.on) {
+      background: var(--hover-color, rgba(0, 0, 0, 0.06));
+    }
+
+    &.on {
+      background: var(--easy-accent);
+      color: var(--easy-on-accent);
+      font-weight: 600;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--easy-accent);
+      outline-offset: 2px;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  /* On a phone the menu button shows the flag only. */
+  .trigger {
+    padding: 0 10px;
+
+    .name,
+    .chevron {
+      display: none;
+    }
+  }
+}

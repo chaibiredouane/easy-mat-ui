@@ -1,0 +1,9 @@
+<dl class="stat" [class]="'stat ' + (config.tone || 'neutral')" [title]="config.hint || ''">
+  <dt>
+    @if (config.icon) {
+      <mat-icon aria-hidden="true">{{ config.icon }}</mat-icon>
+    }
+    {{ config.label }}
+  </dt>
+  <dd>{{ config.value }}</dd>
+</dl>

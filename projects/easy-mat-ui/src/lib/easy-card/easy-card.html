@@ -1,0 +1,39 @@
+<ng-template #body>
+  @if (config.icon) {
+    <mat-icon class="icon" aria-hidden="true">{{ config.icon }}</mat-icon>
+  }
+  <span class="title">{{ config.title }}</span>
+  @if (config.description) {
+    <span class="description">{{ config.description }}</span>
+  }
+  <ng-content />
+</ng-template>
+
+@if (isButton) {
+  <button type="button" class="card clickable" [style.--c]="config.color || null" (click)="cardClick.emit(config)">
+    <ng-container *ngTemplateOutlet="body" />
+  </button>
+} @else {
+  <article class="card" [style.--c]="config.color || null">
+    <ng-container *ngTemplateOutlet="body" />
+    @if (config.actions?.length) {
+      <div class="actions">
+        @for (action of config.actions; track action.id) {
+          @if (action.href) {
+            <a class="action" [class.primary]="action.primary" [href]="action.href" [attr.target]="action.target || null" [attr.rel]="action.target === '_blank' ? 'noopener noreferrer' : null">
+              @if (action.icon) {
+                <mat-icon aria-hidden="true">{{ action.icon }}</mat-icon>
+              }{{ action.label }}
+            </a>
+          } @else {
+            <button type="button" class="action" [class.primary]="action.primary" [disabled]="!!action.disabled" (click)="use(action)">
+              @if (action.icon) {
+                <mat-icon aria-hidden="true">{{ action.icon }}</mat-icon>
+              }{{ action.label }}
+            </button>
+          }
+        }
+      </div>
+    }
+  </article>
+}
