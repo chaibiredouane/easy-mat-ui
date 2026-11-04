@@ -62,7 +62,7 @@ export const DE: Dictionary = {
     FOOTER_CONTRIBUTE: 'Beiträge sind willkommen.',
     FOOTER_DATA: 'Demodaten: GeoNames (CC BY 4.0) und Wikipedia (CC BY-SA 4.0).'
   },
-  nav: { overview: 'Übersicht', countries: 'Länder und Städte', tabs: 'Untergeordnete Tabs', cities: 'Städte' },
+  nav: { overview: 'Übersicht', countries: 'Länder und Städte', tabs: 'Untergeordnete Tabs', cities: 'Städte', builder: 'Seiten-Builder' },
   continents: {
     ARIA: 'Nach Kontinent stöbern',
     all: 'Alle',
@@ -183,5 +183,98 @@ export const DE: Dictionary = {
       pr: 'Einen Pull Request öffnen: Wir prüfen ihn gemeinsam'
     },
     STAR_PLEASE: 'Wenn Ihnen die Bibliothek hilft, hilft ein Stern auf GitHub anderen, sie zu finden.'
+  },
+  builder: {
+    TITLE: 'Seiten-Builder',
+    SUBTITLE: 'Wählen Sie die Komponenten, richten Sie sie ein und erhalten Sie Template, TypeScript und Modelle. Der Befehl kann die Dateien auch direkt in Ihr Projekt schreiben.',
+    STEP_PAGE: 'Seite',
+    STEP_COMPONENTS: 'Komponenten',
+    STEP_SETTINGS: 'Einstellungen',
+    PAGE_NAME: 'Name der Seite',
+    PAGE_NAME_HINT: 'Kleinbuchstaben mit Bindestrichen. Ordner, Dateien und Selektor leiten sich davon ab.',
+    TEXTS: 'Texte',
+    TEXTS_KEYS: 'Übersetzungsschlüssel',
+    TEXTS_PLAIN: 'Einfache Texte',
+    TEXTS_HINT_KEYS: 'Der Code liest die Texte mit ngx-translate, und die Einträge für die englische Datei werden erzeugt.',
+    TEXTS_HINT_PLAIN: 'Die Texte stehen im Code: Es ist keine Übersetzungsbibliothek nötig.',
+    SELECT_ONE: 'Wählen Sie mindestens eine Komponente.',
+    categories: {
+      Page: 'Seite',
+      Data: 'Daten',
+      Navigation: 'Navigation',
+      Content: 'Inhalt',
+      Settings: 'Einstellungen'
+    },
+    components: {
+      'page-header': { t: 'Seitenkopf', d: 'Symbol, Titel und Untertitel.' },
+      stat: { t: 'Kennzahlen', d: 'Einige Zahlen mit Beschriftung und Tonalität.' },
+      'chip-nav': {
+        t: 'Kategorie-Schaltflächen',
+        d: 'Symbol, Farbe und Anzahl zum Durchsuchen nach Kategorie.'
+      },
+      segmented: {
+        t: 'Segmentierte Auswahl',
+        d: 'Eine Wahl unter wenigen: eine Einstellung, eine Ansicht.'
+      },
+      'language-switch': { t: 'Sprachauswahl', d: 'Ein Menü oder Schaltflächen zur Sprachauswahl.' },
+      'card-grid': { t: 'Kartenraster', d: 'Symbol, Titel und Beschreibung in einem responsiven Raster.' },
+      table: {
+        t: 'Datentabelle',
+        d: 'Filter, Seitenumbruch, Hinzufügen / Bearbeiten / Löschen und eine untergeordnete Tabelle.'
+      }
+    },
+    f: {
+      title: 'Titel',
+      subtitle: 'Untertitel',
+      icon: 'Symbol',
+      label: 'Beschriftung',
+      value: 'Wert',
+      color: 'Farbe',
+      count: 'Anzahl',
+      description: 'Beschreibung',
+      tone: 'Tonalität',
+      clickable: 'Anklickbar',
+      name: 'Name',
+      type: 'Typ'
+    },
+    ADD_ROW: 'Hinzufügen',
+    REMOVE_ROW: 'Entfernen',
+    tones: {
+      neutral: 'Neutral',
+      accent: 'Akzent',
+      success: 'Erfolg',
+      warning: 'Warnung',
+      danger: 'Gefahr'
+    },
+    MODEL: 'Modell',
+    MODEL_GENERIC: 'Generisches Modell (item1, item2, item3)',
+    MODEL_OWN: 'Eigene Felder',
+    FIELDS: 'Felder',
+    CHILD: 'Untergeordnete Tabelle unter jeder Zeile',
+    CAN_CREATE: 'Hinzufügen',
+    CAN_UPDATE: 'Bearbeiten',
+    CAN_DELETE: 'Löschen',
+    FILTERS: 'Spaltenfilter',
+    PAGE_SIZE: 'Zeilen pro Seite',
+    types: { string: 'Text', number: 'Zahl', boolean: 'Ja / Nein', date: 'Datum' },
+    LAYOUT: 'Darstellung',
+    layouts: { menu: 'Menü', inline: 'Schaltflächen' },
+    DISPLAY: 'Zeigt',
+    displays: { 'flag-name': 'Flagge und Name', flag: 'Flagge', name: 'Name', code: 'Kürzel' },
+    LANGUAGES: 'Sprachen',
+    ICON_ONLY: 'Nur Symbole',
+    SIZE: 'Größe',
+    COLUMNS: 'Spalten',
+    PREVIEW: 'Vorschau',
+    PREVIEW_TABLE_NOTE: 'Die Tabelle wird mit Beispielzeilen gezeigt (die untergeordnete Tabelle nicht).',
+    CODE: 'Erzeugter Code',
+    TRANSLATIONS_TAB: 'Englische Einträge',
+    TRANSLATIONS_HINT: 'Fügen Sie diese Einträge Ihrer englischen Übersetzungsdatei hinzu. Der Befehl erledigt das für Sie.',
+    NOTES: 'Gut zu wissen',
+    COMMAND: 'Oder die Dateien in Ihr Projekt schreiben',
+    COMMAND_TEXT: 'Laden Sie die Beschreibung herunter und führen Sie den Befehl im Hauptordner Ihres Angular-Projekts aus.',
+    DOWNLOAD: 'Beschreibung herunterladen',
+    COPY_COMMAND: 'Befehl kopieren',
+    ERROR: 'Diese Seite kann noch nicht erzeugt werden'
   }
 };

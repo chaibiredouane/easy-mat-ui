@@ -1,0 +1,289 @@
+<lib-easy-page-header
+  [config]="{ icon: 'build', title: ('builder.TITLE' | translate), subtitle: ('builder.SUBTITLE' | translate) }" />
+
+<div class="builder">
+  <!-- ---- what the visitor chooses ---------------------------------------------------------------------------------- -->
+  <div class="settings">
+    <section class="panel" aria-labelledby="step-page">
+      <h3 id="step-page"><span class="n">1</span>{{ 'builder.STEP_PAGE' | translate }}</h3>
+
+      <label class="field">
+        <span class="label">{{ 'builder.PAGE_NAME' | translate }}</span>
+        <input type="text" [value]="name()" (input)="name.set(field($event))" spellcheck="false" autocomplete="off" />
+        <span class="hint">{{ 'builder.PAGE_NAME_HINT' | translate }} <code dir="ltr">{{ pageName() }}</code></span>
+      </label>
+
+      <div class="field">
+        <span class="label">{{ 'builder.TEXTS' | translate }}</span>
+        <lib-easy-segmented
+          [options]="textOptions()"
+          [selected]="i18n() ? 'keys' : 'plain'"
+          [ariaLabel]="'builder.TEXTS' | translate"
+          (selectedChange)="i18n.set($event === 'keys')" />
+        <span class="hint">{{ (i18n() ? 'builder.TEXTS_HINT_KEYS' : 'builder.TEXTS_HINT_PLAIN') | translate }}</span>
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="step-components">
+      <h3 id="step-components"><span class="n">2</span>{{ 'builder.STEP_COMPONENTS' | translate }}</h3>
+      @for (category of categories; track category) {
+        <h4>{{ 'builder.categories.' + category | translate }}</h4>
+        <div class="tiles">
+          @for (block of catalog; track block.type) {
+            @if (block.category === category) {
+              <button type="button" class="tile" [class.on]="isOn(block.type)" [attr.aria-pressed]="isOn(block.type)" (click)="toggle(block.type)">
+                <mat-icon class="icon" aria-hidden="true">{{ block.icon }}</mat-icon>
+                <span class="text">
+                  <span class="t">{{ 'builder.components.' + block.type + '.t' | translate }}</span>
+                  <span class="d">{{ 'builder.components.' + block.type + '.d' | translate }}</span>
+                </span>
+                <mat-icon class="check" aria-hidden="true">{{ isOn(block.type) ? 'check_circle' : 'radio_button_unchecked' }}</mat-icon>
+              </button>
+            }
+          }
+        </div>
+      }
+      @if (!selected().length) {
+        <p class="warn" role="status">{{ 'builder.SELECT_ONE' | translate }}</p>
+      }
+    </section>
+
+    @if (selected().length) {
+      <section class="panel" aria-labelledby="step-settings">
+        <h3 id="step-settings"><span class="n">3</span>{{ 'builder.STEP_SETTINGS' | translate }}</h3>
+
+        @if (header(); as h) {
+          <details class="group" open>
+            <summary><mat-icon aria-hidden="true">title</mat-icon>{{ 'builder.components.page-header.t' | translate }}</summary>
+            <div class="body">
+              <label class="field"><span class="label">{{ 'builder.f.title' | translate }}</span><input type="text" [value]="h.title" (input)="patchHeader({ title: field($event) })" /></label>
+              <label class="field"><span class="label">{{ 'builder.f.subtitle' | translate }}</span><input type="text" [value]="h.subtitle ?? ''" (input)="patchHeader({ subtitle: field($event) })" /></label>
+              <label class="field"><span class="label">{{ 'builder.f.icon' | translate }}</span><input type="text" dir="ltr" [value]="h.icon ?? ''" (input)="patchHeader({ icon: field($event) })" /></label>
+            </div>
+          </details>
+        }
+
+        @if (stat(); as s) {
+          <details class="group" open>
+            <summary><mat-icon aria-hidden="true">analytics</mat-icon>{{ 'builder.components.stat.t' | translate }}</summary>
+            <div class="body">
+              <app-rows-editor [columns]="statColumns()" [rows]="rowsOf(s.stats)" [template]="{ label: '', value: '0', tone: 'neutral' }" (rowsChange)="setStats($event)" />
+            </div>
+          </details>
+        }
+
+        @if (nav(); as n) {
+          <details class="group" open>
+            <summary><mat-icon aria-hidden="true">category</mat-icon>{{ 'builder.components.chip-nav.t' | translate }}</summary>
+            <div class="body">
+              <app-rows-editor [columns]="navColumns()" [rows]="rowsOf(n.items)" [template]="{ label: '', icon: 'folder', color: '#1d4ed8', count: 0 }" (rowsChange)="setNav($event)" />
+            </div>
+          </details>
+        }
+
+        @if (segmented(); as g) {
+          <details class="group" open>
+            <summary><mat-icon aria-hidden="true">toggle_on</mat-icon>{{ 'builder.components.segmented.t' | translate }}</summary>
+            <div class="body">
+              <app-rows-editor [columns]="segmentedColumns()" [rows]="rowsOf(g.options)" [template]="{ label: '', icon: '' }" (rowsChange)="setSegmented($event)" />
+              <label class="check">
+                <input type="checkbox" [checked]="!!g.iconOnly" (change)="patchSegmented({ iconOnly: checked($event) })" />
+                {{ 'builder.ICON_ONLY' | translate }}
+              </label>
+              <label class="field">
+                <span class="label">{{ 'builder.SIZE' | translate }}</span>
+                <select (change)="patchSegmented({ size: $any($event.target).value })">
+                  @for (size of sizeOptions; track size) {
+                    <option [value]="size" [selected]="(g.size ?? 'md') === size">{{ size }}</option>
+                  }
+                </select>
+              </label>
+            </div>
+          </details>
+        }
+
+        @if (language(); as l) {
+          <details class="group" open>
+            <summary><mat-icon aria-hidden="true">translate</mat-icon>{{ 'builder.components.language-switch.t' | translate }}</summary>
+            <div class="body">
+              <div class="field">
+                <span class="label">{{ 'builder.LANGUAGES' | translate }}</span>
+                <div class="chips">
+                  @for (option of languageCatalog; track option.code) {
+                    <button type="button" class="chip" [class.on]="hasLanguage(option.code)" [attr.aria-pressed]="hasLanguage(option.code)" (click)="toggleLanguage(option.code)">
+                      <span class="fi fi-{{ option.flag }} flag" aria-hidden="true"></span>{{ option.name }}
+                    </button>
+                  }
+                </div>
+              </div>
+              <label class="field">
+                <span class="label">{{ 'builder.LAYOUT' | translate }}</span>
+                <select (change)="patchLanguage({ layout: $any($event.target).value })">
+                  @for (layout of layoutOptions; track layout) {
+                    <option [value]="layout" [selected]="(l.layout ?? 'menu') === layout">{{ 'builder.layouts.' + layout | translate }}</option>
+                  }
+                </select>
+              </label>
+              <label class="field">
+                <span class="label">{{ 'builder.DISPLAY' | translate }}</span>
+                <select (change)="patchLanguage({ display: $any($event.target).value })">
+                  @for (display of displayOptions; track display) {
+                    <option [value]="display" [selected]="(l.display ?? 'flag-name') === display">{{ 'builder.displays.' + display | translate }}</option>
+                  }
+                </select>
+              </label>
+            </div>
+          </details>
+        }
+
+        @if (cards(); as c) {
+          <details class="group" open>
+            <summary><mat-icon aria-hidden="true">grid_view</mat-icon>{{ 'builder.components.card-grid.t' | translate }}</summary>
+            <div class="body">
+              <app-rows-editor [columns]="cardColumns()" [rows]="rowsOf(c.cards)" [template]="{ title: '', description: '', icon: 'star', clickable: false }" (rowsChange)="setCards($event)" />
+              <label class="field">
+                <span class="label">{{ 'builder.COLUMNS' | translate }}</span>
+                <select (change)="patchCards({ columns: +$any($event.target).value })">
+                  @for (columns of columnOptions; track columns) {
+                    <option [value]="columns" [selected]="(c.columns ?? 3) === columns">{{ columns }}</option>
+                  }
+                </select>
+              </label>
+            </div>
+          </details>
+        }
+
+        @if (table(); as t) {
+          <details class="group" open>
+            <summary><mat-icon aria-hidden="true">table_chart</mat-icon>{{ 'builder.components.table.t' | translate }}</summary>
+            <div class="body">
+              <label class="field"><span class="label">{{ 'builder.f.title' | translate }}</span><input type="text" [value]="t.title" (input)="patchTable({ title: field($event) })" /></label>
+              <div class="field">
+                <span class="label">{{ 'builder.MODEL' | translate }}</span>
+                <lib-easy-segmented [options]="modelOptions()" [selected]="modelMode()" [ariaLabel]="'builder.MODEL' | translate" (selectedChange)="modelMode.set($any($event))" />
+              </div>
+              @if (modelMode() === 'own') {
+                <div class="field">
+                  <span class="label">{{ 'builder.FIELDS' | translate }}</span>
+                  <app-rows-editor [columns]="fieldColumns()" [rows]="ownFields()" [template]="{ name: '', type: 'string' }" (rowsChange)="ownFields.set($event)" />
+                </div>
+              }
+              <div class="checks">
+                <label class="check"><input type="checkbox" [checked]="childTable()" (change)="childTable.set(checked($event))" />{{ 'builder.CHILD' | translate }}</label>
+                <label class="check"><input type="checkbox" [checked]="t.canCreate !== false" (change)="patchTable({ canCreate: checked($event) })" />{{ 'builder.CAN_CREATE' | translate }}</label>
+                <label class="check"><input type="checkbox" [checked]="t.canUpdate !== false" (change)="patchTable({ canUpdate: checked($event) })" />{{ 'builder.CAN_UPDATE' | translate }}</label>
+                <label class="check"><input type="checkbox" [checked]="t.canDelete !== false" (change)="patchTable({ canDelete: checked($event) })" />{{ 'builder.CAN_DELETE' | translate }}</label>
+                <label class="check"><input type="checkbox" [checked]="t.filters !== false" (change)="patchTable({ filters: checked($event) })" />{{ 'builder.FILTERS' | translate }}</label>
+              </div>
+              <label class="field">
+                <span class="label">{{ 'builder.PAGE_SIZE' | translate }}</span>
+                <select (change)="patchTable({ pageSize: +$any($event.target).value })">
+                  @for (size of pageSizes; track size) {
+                    <option [value]="size" [selected]="(t.pageSize ?? 10) === size">{{ size }}</option>
+                  }
+                </select>
+              </label>
+            </div>
+          </details>
+        }
+      </section>
+    }
+  </div>
+
+  <!-- ---- what it gives -------------------------------------------------------------------------------------------- -->
+  <div class="result">
+    <section class="panel" aria-labelledby="preview">
+      <h3 id="preview"><mat-icon aria-hidden="true">visibility</mat-icon>{{ 'builder.PREVIEW' | translate }}</h3>
+      @if (!blocks().length) {
+        <p class="muted">{{ 'builder.SELECT_ONE' | translate }}</p>
+      }
+      <!-- The preview is a sample page written in English: it keeps its own reading direction. -->
+      <div class="stage" dir="ltr">
+        @if (header(); as h) {
+          <lib-easy-page-header [config]="h" />
+        }
+        @if (stat(); as s) {
+          <div class="row">
+            @for (item of s.stats; track $index) {
+              <lib-easy-stat [config]="item" />
+            }
+          </div>
+        }
+        @if (nav(); as n) {
+          <lib-easy-chip-nav [items]="n.items" [selected]="navSelected() ?? n.selected ?? n.items[0]?.id ?? ''" (selectedChange)="navSelected.set($event)" />
+        }
+        @if (segmented(); as g) {
+          <div>
+            <lib-easy-segmented
+              [options]="g.options"
+              [selected]="segmentedSelected() ?? g.selected ?? g.options[0]?.id ?? ''"
+              [iconOnly]="!!g.iconOnly"
+              [size]="g.size ?? 'md'"
+              (selectedChange)="segmentedSelected.set($event)" />
+          </div>
+        }
+        @if (language(); as l) {
+          <div>
+            <lib-easy-language-switch
+              [languages]="l.languages"
+              [selected]="languageSelected() ?? l.selected ?? l.languages[0]?.code ?? ''"
+              [layout]="l.layout ?? 'menu'"
+              [display]="l.display ?? 'flag-name'"
+              (selectedChange)="languageSelected.set($event)" />
+          </div>
+        }
+        @if (cards(); as c) {
+          <lib-easy-card-grid [items]="c.cards" [columns]="c.columns ?? 3" [minWidth]="c.minWidth ?? 240" />
+        }
+        @if (tableConfig(); as config) {
+          <div class="table-wrap">
+            <lib-easy-table [config]="config" />
+          </div>
+          <p class="muted note">{{ 'builder.PREVIEW_TABLE_NOTE' | translate }}</p>
+        }
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="code">
+      <h3 id="code"><mat-icon aria-hidden="true">code</mat-icon>{{ 'builder.CODE' | translate }}</h3>
+      @if (outcome().error) {
+        <p class="warn" role="alert">{{ 'builder.ERROR' | translate }}: {{ outcome().error }}</p>
+      } @else if (activeFile(); as file) {
+        <div class="files">
+          <lib-easy-segmented [options]="fileOptions()" [selected]="file.path" [ariaLabel]="'builder.CODE' | translate" (selectedChange)="activePath.set($event)" />
+          <button type="button" class="copy" (click)="copy('file', file.content)">
+            <mat-icon aria-hidden="true">{{ copied() === 'file' ? 'check' : 'content_copy' }}</mat-icon>{{ (copied() === 'file' ? 'code.COPIED' : 'code.COPY') | translate }}
+          </button>
+        </div>
+        @if (file.path === 'en.json') {
+          <p class="muted">{{ 'builder.TRANSLATIONS_HINT' | translate }}</p>
+        }
+        <pre dir="ltr" tabindex="0"><code>{{ file.content }}</code></pre>
+      }
+    </section>
+
+    <section class="panel" aria-labelledby="notes">
+      @if (outcome().result; as result) {
+        @if (result.warnings.length) {
+          <h3 id="notes"><mat-icon aria-hidden="true">info</mat-icon>{{ 'builder.NOTES' | translate }}</h3>
+          <ul class="notes" dir="ltr">
+            @for (warning of result.warnings; track $index) {
+              <li>{{ warning }}</li>
+            }
+          </ul>
+        }
+      }
+      <h3><mat-icon aria-hidden="true">terminal</mat-icon>{{ 'builder.COMMAND' | translate }}</h3>
+      <p class="muted">{{ 'builder.COMMAND_TEXT' | translate }}</p>
+      <div class="command">
+        <code dir="ltr">{{ command() }}</code>
+        <button type="button" class="copy" (click)="copy('command', command())" [attr.aria-label]="'builder.COPY_COMMAND' | translate">
+          <mat-icon aria-hidden="true">{{ copied() === 'command' ? 'check' : 'content_copy' }}</mat-icon>
+        </button>
+      </div>
+      <button type="button" class="action" (click)="download()">
+        <mat-icon aria-hidden="true">download</mat-icon>{{ 'builder.DOWNLOAD' | translate }}
+      </button>
+    </section>
+  </div>
+</div>

@@ -1,9 +1,7 @@
-<app-page-header
-  icon="public"
-  [title]="'pages.countries.title' | translate"
-  [subtitle]="'pages.countries.subtitle' | translate">
+<lib-easy-page-header
+  [config]="{ icon: 'public', title: ('pages.countries.title' | translate), subtitle: ('pages.countries.subtitle' | translate) }">
   <app-unit-switch />
-</app-page-header>
+</lib-easy-page-header>
 
 <app-continent-nav [isoCodes]="isoCodes()" [(selected)]="continent" />
 

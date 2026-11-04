@@ -1,7 +1,15 @@
 import { Component, computed, effect, inject, OnInit, signal, untracked } from '@angular/core';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { firstValueFrom } from 'rxjs';
-import { Dictionary, EasyMultiSelect, EasyTableComponent, EasyTableConfig, EasyTableDialogResult } from 'easy-mat-ui-ng20';
+import {
+  Dictionary,
+  EasyMultiSelect,
+  EasyPageHeader,
+  EasyStat,
+  EasyTableComponent,
+  EasyTableConfig,
+  EasyTableDialogResult
+} from 'easy-mat-ui-ng20';
 import { inContinent } from '../../data/continents';
 import { City, CityRow, Country } from '../../models/geo.model';
 import { DisplaySettings } from '../../services/display-settings';
@@ -10,14 +18,13 @@ import { LanguageService } from '../../services/language.service';
 import { CodePanel } from '../../shared/code-panel/code-panel';
 import { ContinentNav } from '../../shared/continent-nav/continent-nav';
 import { isSave } from '../../shared/dialog';
-import { PageHeader } from '../../shared/page-header/page-header';
 import { exactPopulation, formatPopulation, isRtlLocale, keepLtr } from '../../shared/population';
 import { UnitSwitch } from '../../shared/unit-switch/unit-switch';
 import { cityRows, cityTable, toCity } from './cities.config';
 
 @Component({
   selector: 'app-cities',
-  imports: [EasyTableComponent, EasyMultiSelect, PageHeader, UnitSwitch, ContinentNav, CodePanel, TranslatePipe],
+  imports: [EasyTableComponent, EasyMultiSelect, EasyPageHeader, EasyStat, UnitSwitch, ContinentNav, CodePanel, TranslatePipe],
   templateUrl: './cities.html',
   styleUrl: './cities.scss'
 })

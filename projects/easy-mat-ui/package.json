@@ -1,6 +1,6 @@
 {
   "name": "easy-mat-ui-ng20",
-  "version": "20.0.1",
+  "version": "20.0.2",
   "description": "A customizable Angular Material library: data tables, dialogs and multi-select, with i18n support (Angular 20)",
   "keywords": [
     "angular",
@@ -28,7 +28,8 @@
     "@ngx-translate/http-loader": "^16.0.0",
     "bootstrap": "^5.0.0",
     "rxjs": "^7.0.0",
-    "flag-icons": "^7.0.0"
+    "flag-icons": "^7.0.0",
+    "typescript": ">=5.0.0"
   },
   "peerDependenciesMeta": {
     "@ngx-translate/http-loader": {
@@ -36,7 +37,13 @@
     },
     "flag-icons": {
       "optional": true
+    },
+    "typescript": {
+      "optional": true
     }
+  },
+  "bin": {
+    "easy-mat-ui": "page-generator/cli/main.js"
   },
   "dependencies": {
     "tslib": "^2.8.1"

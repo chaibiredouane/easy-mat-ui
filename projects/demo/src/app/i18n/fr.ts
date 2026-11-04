@@ -62,7 +62,7 @@ export const FR: Dictionary = {
     FOOTER_CONTRIBUTE: 'Les contributions sont les bienvenues.',
     FOOTER_DATA: 'Données de démonstration : GeoNames (CC BY 4.0) et Wikipédia (CC BY-SA 4.0).'
   },
-  nav: { overview: 'Présentation', countries: 'Pays et villes', tabs: 'Onglets enfants', cities: 'Villes' },
+  nav: { overview: 'Présentation', countries: 'Pays et villes', tabs: 'Onglets enfants', cities: 'Villes', builder: 'Constructeur' },
   continents: {
     ARIA: 'Parcourir par continent',
     all: 'Tous',
@@ -183,5 +183,95 @@ export const FR: Dictionary = {
       pr: 'Ouvrez une pull request : nous la relisons ensemble'
     },
     STAR_PLEASE: 'Si la bibliothèque vous aide, une étoile sur GitHub aide d’autres personnes à la trouver.'
+  },
+  builder: {
+    TITLE: 'Constructeur de pages',
+    SUBTITLE: 'Choisissez les composants, configurez-les et obtenez le template, le TypeScript et les modèles. La commande peut aussi écrire les fichiers dans votre projet.',
+    STEP_PAGE: 'Page',
+    STEP_COMPONENTS: 'Composants',
+    STEP_SETTINGS: 'Réglages',
+    PAGE_NAME: 'Nom de la page',
+    PAGE_NAME_HINT: 'Minuscules et tirets. Le dossier, les fichiers et le sélecteur en découlent.',
+    TEXTS: 'Textes',
+    TEXTS_KEYS: 'Clés de traduction',
+    TEXTS_PLAIN: 'Textes simples',
+    TEXTS_HINT_KEYS: 'Le code lit les textes avec ngx-translate et les entrées du fichier anglais sont générées.',
+    TEXTS_HINT_PLAIN: 'Les textes sont écrits dans le code : aucune bibliothèque de traduction n’est nécessaire.',
+    SELECT_ONE: 'Choisissez au moins un composant.',
+    categories: {
+      Page: 'Page',
+      Data: 'Données',
+      Navigation: 'Navigation',
+      Content: 'Contenu',
+      Settings: 'Réglages'
+    },
+    components: {
+      'page-header': { t: 'En-tête de page', d: 'Icône, titre et sous-titre.' },
+      stat: { t: 'Chiffres clés', d: 'Quelques nombres avec un libellé et une tonalité.' },
+      'chip-nav': {
+        t: 'Boutons de catégories',
+        d: 'Icône, couleur et compteur pour parcourir par catégorie.'
+      },
+      segmented: { t: 'Contrôle segmenté', d: 'Un choix parmi quelques-uns : un réglage, une vue.' },
+      'language-switch': { t: 'Sélecteur de langue', d: 'Un menu ou des boutons pour choisir la langue.' },
+      'card-grid': { t: 'Grille de cartes', d: 'Icône, titre et description dans une grille adaptative.' },
+      table: {
+        t: 'Tableau de données',
+        d: 'Filtres, pagination, ajout / modification / suppression, et un tableau enfant.'
+      }
+    },
+    f: {
+      title: 'Titre',
+      subtitle: 'Sous-titre',
+      icon: 'Icône',
+      label: 'Libellé',
+      value: 'Valeur',
+      color: 'Couleur',
+      count: 'Nombre',
+      description: 'Description',
+      tone: 'Tonalité',
+      clickable: 'Cliquable',
+      name: 'Nom',
+      type: 'Type'
+    },
+    ADD_ROW: 'Ajouter',
+    REMOVE_ROW: 'Supprimer',
+    tones: {
+      neutral: 'Neutre',
+      accent: 'Accent',
+      success: 'Succès',
+      warning: 'Alerte',
+      danger: 'Danger'
+    },
+    MODEL: 'Modèle',
+    MODEL_GENERIC: 'Modèle générique (item1, item2, item3)',
+    MODEL_OWN: 'Mes propres champs',
+    FIELDS: 'Champs',
+    CHILD: 'Tableau enfant sous chaque ligne',
+    CAN_CREATE: 'Ajouter',
+    CAN_UPDATE: 'Modifier',
+    CAN_DELETE: 'Supprimer',
+    FILTERS: 'Filtres de colonnes',
+    PAGE_SIZE: 'Lignes par page',
+    types: { string: 'Texte', number: 'Nombre', boolean: 'Oui / non', date: 'Date' },
+    LAYOUT: 'Disposition',
+    layouts: { menu: 'Menu', inline: 'Boutons' },
+    DISPLAY: 'Affiche',
+    displays: { 'flag-name': 'Drapeau et nom', flag: 'Drapeau', name: 'Nom', code: 'Code' },
+    LANGUAGES: 'Langues',
+    ICON_ONLY: 'Icônes seulement',
+    SIZE: 'Taille',
+    COLUMNS: 'Colonnes',
+    PREVIEW: 'Aperçu',
+    PREVIEW_TABLE_NOTE: 'Le tableau est affiché avec des lignes d’exemple (le tableau enfant n’est pas affiché).',
+    CODE: 'Code généré',
+    TRANSLATIONS_TAB: 'Entrées anglaises',
+    TRANSLATIONS_HINT: 'Ajoutez ces entrées à votre fichier de traduction anglais. La commande le fait à votre place.',
+    NOTES: 'Bon à savoir',
+    COMMAND: 'Ou écrire les fichiers dans votre projet',
+    COMMAND_TEXT: 'Téléchargez la description, puis lancez la commande à la racine de votre projet Angular.',
+    DOWNLOAD: 'Télécharger la description',
+    COPY_COMMAND: 'Copier la commande',
+    ERROR: 'Cette page ne peut pas encore être générée'
   }
 };

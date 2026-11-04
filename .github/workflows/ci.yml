@@ -23,5 +23,9 @@ jobs:
       - run: npm test
         env:
           CHROME_BIN: /usr/bin/google-chrome
+      - name: Test the page generator
+        run: npm run test:generator
+      - name: Check that the generated pages compile
+        run: npm run check:generated
       - name: Inspect package contents
         run: cd dist/easy-mat-ui && npm pack --dry-run

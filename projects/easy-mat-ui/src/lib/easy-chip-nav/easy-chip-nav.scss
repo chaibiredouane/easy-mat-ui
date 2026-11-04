@@ -1,21 +1,27 @@
 :host {
+  --easy-accent: var(--color-primary-blue-strong, #1f6f8b);
+  --easy-on-accent: #ffffff;
+
   display: block;
   min-width: 0;
 }
 
-.continents {
+:host-context(body.dark-theme) {
+  --easy-on-accent: #0b1220;
+}
+
+.chips {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
 }
 
 /*
- * One colour per continent. `--c` is the strong colour (white text on it reaches 4.5:1 or more), `--c-soft` the
- * light one used for the icon on the dark theme. "All" takes the accent of the demo.
+ * `--c` is the colour of the item (its own, or the accent of the theme). A coloured item shows white text on its
+ * colour when chosen, so give it a colour dark enough for that (4.5:1 or more).
  */
 .chip {
-  --c: #475569;
-  --c-soft: #94a3b8;
+  --c: var(--easy-accent);
   --c-text: var(--c);
 
   display: inline-flex;
@@ -23,10 +29,10 @@
   gap: 8px;
   min-height: 42px;
   padding: 0 8px 0 12px;
-  border: 1px solid color-mix(in srgb, var(--c) 38%, var(--border-color));
+  border: 1px solid color-mix(in srgb, var(--c) 38%, var(--border-color, #e2e8f0));
   border-radius: 999px;
-  background: color-mix(in srgb, var(--c) 9%, var(--card-bg));
-  color: var(--card-text);
+  background: color-mix(in srgb, var(--c) 9%, var(--card-bg, #ffffff));
+  color: var(--card-text, #0f172a);
   font: inherit;
   font-size: 0.86rem;
   font-weight: 500;
@@ -47,17 +53,22 @@
     padding: 2px 8px;
     border-radius: 999px;
     background: color-mix(in srgb, var(--c) 16%, transparent);
-    color: var(--card-text);
+    color: inherit;
     font-size: 0.74rem;
     font-weight: 600;
     text-align: center;
     font-variant-numeric: tabular-nums;
-    transition: background-color 0.18s, color 0.18s;
+    transition: background-color 0.18s;
   }
 
-  &:hover:not(.on) {
+  /* No count: the text keeps the same space on the right as on the left. */
+  .t:last-child {
+    padding-inline-end: 4px;
+  }
+
+  &:hover:not(.on):not(:disabled) {
     border-color: var(--c);
-    background: color-mix(in srgb, var(--c) 16%, var(--card-bg));
+    background: color-mix(in srgb, var(--c) 16%, var(--card-bg, #ffffff));
     transform: translateY(-1px);
   }
 
@@ -73,8 +84,21 @@
 
     .n {
       background: rgba(255, 255, 255, 0.22);
-      color: #ffffff;
     }
+
+    /* The accent of the dark theme is light: dark text on it. */
+    &:not(.colored) {
+      color: var(--easy-on-accent);
+
+      mat-icon {
+        color: var(--easy-on-accent);
+      }
+    }
+  }
+
+  &:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
   }
 
   &:focus-visible {
@@ -83,35 +107,13 @@
   }
 }
 
-.c-all {
-  --c: var(--demo-accent);
-  --c-soft: var(--demo-accent);
-
-  &.on {
-    color: var(--demo-on-accent);
-
-    mat-icon,
-    .n {
-      color: var(--demo-on-accent);
-    }
-  }
+/* On the dark theme the icon of a coloured item uses a lighter shade of its colour. */
+:host-context(body.dark-theme) .chip.colored:not(.on) mat-icon {
+  color: color-mix(in srgb, var(--c) 55%, #ffffff);
 }
 
-.c-africa { --c: #b45309; --c-soft: #fbbf24; }
-.c-asia { --c: #be123c; --c-soft: #fb7185; }
-.c-europe { --c: #1d4ed8; --c-soft: #60a5fa; }
-.c-northAmerica { --c: #15803d; --c-soft: #4ade80; }
-.c-southAmerica { --c: #0f766e; --c-soft: #2dd4bf; }
-.c-oceania { --c: #7e22ce; --c-soft: #c084fc; }
-
-/* On the dark theme the icon uses the light shade of its colour. */
-:host-context(body.dark-theme) .chip:not(.on) mat-icon {
-  color: var(--c-soft);
-}
-
-/* On a phone the buttons scroll sideways in one line instead of taking several rows. */
 @media (max-width: 600px) {
-  .continents {
+  .chips {
     flex-wrap: nowrap;
     margin-inline: -12px;
     padding: 2px 12px 8px;

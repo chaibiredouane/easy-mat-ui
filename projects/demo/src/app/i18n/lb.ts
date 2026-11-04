@@ -62,7 +62,7 @@ export const LB: Dictionary = {
     FOOTER_CONTRIBUTE: 'Bäiträg si wëllkomm.',
     FOOTER_DATA: 'Demodaten: GeoNames (CC BY 4.0) a Wikipedia (CC BY-SA 4.0).'
   },
-  nav: { overview: 'Iwwersiicht', countries: 'Länner a Stied', tabs: 'Ënnergeuerdnet Tabs', cities: 'Stied' },
+  nav: { overview: 'Iwwersiicht', countries: 'Länner a Stied', tabs: 'Ënnergeuerdnet Tabs', cities: 'Stied', builder: 'Säiten-Builder' },
   continents: {
     ARIA: 'No Kontinent duerchsichen',
     all: 'All',
@@ -183,5 +183,92 @@ export const LB: Dictionary = {
       pr: 'E Pull Request opmaachen: mir kucken en zesumme duerch'
     },
     STAR_PLEASE: 'Wann d’Bibliothéik Iech hëlleft, hëlleft e Stär op GitHub anere Leit, se ze fannen.'
+  },
+  builder: {
+    TITLE: 'Säiten-Builder',
+    SUBTITLE: 'Wielt d’Komponenten aus, stellt se an a kritt Template, TypeScript a Modeller. De Befehl kann d’Dateie mat och an Äre Projet schreiwen.',
+    STEP_PAGE: 'Säit',
+    STEP_COMPONENTS: 'Komponenten',
+    STEP_SETTINGS: 'Astellungen',
+    PAGE_NAME: 'Numm vun der Säit',
+    PAGE_NAME_HINT: 'Klengbuschtawen mat Bindestricher. Dossier, Dateien a Selekter kommen doraus.',
+    TEXTS: 'Texter',
+    TEXTS_KEYS: 'Iwwersetzungsschlësselen',
+    TEXTS_PLAIN: 'Einfach Texter',
+    TEXTS_HINT_KEYS: 'De Code liest d’Texter mat ngx-translate an d’Entréen fir d’englesch Datei ginn erstallt.',
+    TEXTS_HINT_PLAIN: 'D’Texter stinn am Code: et brauch keng Iwwersetzungsbibliothéik.',
+    SELECT_ONE: 'Wielt mannst eng Komponent.',
+    categories: {
+      Page: 'Säit',
+      Data: 'Daten',
+      Navigation: 'Navigatioun',
+      Content: 'Inhalt',
+      Settings: 'Astellungen'
+    },
+    components: {
+      'page-header': { t: 'Säitekapp', d: 'Ikon, Titel an Ënnertitel.' },
+      stat: { t: 'Kennzuelen', d: 'E puer Zuelen mat Beschrëftung an Tonalitéit.' },
+      'chip-nav': { t: 'Kategorie-Knäppchen', d: 'Ikon, Faarf an Zuel fir no Kategorie ze sichen.' },
+      segmented: { t: 'Segmentéiert Auswiel', d: 'Eng Wiel ënner e puer: eng Astellung, eng Usiicht.' },
+      'language-switch': { t: 'Sproochauswiel', d: 'E Menü oder Knäppcher fir d’Sprooch ze wielen.' },
+      'card-grid': { t: 'Kaartenraster', d: 'Ikon, Titel a Beschreiwung an engem responsive Raster.' },
+      table: {
+        t: 'Datentabell',
+        d: 'Filteren, Säitenëmbroch, Derbäisetzen / Änneren / Läschen an eng Ënnertabell.'
+      }
+    },
+    f: {
+      title: 'Titel',
+      subtitle: 'Ënnertitel',
+      icon: 'Ikon',
+      label: 'Beschrëftung',
+      value: 'Wäert',
+      color: 'Faarf',
+      count: 'Zuel',
+      description: 'Beschreiwung',
+      tone: 'Tonalitéit',
+      clickable: 'Klickbar',
+      name: 'Numm',
+      type: 'Typ'
+    },
+    ADD_ROW: 'Derbäisetzen',
+    REMOVE_ROW: 'Ewechhuelen',
+    tones: {
+      neutral: 'Neutral',
+      accent: 'Akzent',
+      success: 'Erfolleg',
+      warning: 'Warnung',
+      danger: 'Gefor'
+    },
+    MODEL: 'Modell',
+    MODEL_GENERIC: 'Generescht Modell (item1, item2, item3)',
+    MODEL_OWN: 'Eegen Felder',
+    FIELDS: 'Felder',
+    CHILD: 'Ënnertabell ënner all Zeil',
+    CAN_CREATE: 'Derbäisetzen',
+    CAN_UPDATE: 'Änneren',
+    CAN_DELETE: 'Läschen',
+    FILTERS: 'Kolonnefilteren',
+    PAGE_SIZE: 'Zeilen pro Säit',
+    types: { string: 'Text', number: 'Zuel', boolean: 'Jo / Nee', date: 'Datum' },
+    LAYOUT: 'Duerstellung',
+    layouts: { menu: 'Menü', inline: 'Knäppchen' },
+    DISPLAY: 'Weist',
+    displays: { 'flag-name': 'Fändel an Numm', flag: 'Fändel', name: 'Numm', code: 'Code' },
+    LANGUAGES: 'Sproochen',
+    ICON_ONLY: 'Nëmmen Ikonen',
+    SIZE: 'Gréisst',
+    COLUMNS: 'Kolonnen',
+    PREVIEW: 'Virschau',
+    PREVIEW_TABLE_NOTE: 'D’Tabell gëtt mat Beispillzeilen gewisen (d’Ënnertabell net).',
+    CODE: 'Erstallte Code',
+    TRANSLATIONS_TAB: 'Englesch Entréeën',
+    TRANSLATIONS_HINT: 'Setzt dës Entréeën an Är englesch Iwwersetzungsdatei derbäi. De Befehl mécht dat fir Iech.',
+    NOTES: 'Gutt ze wëssen',
+    COMMAND: 'Oder d’Dateien an Äre Projet schreiwen',
+    COMMAND_TEXT: 'Luet d’Beschreiwung erof a féiert de Befehl am Haaptdossier vun Ärem Angular-Projet aus.',
+    DOWNLOAD: 'Beschreiwung eroflueden',
+    COPY_COMMAND: 'Befehl kopéieren',
+    ERROR: 'Dës Säit kann nach net erstallt ginn'
   }
 };

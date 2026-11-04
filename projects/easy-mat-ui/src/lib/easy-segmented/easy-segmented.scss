@@ -1,0 +1,125 @@
+:host {
+  /* Local tokens, with the values of the theme when it defines them. */
+  --easy-accent: var(--color-primary-blue-strong, #1f6f8b);
+  --easy-on-accent: #ffffff;
+  --easy-muted: var(--text-muted, color-mix(in srgb, var(--text-color, #0f172a) 62%, transparent));
+
+  display: inline-block;
+  max-width: 100%;
+}
+
+:host-context(body.dark-theme) {
+  --easy-on-accent: #0b1220;
+}
+
+.seg {
+  display: inline-flex;
+  gap: 2px;
+  max-width: 100%;
+  padding: 3px;
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--text-color, #0f172a) 4%, transparent);
+  overflow-x: auto;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  button {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 34px;
+    padding: 0 14px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--easy-muted);
+    font: inherit;
+    font-size: 0.82rem;
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 0.18s, color 0.18s, box-shadow 0.18s;
+
+    mat-icon {
+      width: 18px;
+      height: 18px;
+      font-size: 18px;
+    }
+
+    &:hover:not(.on):not(:disabled) {
+      background: var(--hover-color, rgba(0, 0, 0, 0.06));
+      color: var(--text-color, #0f172a);
+    }
+
+    &.on {
+      background: var(--easy-accent);
+      color: var(--easy-on-accent);
+      font-weight: 600;
+      box-shadow: 0 2px 8px -2px color-mix(in srgb, var(--easy-accent) 60%, transparent);
+    }
+
+    &:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--easy-accent);
+      outline-offset: 2px;
+    }
+
+    /* Icons only: round buttons. */
+    &.icon-only {
+      width: 34px;
+      min-width: 34px;
+      padding: 0;
+      border-radius: 50%;
+    }
+  }
+
+  &.lg {
+    button {
+      min-height: 38px;
+      padding: 0 16px;
+      font-size: 0.875rem;
+
+      &.icon-only {
+        width: 38px;
+        min-width: 38px;
+        padding: 0;
+      }
+    }
+  }
+
+  &.stretch {
+    display: flex;
+    width: 100%;
+
+    button {
+      flex: 1 1 0;
+    }
+  }
+}
+
+/* Narrow screens: only the chosen option keeps its text, which gives the other ones room. */
+@media (max-width: 600px) {
+  .seg.collapse-inactive {
+    button {
+      padding: 0 10px;
+
+      &:not(.on) .txt {
+        display: none;
+      }
+    }
+
+    &.stretch button.on {
+      flex: 3 1 0;
+    }
+  }
+}

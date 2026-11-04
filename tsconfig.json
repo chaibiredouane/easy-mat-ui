@@ -6,6 +6,9 @@
     "paths": {
       "easy-mat-ui-ng20": [
         "./projects/easy-mat-ui/src/public-api.ts"
+      ],
+      "@easy-mat-ui/page-generator": [
+        "./tools/page-generator/src/index.ts"
       ]
     },
     "outDir": "./dist/out-tsc",
