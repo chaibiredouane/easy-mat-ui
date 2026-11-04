@@ -9,6 +9,7 @@
     [customColumnFilter]="config.customColumnFilter"
     (searchTableFieldChange)="searchTableField = $event; applyFilterFromToolbar()"
     (applyFilterEvent)="applyFilter($event)"
+    (searchInput)="applyFilter($event)"
     (filterTypeEvent)="filterType()"
     (clearTableFilterEvent)="clearTableFilter()"
     (addItem)="onAddItem()"
