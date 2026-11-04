@@ -2,7 +2,8 @@ name: CI
 
 on:
   push:
-    branches: [main, 'ng[0-9]*']
+    branches: [main, develop, 'ng[0-9]*']
+  # Every pull request, whatever its target branch: `build-and-test` is the check the branch rules require.
   pull_request:
 
 permissions:

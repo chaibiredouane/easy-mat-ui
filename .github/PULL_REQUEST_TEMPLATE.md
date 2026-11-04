@@ -1,6 +1,8 @@
+<!-- Target branch: `develop`. Only a hotfix goes to `main`. See CONTRIBUTING.md. -->
+
 ## Description
 
-<!-- What does this change and why? -->
+<!-- What does this change and why? Add "Fixes #123" to close an issue. -->
 
 ## Type of change
 
@@ -11,6 +13,7 @@
 
 ## Checklist
 
+- [ ] The pull request targets `develop` (or `main` for a hotfix)
 - [ ] `npm run build` passes
 - [ ] `npm test` passes
 - [ ] Tests added or updated
