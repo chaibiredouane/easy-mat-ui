@@ -35,7 +35,7 @@ export function previewTable(block: TableBlock): EasyTableConfig<Record<string, 
     }
     return column;
   });
-  columns.push(new MatColumnTyped({ name: 'actions', headerIcon: 'rule', stickyClass: 'text-center' }));
+  columns.push(new MatColumnTyped({ name: 'actions', headerIcon: 'rule', stickyClass: 'text-center', headerClass: 'text-center' }));
 
   return new EasyTableConfig<Record<string, unknown>>({
     appearance: 'outline',

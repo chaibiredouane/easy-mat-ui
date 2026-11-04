@@ -27,5 +27,7 @@ jobs:
         run: npm run test:generator
       - name: Check that the generated pages compile
         run: npm run check:generated
+      - name: Check that the documentation examples compile
+        run: npm run check:examples
       - name: Inspect package contents
         run: cd dist/easy-mat-ui && npm pack --dry-run

@@ -9,12 +9,12 @@ const t = (key: string) => PREFIX + key;
 export function countryColumns(): MatColumnTyped[] {
   return [
     // An IMAGE column shows a flag from the country code ('dz' -> fi fi-dz).
-    new MatColumnTyped({ name: 'code', type: ColumnType.IMAGE, size: ColumnSize.Small, translateTitle: t('code') }),
+    new MatColumnTyped({ name: 'code', type: ColumnType.IMAGE, size: ColumnSize.Small, translateTitle: t('code'), headerClass: 'text-center' }),
     new MatColumnTyped({ name: 'name', translateTitle: t('name'), enableFilter: true, filterType: 'text' }),
     new MatColumnTyped({ name: 'isoCode', size: ColumnSize.Small, translateTitle: t('isoCode'), enableFilter: true }),
     new MatColumnTyped({ name: 'dialingCode', size: ColumnSize.Small, translateTitle: t('dialingCode') }),
     new MatColumnTyped({ name: 'capital', translateTitle: t('capital'), enableFilter: true, filterType: 'text' }),
-    new MatColumnTyped({ name: 'actions', headerIcon: 'rule', stickyClass: 'text-center' })
+    new MatColumnTyped({ name: 'actions', headerIcon: 'rule', stickyClass: 'text-center', headerClass: 'text-center' })
   ];
 }
 

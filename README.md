@@ -5,7 +5,7 @@
 [![Angular](https://img.shields.io/badge/Angular-20-dd0031.svg)](https://angular.dev)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-**[Live demo](__SITE_URL__/)** · **[Documentation](__SITE_URL__/docs/)** · [npm](https://www.npmjs.com/package/easy-mat-ui-ng20) · [Changelog](CHANGELOG.md)
+**[Live demo](https://easy-mat-ui.web.app/)** · **[Documentation](https://easy-mat-ui.web.app/docs/)** · [npm](https://www.npmjs.com/package/easy-mat-ui-ng20) · [Changelog](CHANGELOG.md)
 
 A set of customizable Angular Material components built around a configurable **data table**:
 filtering, sorting, pagination, typed columns, expandable rows, tabbed child tables, a toolbar,
@@ -156,7 +156,7 @@ npx easy-mat-ui add-page --name stock-items --blocks page-header,stat,table --dr
   `item2`, `item3`) is generated, with example rows and text, icon and action columns.
 - **Translations**: with ngx-translate the code uses translation keys, and the new entries are added to your English
   file. Without it the texts are written in the code. Nothing is ever installed.
-- **Prefer a screen?** The *Page builder* of the [live demo](__SITE_URL__/) does the same with a preview, and downloads
+- **Prefer a screen?** The *Page builder* of the [live demo](https://easy-mat-ui.web.app/) does the same with a preview, and downloads
   a description that `--config` reads. `--help` lists every option.
 
 ## Demo application
