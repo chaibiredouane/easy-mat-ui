@@ -39,7 +39,7 @@ export function cityColumns({ compact, localNames }: CityColumnsOptions): MatCol
     conditionFn: (item: CityRow) => item.isCapital,
     cssClassFn: (item: CityRow) => (item.isCapital ? 'yellow' : 'grey')
   });
-  const actions = new MatColumnTyped({ name: 'actions', headerIcon: 'rule', stickyClass: 'text-center' });
+  const actions = new MatColumnTyped({ name: 'actions', headerIcon: 'rule', stickyClass: 'text-center', headerClass: 'text-center' });
 
   if (compact) {
     return [
@@ -50,7 +50,7 @@ export function cityColumns({ compact, localNames }: CityColumnsOptions): MatCol
     ];
   }
   return [
-    new MatColumnTyped({ name: 'flag', type: ColumnType.IMAGE, size: ColumnSize.Small, translateTitle: t('flag') }),
+    new MatColumnTyped({ name: 'flag', type: ColumnType.IMAGE, size: ColumnSize.Small, translateTitle: t('flag'), headerClass: 'text-center' }),
     ...(localNames ? [new MatColumnTyped({ name: 'code', size: ColumnSize.XSmall, translateTitle: t('code') })] : []),
     new MatColumnTyped({ name: 'name', translateTitle: t('name'), enableFilter: true, filterType: 'text' }),
     ...(localNames ? [new MatColumnTyped({ name: 'nameAr', translateTitle: t('nameAr'), cssClass: 'rtl' })] : []),

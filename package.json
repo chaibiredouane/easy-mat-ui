@@ -1,6 +1,6 @@
 {
   "name": "easy-mat-ui-workspace",
-  "version": "20.0.2",
+  "version": "20.0.3",
   "private": true,
   "scripts": {
     "ng": "ng",
@@ -12,6 +12,7 @@
     "test": "ng test --watch=false --browsers=ChromeHeadless",
     "test:generator": "tsc -p tools/page-generator/tsconfig.json && node --test \"dist/page-generator/test/*.test.js\"",
     "check:generated": "node scripts/check-generated-pages.cjs",
+    "check:examples": "ngc -p projects/demo/tsconfig.examples.json",
     "pack": "npm run build && cd dist/easy-mat-ui && npm pack",
     "snippets": "node scripts/embed-snippets.cjs",
     "build:site": "npm run snippets && ng build demo --configuration production && node scripts/build-site.cjs"

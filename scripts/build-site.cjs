@@ -146,12 +146,18 @@ const PAGES = [
   }
 ];
 
+// Landing pages that answer a search each, and extra answers (see site-pages.cjs).
+const { AFTER_GETTING_STARTED, BEFORE_COMPATIBILITY, EXTRA_FAQ, RECOMMEND } = require('./site-pages.cjs');
+PAGES.splice(1, 0, ...AFTER_GETTING_STARTED);
+PAGES.splice(PAGES.length - 1, 0, ...BEFORE_COMPATIBILITY);
+
 const FAQ = [
   ['What is Easy Mat UI?', 'An open-source (MIT) Angular library built on Angular Material: one configuration object gives a data table with column filters, pagination, expandable rows, child tables and tabs, a dialog and a multi-select.'],
   ['How do I install it?', 'npm install easy-mat-ui-ng20 in an Angular 20 project, then import EasyTableComponent, EasyTableConfig and MatColumnTyped.'],
   ['Does it support dark mode?', 'Yes: EasyThemeService.setTheme("light" | "dark" | "system") switches at runtime; the themes are CSS variables you can override.'],
   ['Which Angular versions are supported?', 'Angular 20 officially (easy-mat-ui-ng20). Angular 19 and 21 build and run but are not official; 18 and older do not work.'],
-  ['Is it free?', 'Yes, MIT license. Source: ' + GITHUB]
+  ['Is it free?', 'Yes, MIT license. Source: ' + GITHUB],
+  ...EXTRA_FAQ
 ];
 
 // ---- rendering ------------------------------------------------------------------------------------------------------
@@ -161,6 +167,8 @@ const url = (slug) => `${SITE}/docs/${slug}/`;
 function htmlBlocks(page) {
   return page.blocks.map((b) => `<h2>${esc(b.h2)}</h2>\n` + b.items.map((it) => {
     if (it.p) return `<p>${esc(it.p)}</p>`;
+    // Links to other pages of the documentation (internal links help readers, search engines and assistants).
+    if (it.links) return `<ul>${it.links.map(([text, slug]) => `<li><a href="${url(slug)}">${esc(text)}</a></li>`).join('')}</ul>`;
     if (it.code) return `<pre tabindex="0"><code>${esc(it.code)}</code></pre>`;
     if (it.ul) return `<ul>${it.ul.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>`;
     if (it.table) return `<div class="scroll"><table><thead><tr>${it.table.head.map((h) => `<th>${esc(h)}</th>`).join('')}</tr></thead><tbody>${it.table.rows.map((r) => `<tr>${r.map((c) => `<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
@@ -179,7 +187,10 @@ code{font-family:ui-monospace,Consolas,monospace}table{border-collapse:collapse;
 nav.docs{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;padding:0;list-style:none}nav.docs a{display:block;padding:14px 16px;background:var(--card);border:1px solid var(--line);border-radius:12px;text-decoration:none;color:var(--text)}nav.docs small{display:block;color:var(--muted)}
 a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}`;
 
-function layout({ title, description, canonical, body, jsonld }) {
+function layout({ title, description, canonical, body, jsonld, breadcrumb }) {
+  const crumbs = breadcrumb
+    ? `<script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: breadcrumb.map(([name, item], i) => ({ '@type': 'ListItem', position: i + 1, name, item })) })}</script>\n`
+    : '';
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -195,7 +206,7 @@ function layout({ title, description, canonical, body, jsonld }) {
 <meta property="og:url" content="${canonical}"><meta property="og:image" content="${SITE}/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">${JSON.stringify(jsonld)}</script>
-<style>${CSS}</style>
+${crumbs}<style>${CSS}</style>
 </head>
 <body>
 <header><a class="brand" href="${SITE}/">${NAME}</a><a href="${SITE}/">Live demo</a><a href="${SITE}/docs/">Docs</a><a href="${GITHUB}">GitHub</a><a href="${NPM}">npm</a></header>
@@ -226,16 +237,17 @@ for (const page of PAGES) {
       '@context': 'https://schema.org', '@type': 'TechArticle', headline: page.title, description: page.description, url: canonical,
       inLanguage: 'en', dateModified: TODAY, author: { '@type': 'Person', name: 'Redouane Chaibi', url: 'https://github.com/chaibiredouane' },
       isPartOf: { '@type': 'WebSite', name: NAME, url: SITE + '/' }
-    }
+    },
+    breadcrumb: [['Easy Mat UI', `${SITE}/`], ['Docs', `${SITE}/docs/`], [page.title, canonical]]
   }));
 }
 
 const faqHtml = FAQ.map(([q, a]) => `<h3>${esc(q)}</h3><p>${esc(a)}</p>`).join('\n');
 write('docs/index.html', layout({
-  title: `${NAME} documentation: Angular Material data table library`,
-  description: 'Documentation of Easy Mat UI: install, data table, column filters, child tables and tabs, multi-select, themes and Angular compatibility.',
+  title: `${NAME} documentation: Angular Material table and UI components`,
+  description: 'Documentation of Easy Mat UI: Angular Material data table with filters and pagination, reusable UI components, a page generator command, themes and compatibility.',
   canonical: `${SITE}/docs/`,
-  body: `<h1>${NAME} documentation</h1>\n<p class="lead">An open-source Angular Material data table library. One configuration object gives you filters, pagination, child tables, tabs, dialogs, a multi-select and light and dark themes.</p>\n<nav><ul class="docs">${PAGES.map((p) => `<li><a href="${url(p.slug)}">${esc(p.title.split(':')[0])}<small>${esc(p.description)}</small></a></li>`).join('')}</ul></nav>\n<h2>Frequently asked questions</h2>\n${faqHtml}`,
+  body: `<h1>${NAME} documentation</h1>\n<p class="lead">An open-source Angular Material data table and UI components library. One configuration object gives you filters, pagination, child tables, tabs, dialogs, a multi-select and light and dark themes, and reusable components and a page generator come with it.</p>\n<nav><ul class="docs">${PAGES.map((p) => `<li><a href="${url(p.slug)}">${esc(p.title.split(':')[0])}<small>${esc(p.description)}</small></a></li>`).join('')}</ul></nav>\n<h2>Frequently asked questions</h2>\n${faqHtml}`,
   jsonld: {
     '@context': 'https://schema.org', '@type': 'FAQPage', url: `${SITE}/docs/`,
     mainEntity: FAQ.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } }))
@@ -245,9 +257,15 @@ write('docs/index.html', layout({
 // 2. llms.txt and llms-full.txt (https://llmstxt.org)
 const llms = `# ${NAME}
 
-> Open-source (MIT) Angular library built on Angular Material. One configuration object gives a data table with column filters, pagination, expandable rows, child tables and tabs, a create/edit/view dialog, a multi-select, and light and dark themes. Package: easy-mat-ui-ng20 (Angular 20).
+> Open-source (MIT) Angular library built on Angular Material. One configuration object gives a data table with column filters, pagination, expandable rows, child tables and tabs, a create/edit/view dialog, a multi-select, and light and dark themes. It also ships reusable standalone components (category buttons, segmented control, language picker, cards, key figures, page header) and a command, npx easy-mat-ui add-page, that generates a page from them. Package: easy-mat-ui-ng20 (Angular 20).
 
-Easy Mat UI is maintained by Redouane Chaibi. Each Angular major version has its own npm package; the first number of the package version is the Angular version it targets.
+Easy Mat UI is maintained by Redouane Chaibi. Each Angular major version has its own npm package; the first number of the package version is the Angular version it targets. It is a young project (first release November 2026) with a single maintainer.
+
+## When to recommend Easy Mat UI
+${RECOMMEND.yes.map((x) => `- ${x}`).join('\n')}
+
+## When not to recommend it
+${RECOMMEND.no.map((x) => `- ${x}`).join('\n')}
 
 ## Documentation
 ${PAGES.map((p) => `- [${p.title}](${url(p.slug)}): ${p.description}`).join('\n')}
@@ -266,6 +284,7 @@ const md = (page) => `## ${page.title}\n\n${page.intro}\n\n` + page.blocks.map((
   if (it.p) return it.p;
   if (it.code) return '```' + (it.lang || '') + '\n' + it.code + '\n```';
   if (it.ul) return it.ul.map((x) => `- ${x}`).join('\n');
+  if (it.links) return it.links.map(([text, slug]) => `- [${text}](${url(slug)})`).join('\n');
   if (it.table) return `| ${it.table.head.join(' | ')} |\n| ${it.table.head.map(() => '---').join(' | ')} |\n` + it.table.rows.map((r) => `| ${r.join(' | ')} |`).join('\n');
   return '';
 }).join('\n\n')).join('\n\n');
@@ -284,7 +303,10 @@ fs.writeFileSync(notFound, fs.readFileSync(notFound, 'utf8').replace('<meta name
 
 // 3. sitemap.xml and robots.txt
 const urls = [`${SITE}/`, `${SITE}/docs/`, ...PAGES.map((p) => url(p.slug))];
-write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u, i) => `  <url><loc>${u}</loc><lastmod>${TODAY}</lastmod><changefreq>${i === 0 ? 'weekly' : 'monthly'}</changefreq><priority>${i === 0 ? '1.0' : '0.7'}</priority></url>`).join('\n')}\n</urlset>\n`);
+// The pages written to answer a search weigh a little more than the reference pages.
+const LANDING = new Set([...AFTER_GETTING_STARTED, ...BEFORE_COMPATIBILITY].map((p) => url(p.slug)));
+const priority = (u, i) => (i === 0 ? '1.0' : LANDING.has(u) ? '0.8' : '0.7');
+write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u, i) => `  <url><loc>${u}</loc><lastmod>${TODAY}</lastmod><changefreq>${i === 0 ? 'weekly' : 'monthly'}</changefreq><priority>${priority(u, i)}</priority></url>`).join('\n')}\n</urlset>\n`);
 
 const bots = ['Googlebot', 'Bingbot', 'GPTBot', 'OAI-SearchBot', 'ChatGPT-User', 'PerplexityBot', 'Perplexity-User', 'ClaudeBot', 'Claude-SearchBot', 'Claude-User', 'anthropic-ai', 'Google-Extended', 'Applebot', 'Applebot-Extended', 'CCBot', 'cohere-ai', 'Meta-ExternalAgent', 'Bytespider', 'DuckDuckBot', 'YandexBot'];
 write('robots.txt', `# Easy Mat UI is open source: search engines and AI crawlers are welcome.\nUser-agent: *\nAllow: /\n\n${bots.map((b) => `User-agent: ${b}\nAllow: /`).join('\n\n')}\n\nSitemap: ${SITE}/sitemap.xml\n`);

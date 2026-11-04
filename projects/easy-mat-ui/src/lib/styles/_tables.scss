@@ -460,6 +460,11 @@ th.mat-sort-header-disabled {
   .mat-mdc-table td.mat-mdc-cell:not(.mat-column-actions) {
     min-width: 64px;
   }
+
+  /* The first title was cut at its right edge: leave room for it (and for the sort arrow). */
+  .mat-mdc-table th.mat-mdc-header-cell:first-child:not(.mat-column-actions):not(.text-center) {
+    padding-right: 20px;
+  }
 }
 
 /*
@@ -531,6 +536,25 @@ th.mat-sort-header-disabled {
   outline: none;
   border-color: var(--input-border-hover);
   box-shadow: var(--focus-ring);
+}
+
+/*
+ * Alignment of one header title, chosen per column with MatColumnTyped.headerClass (text-start, text-center, text-end).
+ * The label is a flex row, so text-align alone has no effect on it. Only headers that set a headerClass are touched.
+ */
+.mat-mdc-table th.has-header-class.text-center .header-label {
+  justify-content: center;
+  text-align: center;
+}
+
+.mat-mdc-table th.has-header-class.text-end .header-label {
+  justify-content: flex-end;
+  text-align: end;
+}
+
+.mat-mdc-table th.has-header-class.text-start .header-label {
+  justify-content: flex-start;
+  text-align: start;
 }
 
 /* Below 1024px the filters are folded away and opened from the filter button of the toolbar. */
