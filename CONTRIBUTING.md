@@ -133,8 +133,11 @@ git commit -am "Prepare 20.1.0"
 git push -u origin release/20.1.0      # pull request into main
 ```
 
-After the merge, tag `main`. The `Release` workflow then tests and publishes the package to npm, and the
-`Deploy site` workflow publishes the demo from `main`.
+After the merge, tag `main`. The `Release` workflow then tests the package, publishes it to npm (it skips this step when
+that version is already on npm, so it can be run again) and creates the GitHub release, whose notes are the section of
+that version in `CHANGELOG.md`. A tag whose version has no section in the changelog stops the workflow before anything
+is published, so write the section (the `Prepare` commit does it) before you tag. The `Deploy site` workflow publishes
+the demo from `main`.
 
 ```bash
 git checkout main && git pull

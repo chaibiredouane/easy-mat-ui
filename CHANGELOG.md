@@ -7,6 +7,9 @@ follows [Semantic Versioning](https://semver.org/) (see [Versioning](README.md#v
 ## [Unreleased]
 
 ### Added
+- The `Release` workflow creates the GitHub release with the section of the version in `CHANGELOG.md` as its notes
+  (`scripts/release-notes.cjs`, tested in the CI), and skips `npm publish` when that version is already on npm, so a
+  run can be repeated. Before, the release was only created after a successful publish, with generated notes.
 - Dependabot (`.github/dependabot.yml`): weekly pull requests for the npm dependencies and the GitHub Actions. The
   Angular packages update together, and a major update of the Angular packages, TypeScript, RxJS, ngx-translate,
   Bootstrap or flag-icons is left to a human.
