@@ -1,0 +1,25 @@
+name: Audit
+
+# Looks for known vulnerabilities in the dependencies of the workspace (the Angular packages the demo and the tests
+# build with, and their tooling). It is not one of the required checks: a new advisory must not block unrelated pull
+# requests, but it shows as a red cross on the branch and runs every week so that it is noticed.
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+  schedule:
+    - cron: '41 5 * * 1'
+
+permissions:
+  contents: read
+
+jobs:
+  npm-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Audit (fails on a high or critical advisory)
+        run: npm audit --audit-level=high
