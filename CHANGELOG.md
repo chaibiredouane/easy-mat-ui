@@ -6,6 +6,13 @@ follows [Semantic Versioning](https://semver.org/) (see [Versioning](README.md#v
 
 ## [Unreleased]
 
+## [20.0.5] - 2026-11-04
+
+### Fixed
+- README and install page: the install command now pins `@ngx-translate/core` and `@ngx-translate/http-loader` to
+  version 16. Without the version, npm installs the latest major, which the library does not support, and
+  `provideTranslateService({ defaultLanguage: 'en' })` fails to compile.
+
 ## [20.0.4] - 2026-11-04
 
 ### Added

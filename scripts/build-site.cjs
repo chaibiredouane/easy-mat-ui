@@ -32,7 +32,7 @@ const PAGES = [
         { ul: ['Angular 20 (package easy-mat-ui-ng20). Angular 19 and 21 build and run but are not officially supported.', 'Angular Material and CDK 20, @ngx-translate/core 16, Bootstrap 5, RxJS 7.', 'Optional: flag-icons for country flags.'] }
       ] },
       { h2: 'Install', items: [
-        { code: 'ng add @angular/material\nnpm install easy-mat-ui-ng20 @ngx-translate/core bootstrap', lang: 'bash' },
+        { code: 'ng add @angular/material\nnpm install easy-mat-ui-ng20 @ngx-translate/core@^16 bootstrap', lang: 'bash' },
         { p: 'Add the Material Icons font to index.html (ng add @angular/material normally does it):' },
         { code: '<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">', lang: 'html' }
       ] },
