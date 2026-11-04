@@ -1,11 +1,23 @@
-# easy-mat-ui
+<div align="center">
+
+<img src="https://raw.githubusercontent.com/chaibiredouane/easy-mat-ui/main/docs/images/logo.svg" alt="Easy Mat UI" width="300">
+
+**Data tables and reusable UI components for Angular Material.**
+
+Describe a table in one configuration object: column filters, pagination, a create / edit / view dialog, child tables and light and dark themes.
 
 [![npm](https://img.shields.io/npm/v/easy-mat-ui-ng20.svg)](https://www.npmjs.com/package/easy-mat-ui-ng20)
 [![CI](https://github.com/chaibiredouane/easy-mat-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/chaibiredouane/easy-mat-ui/actions/workflows/ci.yml)
 [![Angular](https://img.shields.io/badge/Angular-20-dd0031.svg)](https://angular.dev)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/chaibiredouane/easy-mat-ui/blob/main/LICENSE)
 
-**[Live demo](https://easy-mat-ui.web.app/)** · **[Try it on StackBlitz](https://stackblitz.com/github/chaibiredouane/easy-mat-ui/tree/main/examples/stackblitz-starter)** · **[Documentation](https://easy-mat-ui.web.app/docs/)** · [npm](https://www.npmjs.com/package/easy-mat-ui-ng20) · [Changelog](CHANGELOG.md)
+**[Live demo](https://easy-mat-ui.web.app/)** · **[Try it on StackBlitz](https://stackblitz.com/github/chaibiredouane/easy-mat-ui/tree/main/examples/stackblitz-starter)** · **[Documentation](https://easy-mat-ui.web.app/docs/)** · [npm](https://www.npmjs.com/package/easy-mat-ui-ng20) · [Changelog](https://github.com/chaibiredouane/easy-mat-ui/blob/main/CHANGELOG.md)
+
+<img src="https://raw.githubusercontent.com/chaibiredouane/easy-mat-ui/main/docs/images/demo.gif" alt="Easy Mat UI demo: filtering a table from its column headers, editing a row in a dialog, switching to dark mode, and the page builder" width="860">
+
+</div>
+
+> Angular Material gives you the building blocks. Easy Mat UI is a layer on top of it for the screens you rebuild in every project: a data table with its filters, pagination and edit dialog, described once.
 
 A set of customizable Angular Material components built around a configurable **data table**:
 filtering, sorting, pagination, typed columns, expandable rows, tabbed child tables, a toolbar,
@@ -30,6 +42,15 @@ a configurable **create / edit / view dialog** and a **multi-select** control, w
 - Responsive layout (tables adapt below 768 px and 1024 px) and no WCAG 2 A/AA violation reported by axe-core on the demo.
 - Shared models, enums and configuration classes exported from one entry point.
 
+## Screenshots
+
+Taken from the [live demo](https://easy-mat-ui.web.app/) (version 20.0.6), not mocked up.
+
+| Light | Dark |
+|---|---|
+| <img src="https://raw.githubusercontent.com/chaibiredouane/easy-mat-ui/main/docs/images/table-light.png" alt="A cities table in light mode: typed columns, flags, header filters, search and row actions"> | <img src="https://raw.githubusercontent.com/chaibiredouane/easy-mat-ui/main/docs/images/table-dark.png" alt="The same table in dark mode"> |
+| <img src="https://raw.githubusercontent.com/chaibiredouane/easy-mat-ui/main/docs/images/dialog-light.png" alt="The edit dialog, built from the same column definitions as the table"> | <img src="https://raw.githubusercontent.com/chaibiredouane/easy-mat-ui/main/docs/images/page-builder-light.png" alt="The page builder, which generates a page from the components you choose"> |
+
 ## Requirements and supported versions
 
 This package targets **Angular 20**. Each Angular major version has its own package so that applications
@@ -43,6 +64,14 @@ are never forced to upgrade:
 Peer dependencies: `@angular/core`, `@angular/common`, `@angular/forms`, `@angular/cdk`,
 `@angular/material`, `@angular/platform-browser` (all `^20.0.0`), `@ngx-translate/core` `^16`,
 `bootstrap` `^5`, `rxjs` `^7`. Optional: `@ngx-translate/http-loader`, `flag-icons` (country columns).
+
+## Status and limits
+
+- **A young project.** The first release (20.0.0) is from 3 November 2026, and the library is maintained by one person. Feedback and [contributions](https://github.com/chaibiredouane/easy-mat-ui/blob/main/CONTRIBUTING.md) are welcome; security reports go through [SECURITY.md](https://github.com/chaibiredouane/easy-mat-ui/blob/main/SECURITY.md).
+- **Angular 20.** There is one package per Angular major version (`easy-mat-ui-ng20`). `ng21` is planned, not released.
+- **Data is handled in the browser.** There is no server-side paging and no virtual scrolling. For hundreds of thousands of rows, or spreadsheet-style editing, use a grid built for that, such as AG Grid or TanStack Table.
+- **Click-to-sort is off when header filters are on** (`withFilterInHeader: true`). Use the global search, or leave the header filters off, if you need sorting.
+- **Checked on every pull request:** the build, the unit tests, a compile check of the pages the generator writes and of the code examples of the documentation.
 
 ## Installation
 

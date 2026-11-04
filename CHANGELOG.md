@@ -14,6 +14,11 @@ follows [Semantic Versioning](https://semver.org/) (see [Versioning](README.md#v
   unchanged: its peer dependency range stays `^20.0.0`, so applications keep choosing their own Angular version, and
   should be on a patched 20.3.x.
 
+### Changed
+- README: a logo, real screenshots and a short demonstration taken from the live demo, a one-paragraph summary of
+  what the library is for, and a "Status and limits" section (young project, Angular 20, data handled in the browser,
+  click-to-sort off with header filters). The screenshots and the logo are in `docs/images`.
+
 ## [20.0.6] - 2026-11-04
 
 ### Fixed
