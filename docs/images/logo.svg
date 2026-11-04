@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 96" role="img" aria-label="Easy Mat UI">
+  <g transform="translate(8 8) scale(1.25)">
+    <rect width="64" height="64" rx="14" fill="#1f6f8b"/>
+    <rect x="14" y="16" width="36" height="8" rx="2.5" fill="#ffffff"/>
+    <rect x="14" y="28" width="36" height="6" rx="2" fill="#ffffff" opacity=".85"/>
+    <rect x="14" y="38" width="36" height="6" rx="2" fill="#ffffff" opacity=".6"/>
+    <rect x="14" y="48" width="22" height="4" rx="2" fill="#ffffff" opacity=".4"/>
+    <circle cx="46" cy="50" r="5" fill="#f5a524"/>
+  </g>
+  <text x="108" y="62" font-family="'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="44" font-weight="700" fill="#12303b">Easy Mat UI</text>
+</svg>
