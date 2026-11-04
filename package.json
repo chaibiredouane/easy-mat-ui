@@ -6,9 +6,12 @@
     "ng": "ng",
     "start": "npm run snippets && ng serve demo",
     "build:demo": "npm run snippets && ng build demo --configuration development",
-    "build": "ng build easy-mat-ui",
+    "build": "ng build easy-mat-ui && npm run build:cli",
+    "build:cli": "tsc -p tools/page-generator/tsconfig.cli.json",
     "watch": "ng build easy-mat-ui --watch --configuration development",
     "test": "ng test --watch=false --browsers=ChromeHeadless",
+    "test:generator": "tsc -p tools/page-generator/tsconfig.json && node --test \"dist/page-generator/test/*.test.js\"",
+    "check:generated": "node scripts/check-generated-pages.cjs",
     "pack": "npm run build && cd dist/easy-mat-ui && npm pack",
     "snippets": "node scripts/embed-snippets.cjs",
     "build:site": "npm run snippets && ng build demo --configuration production && node scripts/build-site.cjs"
