@@ -70,7 +70,7 @@ const AFTER_GETTING_STARTED = [
         { code: "new EasyTableConfig<User>({\n  data: users,\n  displayedColumns: columns,\n  withFilterInHeader: true,\n  changePageSize: 10,   // rows per page\n  sortedBy: ''          // keep the order of your data\n});", lang: 'typescript' }
       ] },
       { h2: 'Sorting', items: [
-        { p: 'A click on a header sorts the column. By default the data is first ordered by the id property as text; set sortedBy to an empty string to keep the order your service gives, which is what you want for numbers or dates sorted on the server.' }
+        { p: 'A click on a header sorts the column. By default the data is first ordered by the id property (numbers as numbers, anything else as text); set sortedBy to an empty string to keep the order your service gives, which is what you want for dates, or for data your server already sorted.' }
       ] },
       { h2: 'On a phone', items: [
         { p: 'Below 1024 px the filters fold behind a filter button in the toolbar, and below 768 px the table adapts its layout. The toolbar keeps the search field and its buttons on one line on a narrow screen.' }
