@@ -56,6 +56,12 @@ export class MatColumnTyped {
   isOverwriting = false;
   readonly = false;
   stickyClass = '';
+  /**
+   * CSS class(es) added to the header cell of this column only, never to its body cells. With a class such as
+   * `text-center` or `text-end` the title (or header icon) is aligned accordingly, for example to centre the title of
+   * an icon column while the cells keep their own alignment. Empty by default: the header looks as before.
+   */
+  headerClass = '';
   isDynamic = false;
   displayColumn: string | null = null;
   filterValue: string | null = null;
