@@ -1,39 +1,68 @@
-<header class="bar">
-  <h1 class="brand-title">
-    <a class="brand" href="#" (click)="$event.preventDefault(); index.set(0)">
-      <mat-icon aria-hidden="true">widgets</mat-icon>
-      <span>Easy Mat UI</span>
-      <span class="ver">ng20 &middot; 20.0.0</span>
-    </a>
-  </h1>
-  <div class="spacer"></div>
-  <div class="theme" role="radiogroup" aria-label="Theme">
-    @for (t of themes; track t.id) {
-      <button type="button" role="radio" [attr.aria-checked]="mode() === t.id" [class.on]="mode() === t.id" [attr.aria-label]="t.label + ' theme'" [title]="t.label" (click)="setTheme(t.id)">
-        <mat-icon aria-hidden="true">{{ t.icon }}</mat-icon><span class="txt">{{ t.label }}</span>
-      </button>
-    }
-  </div>
-</header>
+<!-- `dir` keeps the Material components (tabs, menus, overlays) in step with the language: Arabic is right to left. -->
+<div class="shell" [dir]="lang.dir()">
+  <a class="skip" href="#content">{{ 'app.SKIP' | translate }}</a>
 
-<main>
-  <mat-tab-group class="showcase-tabs" mat-stretch-tabs="false" mat-align-tabs="start" animationDuration="150ms" [selectedIndex]="index()" (selectedIndexChange)="index.set($event)" aria-label="Demo pages">
-    @for (p of pages; track p.id) {
-      <mat-tab>
-        <ng-template mat-tab-label>
-          <mat-icon class="tab-icon" aria-hidden="true">{{ p.icon }}</mat-icon>{{ p.label }}
-        </ng-template>
-        <ng-template matTabContent>
-          <div class="page">
-            @switch (p.id) {
-              @case ('overview') { <app-overview (open)="open($event)" /> }
-              @case ('countries') { <app-countries /> }
-              @case ('tabs') { <app-country-tabs /> }
-              @case ('cities') { <app-cities /> }
-            }
-          </div>
-        </ng-template>
-      </mat-tab>
-    }
-  </mat-tab-group>
-</main>
+  <header class="bar">
+    <h1 class="brand-title">
+      <a class="brand" href="#" (click)="$event.preventDefault(); index.set(0)">
+        <mat-icon aria-hidden="true">widgets</mat-icon>
+        <span>Easy Mat UI</span>
+        <span class="ver">ng20 &middot; 20.0.0</span>
+      </a>
+    </h1>
+    <div class="spacer"></div>
+
+    <a class="ext" [href]="links.repo" target="_blank" rel="noopener noreferrer" [title]="'overview.OPEN_REPO' | translate">
+      <app-github-mark />
+      <span class="txt">{{ 'app.GITHUB' | translate }}</span>
+    </a>
+    <a class="ext npm" [href]="links.npm" target="_blank" rel="noopener noreferrer" [title]="'overview.CTA_NPM' | translate">
+      <span class="txt">{{ 'app.NPM' | translate }}</span>
+    </a>
+
+    <div class="theme" role="radiogroup" [attr.aria-label]="'app.THEME' | translate">
+      @for (t of themes; track t.id) {
+        <button type="button" role="radio" [attr.aria-checked]="mode() === t.id" [class.on]="mode() === t.id" [attr.aria-label]="'theme.ARIA' | translate: { name: ('theme.' + t.id | translate) }" [title]="'theme.' + t.id | translate" (click)="setTheme(t.id)">
+          <mat-icon aria-hidden="true">{{ t.icon }}</mat-icon><span class="txt">{{ 'theme.' + t.id | translate }}</span>
+        </button>
+      }
+    </div>
+
+    <app-language-switch />
+  </header>
+
+  <main id="content">
+    <mat-tab-group class="showcase-tabs" mat-stretch-tabs="false" mat-align-tabs="start" animationDuration="150ms" [selectedIndex]="index()" (selectedIndexChange)="index.set($event)" [attr.aria-label]="'app.PAGES' | translate">
+      @for (p of pages; track p.id) {
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon class="tab-icon" aria-hidden="true">{{ p.icon }}</mat-icon>{{ 'nav.' + p.id | translate }}
+          </ng-template>
+          <ng-template matTabContent>
+            <div class="page">
+              @switch (p.id) {
+                @case ('overview') { <app-overview (open)="open($event)" /> }
+                @case ('countries') { <app-countries /> }
+                @case ('tabs') { <app-country-tabs /> }
+                @case ('cities') { <app-cities /> }
+              }
+            </div>
+          </ng-template>
+        </mat-tab>
+      }
+    </mat-tab-group>
+  </main>
+
+  <footer class="foot">
+    <p class="open">
+      <strong>Easy Mat UI</strong> · {{ 'app.FOOTER_LICENSE' | translate }} {{ 'app.FOOTER_CONTRIBUTE' | translate }}
+    </p>
+    <nav class="links" [attr.aria-label]="'Easy Mat UI'">
+      <a [href]="links.repo" target="_blank" rel="noopener noreferrer"><app-github-mark /> {{ 'overview.OPEN_REPO' | translate }}</a>
+      <a [href]="links.contributing" target="_blank" rel="noopener noreferrer">{{ 'overview.OPEN_CONTRIBUTE' | translate }}</a>
+      <a [href]="links.newIssue" target="_blank" rel="noopener noreferrer">{{ 'overview.OPEN_ISSUES' | translate }}</a>
+      <a [href]="links.npm" target="_blank" rel="noopener noreferrer">npm</a>
+    </nav>
+    <p class="data">{{ 'app.FOOTER_DATA' | translate }}</p>
+  </footer>
+</div>

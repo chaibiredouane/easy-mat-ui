@@ -1,6 +1,34 @@
 :host {
   display: block;
+}
+
+/* The footer stays at the bottom of the window on short pages. */
+.shell {
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
+
+  main {
+    flex: 1;
+    width: 100%;
+  }
+}
+
+.skip {
+  position: absolute;
+  inset-inline-start: 8px;
+  top: -48px;
+  z-index: 20;
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  background: var(--demo-accent);
+  color: var(--demo-on-accent);
+  font-weight: 500;
+  text-decoration: none;
+
+  &:focus {
+    top: 8px;
+  }
 }
 
 .bar {
@@ -99,35 +127,141 @@
   }
 }
 
+/* GitHub and npm links of the header. */
+.ext {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 12px;
+  border-radius: 999px;
+  color: var(--card-text);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background: var(--hover-color);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--demo-accent);
+    outline-offset: 2px;
+  }
+
+  &.npm {
+    border: 1px solid var(--border-color);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+}
+
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 24px;
+  padding: 20px clamp(12px, 2vw, 40px);
+  border-top: 1px solid var(--border-color);
+  background: var(--card-bg);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+
+  p {
+    margin: 0;
+  }
+
+  .open strong {
+    color: var(--card-text);
+  }
+
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 16px;
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 32px;
+      color: var(--card-text);
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--demo-accent);
+        outline-offset: 2px;
+        border-radius: 4px;
+      }
+    }
+  }
+
+  .data {
+    flex-basis: 100%;
+    font-size: 0.78rem;
+  }
+}
+
 main {
+  /* Side margin of the page. */
+  --page-gutter: clamp(12px, 2vw, 40px);
+  /*
+   * Room kept around the content for box-shadows (the widest one, --shadow-md in the dark theme, reaches about
+   * 12px sideways). The body of a tab clips whatever overflows it, so the tab body is widened by this amount
+   * into the page margin (see styles.scss) and `.page` gives it back as padding: the layout does not move,
+   * and the shadows of the first and last cards are no longer cut. It can never exceed the real margin, so it
+   * cannot cause a horizontal scrollbar.
+   */
+  --shadow-room: min(var(--page-gutter), 16px);
+
   max-width: 2400px;
   margin: 0 auto;
-  padding: 8px clamp(12px, 2vw, 40px) 40px;
+  padding: 8px var(--page-gutter) 40px;
 }
 
 .page {
   padding-top: 8px;
+  padding-inline: var(--shadow-room);
   min-width: 0;
+}
+
+/* Below this width the header keeps brand, theme and language on one line; GitHub stays in the page and the footer. */
+@media (max-width: 420px) {
+  .ext {
+    display: none;
+  }
 }
 
 @media (max-width: 600px) {
   .bar {
+    flex-wrap: wrap; /* brand, links, theme and language do not fit on one line of a phone */
     padding: 6px 10px;
     gap: 6px;
   }
 
   .ver,
-  .theme .txt {
+  .theme .txt,
+  .ext .txt,
+  .ext.npm {
     display: none;
   }
 
   .theme button {
-    width: 44px;
+    width: 40px;
     min-height: 44px;
     padding: 0;
   }
 
   main {
-    padding: 4px 10px 32px;
+    --page-gutter: 12px;
+    padding-top: 4px;
+    padding-bottom: 32px;
   }
 }

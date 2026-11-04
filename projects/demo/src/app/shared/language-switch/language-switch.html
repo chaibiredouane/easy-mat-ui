@@ -1,0 +1,30 @@
+<button
+  type="button"
+  class="trigger"
+  [matMenuTriggerFor]="menu"
+  [attr.aria-label]="('app.CHOOSE_LANGUAGE' | translate) + ': ' + lang.current().name"
+  [title]="'app.CHOOSE_LANGUAGE' | translate">
+  <span class="fi fi-{{ lang.current().flag }} flag" aria-hidden="true"></span>
+  <span class="name" [attr.lang]="lang.current().code">{{ lang.current().name }}</span>
+  <mat-icon class="chevron" aria-hidden="true">expand_more</mat-icon>
+</button>
+
+<mat-menu #menu="matMenu" class="language-menu" xPosition="before">
+  @for (l of lang.languages; track l.code) {
+    <button
+      mat-menu-item
+      type="button"
+      class="option"
+      role="menuitemradio"
+      [attr.aria-checked]="l.code === lang.current().code"
+      [attr.lang]="l.code"
+      (click)="choose(l.code)">
+      <span class="fi fi-{{ l.flag }} flag" aria-hidden="true"></span>
+      <span class="label">{{ l.name }}</span>
+      @if (l.code === lang.current().code) {
+        <!-- A span, not a bare mat-icon: Material would move a direct mat-icon before the text of the item. -->
+        <span class="check" aria-hidden="true"><mat-icon>check</mat-icon></span>
+      }
+    </button>
+  }
+</mat-menu>

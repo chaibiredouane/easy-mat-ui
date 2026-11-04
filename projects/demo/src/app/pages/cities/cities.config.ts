@@ -1,6 +1,6 @@
 import { ColumnType, CRUD, EasyDialogInit, EasyTableConfig, EasyTableDialogRequest, MatColumnTyped, ToolbarConfig, ToolbarTranslations } from 'easy-mat-ui-ng20';
 import { City, CityRow } from '../../models/geo.model';
-import { formatPopulation, PopulationUnit } from '../../shared/population';
+import { formatPopulation, isRtlLocale, keepLtr, PopulationUnit } from '../../shared/population';
 
 const { ColumnSize, InputType } = MatColumnTyped;
 const PREFIX = 'cities.';
@@ -8,11 +8,15 @@ const t = (key: string) => PREFIX + key;
 
 /** Adds the values that are only there for display. The raw record, `population` included, is untouched. */
 export function cityRows(cities: City[], unit: PopulationUnit, locale: string, flag = ''): CityRow[] {
-  return cities.map((c) => ({ ...c, flag, populationLabel: formatPopulation(c.population, unit, locale) }));
+  const rtl = isRtlLocale(locale);
+  return cities.map((c) => {
+    const formatted = formatPopulation(c.population, unit, locale);
+    return { ...c, flag, populationFormatted: rtl ? keepLtr(formatted) : formatted };
+  });
 }
 
 /** Back to the record the service stores. */
-export function toCity({ flag, populationLabel, ...city }: CityRow): City {
+export function toCity({ flag, populationFormatted, ...city }: CityRow): City {
   return city;
 }
 
@@ -41,7 +45,7 @@ export function cityColumns({ compact, localNames }: CityColumnsOptions): MatCol
     return [
       new MatColumnTyped({ name: 'name', translateTitle: t('name') }),
       capital,
-      new MatColumnTyped({ name: 'populationLabel', translateTitle: t('populationLabel') }),
+      new MatColumnTyped({ name: 'populationFormatted', translateTitle: t('populationFormatted') }),
       actions
     ];
   }
@@ -51,8 +55,9 @@ export function cityColumns({ compact, localNames }: CityColumnsOptions): MatCol
     new MatColumnTyped({ name: 'name', translateTitle: t('name'), enableFilter: true, filterType: 'text' }),
     ...(localNames ? [new MatColumnTyped({ name: 'nameAr', translateTitle: t('nameAr'), cssClass: 'rtl' })] : []),
     capital,
-    new MatColumnTyped({ name: 'population', translateTitle: t('population') }),
-    new MatColumnTyped({ name: 'populationLabel', translateTitle: t('populationLabel') }),
+    // Text filters: they match any part of the value, so "12" finds 1,200,000 and "1.2" finds "1.2 M".
+    new MatColumnTyped({ name: 'population', translateTitle: t('population'), enableFilter: true, filterType: 'text' }),
+    new MatColumnTyped({ name: 'populationFormatted', translateTitle: t('populationFormatted'), enableFilter: true, filterType: 'text' }),
     actions
   ];
 }
@@ -66,9 +71,9 @@ export function cityDialogFields(): MatColumnTyped[] {
 }
 
 export function cityDialogForm(request: EasyTableDialogRequest<CityRow>): EasyDialogInit<CityRow> {
-  const empty = { id: 0, countryId: 0, name: '', population: null, isCapital: false, flag: '', populationLabel: '' };
+  const empty = { id: 0, countryId: 0, name: '', population: null, isCapital: false, flag: '', populationFormatted: '' };
   return {
-    title: 'City',
+    title: t('ENTITY'),
     titleField: 'name',
     action: request.action,
     data: request.action === CRUD.CREATE ? empty : request.data,

@@ -1,11 +1,7 @@
 export type PopulationUnit = 'auto' | 'units' | 'thousands' | 'millions';
 
-export const POPULATION_UNITS: { id: PopulationUnit; label: string; hint: string }[] = [
-  { id: 'auto', label: 'Auto', hint: 'K, M or B depending on the value' },
-  { id: 'units', label: 'Units', hint: 'Full number with thousands separators' },
-  { id: 'thousands', label: 'Thousands', hint: 'Always in K' },
-  { id: 'millions', label: 'Millions', hint: 'Always in M' }
-];
+/** Ids only: the label and the hint come from the dictionaries (`units.<id>` and `units.<id>_hint`). */
+export const POPULATION_UNITS: readonly PopulationUnit[] = ['auto', 'units', 'thousands', 'millions'];
 
 // #region population-format
 /**
@@ -46,7 +42,20 @@ function pickUnit(value: number): 'units' | 'thousands' | 'millions' | 'billions
 }
 // #endregion population-format
 
+/**
+ * Keeps "1.2 M" in reading order inside right-to-left text. Without it the bidirectional algorithm shows
+ * "M 1.2" in an Arabic table. It wraps the text in a left-to-right isolate (U+2066 ... U+2069).
+ */
+export function keepLtr(text: string): string {
+  return `⁦${text}⁩`;
+}
+
+/** Languages written right to left (the locale tag starts with their code). */
+export function isRtlLocale(locale: string): boolean {
+  return /^(ar|he|fa|ur)(-|$)/.test(locale);
+}
+
 /** Exact value with locale separators, used in tooltips. */
 export function exactPopulation(value: number | null | undefined, locale = 'en'): string {
-  return value == null ? 'No published value' : new Intl.NumberFormat(locale).format(value);
+  return value == null ? '—' : new Intl.NumberFormat(locale).format(value);
 }

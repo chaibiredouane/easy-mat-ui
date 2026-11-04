@@ -32,7 +32,7 @@ export function countryDialogFields(): MatColumnTyped[] {
 export function countryDialogForm(request: EasyTableDialogRequest<Country>): EasyDialogInit<Country> {
   const empty: Country = { id: 0, code: '', isoCode: '', name: '', dialingCode: '', capital: '' };
   return {
-    title: 'Country',
+    title: t('ENTITY'),
     titleField: 'name',
     action: request.action,
     data: request.action === CRUD.CREATE ? empty : request.data,
@@ -63,7 +63,7 @@ export function countryTable(ctx: CountryTableCtx): EasyTableConfig<Country> {
     canDelete: editable,
     prefix: PREFIX,
     displayedColumns: countryColumns(),
-    toolbarConfig: new ToolbarConfig({ icon: 'public', translations: new ToolbarTranslations({ title: 'Countries' }) }),
+    toolbarConfig: new ToolbarConfig({ icon: 'public', translations: new ToolbarTranslations({ title: t('TITLE') }) }),
     data: ctx.data,
     dialog: editable ? { add: true, edit: true, view: true, mode: 'open', form: countryDialogForm } : undefined
   });

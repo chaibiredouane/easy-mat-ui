@@ -1,12 +1,12 @@
 <app-page-header
   icon="location_city"
-  title="Cities of any country"
-  subtitle="Pick a country and its cities load on demand. One table, one configuration object: typed columns, header filters, status icons, pagination and a full add / edit / view / delete dialog.">
+  [title]="'pages.cities.title' | translate"
+  [subtitle]="'pages.cities.subtitle' | translate">
   <label class="country">
-    <span>Country</span>
-    <select (change)="onCountryChange($event)" aria-label="Country">
+    <span>{{ 'pages.cities.COUNTRY' | translate }}</span>
+    <select (change)="onCountryChange($event)" [attr.aria-label]="'pages.cities.COUNTRY' | translate">
       @for (c of countries; track c.id) {
-        <option [value]="c.id" [selected]="c.id === country.id">{{ c.name }}</option>
+        <option [value]="c.id" [selected]="c.id === country.id">{{ countryLabel(c) }}</option>
       }
     </select>
   </label>

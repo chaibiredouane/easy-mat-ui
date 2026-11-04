@@ -1,7 +1,7 @@
 <app-page-header
   icon="tab"
-  title="Child tables in tabs"
-  subtitle="Pass an array to childConfig and every configuration becomes a tab. Expand a country: the first tab lists all its cities (editable), the second its ten largest (read-only).">
+  [title]="'pages.tabs.title' | translate"
+  [subtitle]="'pages.tabs.subtitle' | translate">
   <app-unit-switch />
 </app-page-header>
 

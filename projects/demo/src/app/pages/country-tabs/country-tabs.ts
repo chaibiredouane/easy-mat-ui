@@ -1,9 +1,11 @@
 import { Component, effect, inject, OnInit, untracked } from '@angular/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { firstValueFrom } from 'rxjs';
 import { EasyTableComponent, EasyTableConfig, EasyTableDialogResult } from 'easy-mat-ui-ng20';
 import { City, CityRow, Country } from '../../models/geo.model';
 import { DisplaySettings } from '../../services/display-settings';
 import { GeoService } from '../../services/geo.service';
+import { LanguageService } from '../../services/language.service';
 import { CodePanel } from '../../shared/code-panel/code-panel';
 import { isSave } from '../../shared/dialog';
 import { PageHeader } from '../../shared/page-header/page-header';
@@ -14,13 +16,15 @@ import { cityTabs } from './country-tabs.config';
 
 @Component({
   selector: 'app-country-tabs',
-  imports: [EasyTableComponent, PageHeader, UnitSwitch, CodePanel],
+  imports: [EasyTableComponent, PageHeader, UnitSwitch, CodePanel, TranslatePipe],
   templateUrl: './country-tabs.html',
   styleUrl: './country-tabs.scss'
 })
 export class CountryTabs implements OnInit {
   private readonly api = inject(GeoService);
   private readonly display = inject(DisplaySettings);
+  private readonly translate = inject(TranslateService);
+  private readonly lang = inject(LanguageService);
 
   isReady = false;
   tableConfig!: EasyTableConfig<Country>;
@@ -32,7 +36,7 @@ export class CountryTabs implements OnInit {
   constructor() {
     effect(() => {
       this.display.unit();
-      this.display.locale();
+      this.lang.current();
       untracked(() => this.refreshTabs());
     });
   }
@@ -62,9 +66,11 @@ export class CountryTabs implements OnInit {
   }
 
   private refreshTabs(): void {
+    const name = this.current ? this.lang.countryName(this.current.isoCode, this.current.name) : '';
     this.tabsConfig = cityTabs({
       all: cityRows(this.cities, this.display.unit(), this.display.locale()),
-      countryName: this.current?.name ?? ''
+      allTitle: this.translate.instant('pages.CITIES_OF', { name }),
+      topTitle: this.translate.instant('pages.LARGEST_OF', { name })
     });
   }
 }

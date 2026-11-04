@@ -6,13 +6,15 @@ import { cityTable } from '../cities/cities.config';
 
 export interface CityTabsCtx {
   all: CityRow[];
-  countryName: string;
+  /** Toolbar titles, already translated. */
+  allTitle: string;
+  topTitle: string;
 }
 
-export function cityTabs({ all, countryName }: CityTabsCtx) {
+export function cityTabs({ all, allTitle, topTitle }: CityTabsCtx) {
   const top = [...all].sort((a, b) => (b.population ?? 0) - (a.population ?? 0)).slice(0, 10);
   return [
-    cityTable({ data: all, title: `Cities of ${countryName}`, compact: true, tab: { title: 'TABS.ALL', icon: 'location_city' } }),
-    cityTable({ data: top, title: `Largest cities of ${countryName}`, compact: true, readonly: true, tab: { title: 'TABS.TOP', icon: 'trending_up' } })
+    cityTable({ data: all, title: allTitle, compact: true, tab: { title: 'TABS.ALL', icon: 'location_city' } }),
+    cityTable({ data: top, title: topTitle, compact: true, readonly: true, tab: { title: 'TABS.TOP', icon: 'trending_up' } })
   ];
 }

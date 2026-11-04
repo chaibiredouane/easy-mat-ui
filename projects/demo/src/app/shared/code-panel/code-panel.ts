@@ -1,11 +1,12 @@
 import { Component, computed, input, signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import { TranslatePipe } from '@ngx-translate/core';
 import { SOURCES } from '../../generated/sources';
 
 /** Collapsible panel showing the real source files of a page (HTML, config, TypeScript, SCSS). */
 @Component({
   selector: 'app-code-panel',
-  imports: [MatIconModule],
+  imports: [MatIconModule, TranslatePipe],
   templateUrl: './code-panel.html',
   styleUrl: './code-panel.scss'
 })
@@ -18,11 +19,12 @@ export class CodePanel {
 
   readonly files = computed(() => {
     const name = this.folder().split('/').pop()!;
+    // `kind` selects the tooltip in the dictionary (`code.config`, `code.html`, ...).
     return [
-      { label: `${name}.config.ts`, hint: 'Columns, fields, table configuration', key: `${this.folder()}/${name}.config.ts` },
-      { label: `${name}.html`, hint: 'Template', key: `${this.folder()}/${name}.html` },
-      { label: `${name}.ts`, hint: 'Component', key: `${this.folder()}/${name}.ts` },
-      { label: `${name}.scss`, hint: 'Styles', key: `${this.folder()}/${name}.scss` }
+      { label: `${name}.config.ts`, kind: 'config', key: `${this.folder()}/${name}.config.ts` },
+      { label: `${name}.html`, kind: 'html', key: `${this.folder()}/${name}.html` },
+      { label: `${name}.ts`, kind: 'ts', key: `${this.folder()}/${name}.ts` },
+      { label: `${name}.scss`, kind: 'scss', key: `${this.folder()}/${name}.scss` }
     ].filter((f) => SOURCES[f.key] !== undefined);
   });
 

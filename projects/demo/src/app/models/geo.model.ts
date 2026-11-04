@@ -23,5 +23,5 @@ export interface City {
 /** A city row as shown in a table: the raw record plus values derived for display. */
 export interface CityRow extends City {
   flag: string;
-  populationLabel: string;
+  populationFormatted: string;
 }

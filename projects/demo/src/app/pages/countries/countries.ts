@@ -1,9 +1,11 @@
 import { Component, effect, inject, OnInit, untracked } from '@angular/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { firstValueFrom } from 'rxjs';
 import { EasyTableComponent, EasyTableConfig, EasyTableDialogResult } from 'easy-mat-ui-ng20';
 import { City, CityRow, Country } from '../../models/geo.model';
 import { DisplaySettings } from '../../services/display-settings';
 import { GeoService } from '../../services/geo.service';
+import { LanguageService } from '../../services/language.service';
 import { CodePanel } from '../../shared/code-panel/code-panel';
 import { isSave } from '../../shared/dialog';
 import { PageHeader } from '../../shared/page-header/page-header';
@@ -13,13 +15,15 @@ import { countryTable } from './countries.config';
 
 @Component({
   selector: 'app-countries',
-  imports: [EasyTableComponent, PageHeader, UnitSwitch, CodePanel],
+  imports: [EasyTableComponent, PageHeader, UnitSwitch, CodePanel, TranslatePipe],
   templateUrl: './countries.html',
   styleUrl: './countries.scss'
 })
 export class Countries implements OnInit {
   private readonly api = inject(GeoService);
   private readonly display = inject(DisplaySettings);
+  private readonly translate = inject(TranslateService);
+  private readonly lang = inject(LanguageService);
 
   isReady = false;
   tableConfig!: EasyTableConfig<Country>;
@@ -31,7 +35,7 @@ export class Countries implements OnInit {
   constructor() {
     effect(() => {
       this.display.unit();
-      this.display.locale();
+      this.lang.current();
       untracked(() => this.refreshChildTable());
     });
   }
@@ -80,7 +84,9 @@ export class Countries implements OnInit {
   private refreshChildTable(): void {
     this.tableChildConfig = cityTable({
       data: cityRows(this.cities, this.display.unit(), this.display.locale()),
-      title: this.current ? `Cities of ${this.current.name}` : 'Cities',
+      title: this.current
+        ? this.translate.instant('pages.CITIES_OF', { name: this.lang.countryName(this.current.isoCode, this.current.name) })
+        : this.translate.instant('cities.TITLE'),
       compact: true
     });
   }

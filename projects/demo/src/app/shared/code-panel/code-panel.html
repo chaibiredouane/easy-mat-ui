@@ -1,23 +1,24 @@
 <section class="panel">
   <button type="button" class="toggle" [attr.aria-expanded]="open()" (click)="open.set(!open())">
     <mat-icon aria-hidden="true">{{ open() ? 'expand_less' : 'code' }}</mat-icon>
-    <span>{{ open() ? 'Hide the code of this page' : 'Show the code of this page' }}</span>
-    <span class="count">{{ files().length }} files</span>
+    <span>{{ (open() ? 'code.HIDE' : 'code.SHOW') | translate }}</span>
+    <span class="count">{{ 'code.FILES' | translate: { count: files().length } }}</span>
   </button>
 
   @if (open()) {
     <div class="body">
-      <div class="tabs" role="tablist" aria-label="Source files">
+      <div class="tabs" role="tablist" [attr.aria-label]="'code.SOURCE_FILES' | translate">
         @for (f of files(); track f.key; let i = $index) {
-          <button type="button" role="tab" [attr.aria-selected]="active() === i" [class.on]="active() === i" [title]="f.hint" (click)="active.set(i)">{{ f.label }}</button>
+          <button type="button" role="tab" [attr.aria-selected]="active() === i" [class.on]="active() === i" [title]="'code.' + f.kind | translate" (click)="active.set(i)">{{ f.label }}</button>
         }
         <span class="spacer"></span>
-        <span class="meta">{{ lines() }} lines</span>
-        <button type="button" class="copy" (click)="copy()" aria-label="Copy this file">
-          <mat-icon aria-hidden="true">{{ copied() ? 'check' : 'content_copy' }}</mat-icon>{{ copied() ? 'Copied' : 'Copy' }}
+        <span class="meta">{{ 'code.LINES' | translate: { count: lines() } }}</span>
+        <button type="button" class="copy" (click)="copy()" [attr.aria-label]="'code.COPY_FILE' | translate">
+          <mat-icon aria-hidden="true">{{ copied() ? 'check' : 'content_copy' }}</mat-icon>{{ (copied() ? 'code.COPIED' : 'code.COPY') | translate }}
         </button>
       </div>
-      <pre tabindex="0"><code>{{ code() }}</code></pre>
+      <!-- Source code is always read left to right, whatever the language of the page. -->
+      <pre tabindex="0" dir="ltr"><code>{{ code() }}</code></pre>
     </div>
   }
 </section>

@@ -1,54 +1,137 @@
 <section class="hero">
-  <h2>Almost nothing to code.</h2>
-  <p class="lead">
-    Easy Mat UI turns a simple configuration object into a complete Angular Material data table with filters, dialogs,
-    child tables and tabs, light and dark themes. Browse the examples: each page lets you read its own code.
-  </p>
+  <span class="tag"><mat-icon aria-hidden="true">favorite</mat-icon>{{ 'overview.BADGE' | translate }}</span>
+  <h2>{{ 'overview.HERO_TITLE' | translate }}</h2>
+  <p class="lead">{{ 'overview.HERO_LEAD' | translate }}</p>
+
+  <div class="cta">
+    <button type="button" class="act primary" (click)="open.emit('cities')">
+      <mat-icon aria-hidden="true">play_arrow</mat-icon>{{ 'overview.EXPLORE' | translate }}
+    </button>
+    <a class="act" [href]="links.npm" target="_blank" rel="noopener noreferrer">
+      <mat-icon aria-hidden="true">inventory_2</mat-icon>{{ 'overview.CTA_NPM' | translate }}
+    </a>
+    <a class="act" [href]="links.repo" target="_blank" rel="noopener noreferrer">
+      <app-github-mark />{{ 'overview.CTA_GITHUB' | translate }}
+    </a>
+  </div>
+
+  <div class="install">
+    <code dir="ltr">{{ installCommand }}</code>
+    <button type="button" (click)="copyInstall()" [attr.aria-label]="'overview.INSTALL_COPY' | translate">
+      <mat-icon aria-hidden="true">{{ copied() ? 'check' : 'content_copy' }}</mat-icon>
+      @if (copied()) {
+        <span>{{ 'overview.INSTALL_COPIED' | translate }}</span>
+      }
+    </button>
+  </div>
+</section>
+
+<section class="open-card" aria-labelledby="open-title">
+  <mat-icon class="big" aria-hidden="true">volunteer_activism</mat-icon>
+  <div class="body">
+    <h3 id="open-title">{{ 'overview.OPEN_TITLE' | translate }}</h3>
+    <p>{{ 'overview.OPEN_TEXT' | translate }}</p>
+    <div class="act-row">
+      <a class="act small" [href]="links.repo" target="_blank" rel="noopener noreferrer"><app-github-mark />{{ 'overview.OPEN_REPO' | translate }}</a>
+      <a class="act small" [href]="links.contributing" target="_blank" rel="noopener noreferrer"><mat-icon aria-hidden="true">menu_book</mat-icon>{{ 'overview.OPEN_CONTRIBUTE' | translate }}</a>
+      <a class="act small" [href]="links.newIssue" target="_blank" rel="noopener noreferrer"><mat-icon aria-hidden="true">bug_report</mat-icon>{{ 'overview.OPEN_ISSUES' | translate }}</a>
+    </div>
+  </div>
+</section>
+
+<section class="block" aria-labelledby="features-title">
+  <h3 id="features-title">{{ 'overview.FEATURES_TITLE' | translate }}</h3>
+  <p class="muted">{{ 'overview.FEATURES_LEAD' | translate }}</p>
   <div class="actions">
-    @for (p of pages; track p.id) {
-      <button type="button" class="card" (click)="open.emit(p.id)">
-        <mat-icon aria-hidden="true">{{ p.icon }}</mat-icon>
-        <span class="t">{{ p.title }}</span>
-        <span class="d">{{ p.text }}</span>
-      </button>
+    @for (f of features; track f.id) {
+      @if (f.page) {
+        <button type="button" class="card" (click)="open.emit(f.page)">
+          <ng-container *ngTemplateOutlet="featureBody; context: { $implicit: f }" />
+          <span class="try">{{ 'overview.TRY' | translate }}<mat-icon aria-hidden="true">arrow_forward</mat-icon></span>
+        </button>
+      } @else {
+        <article class="card plain">
+          <ng-container *ngTemplateOutlet="featureBody; context: { $implicit: f }" />
+        </article>
+      }
     }
   </div>
 </section>
 
-<section class="steps" aria-label="How it works">
-  @for (s of steps; track s.title; let i = $index) {
+<ng-template #featureBody let-f>
+  <mat-icon aria-hidden="true">{{ f.icon }}</mat-icon>
+  <span class="t">{{ 'overview.features.' + f.id + '.t' | translate }}</span>
+  <span class="d">{{ 'overview.features.' + f.id + '.d' | translate }}</span>
+</ng-template>
+
+<section class="steps" [attr.aria-label]="'overview.STEPS_ARIA' | translate">
+  @for (s of steps; track s.id; let i = $index) {
     <article class="step">
       <span class="n" aria-hidden="true">{{ i + 1 }}</span>
       <mat-icon aria-hidden="true">{{ s.icon }}</mat-icon>
-      <h3>{{ s.title }}</h3>
-      <p>{{ s.text }}</p>
+      <h3>{{ 'overview.steps.' + s.id + '.t' | translate }}</h3>
+      <p>{{ 'overview.steps.' + s.id + '.d' | translate }}</p>
     </article>
   }
 </section>
 
 <section class="block">
-  <h3>The whole idea in 12 lines</h3>
-  <p class="muted">Install it, describe your table, put one component in the template.</p>
-  <pre tabindex="0"><code>{{ install }}</code></pre>
-  <pre tabindex="0"><code>{{ config }}</code></pre>
-  <pre tabindex="0"><code>{{ template }}</code></pre>
+  <h3>{{ 'overview.IDEA_TITLE' | translate }}</h3>
+  <p class="muted">{{ 'overview.IDEA_TEXT' | translate }}</p>
+  <pre tabindex="0" dir="ltr"><code>{{ installCommand }}</code></pre>
+  <pre tabindex="0" dir="ltr"><code>{{ config }}</code></pre>
+  <pre tabindex="0" dir="ltr"><code>{{ template }}</code></pre>
 </section>
 
 <section class="block">
-  <h3>Angular compatibility</h3>
-  <p class="muted">Checked by building and running the packaged library in clean applications.</p>
+  <h3>{{ 'overview.COMPAT_TITLE' | translate }}</h3>
+  <p class="muted">{{ 'overview.COMPAT_TEXT' | translate }}</p>
   <div class="scroll">
     <table>
-      <thead><tr><th>Angular</th><th>Status</th><th>Details</th></tr></thead>
+      <thead>
+        <tr>
+          <th>{{ 'overview.compat.ANGULAR' | translate }}</th>
+          <th>{{ 'overview.compat.STATUS' | translate }}</th>
+          <th>{{ 'overview.compat.DETAILS' | translate }}</th>
+        </tr>
+      </thead>
       <tbody>
         @for (c of compatibility; track c.angular) {
           <tr>
             <td>{{ c.angular }}</td>
-            <td><span class="pill" [class]="'pill ' + c.status">{{ c.label }}</span></td>
-            <td>{{ c.note }}</td>
+            <td><span class="pill" [class]="'pill ' + c.status">{{ 'overview.compat.' + c.status | translate }}</span></td>
+            <td>{{ 'overview.compat.' + c.note | translate }}</td>
           </tr>
         }
       </tbody>
     </table>
   </div>
+</section>
+
+<section class="block join" aria-labelledby="join-title">
+  <h3 id="join-title">{{ 'overview.CONTRIBUTE_TITLE' | translate }}</h3>
+  <p class="muted">{{ 'overview.CONTRIBUTE_LEAD' | translate }}</p>
+
+  <div class="actions">
+    @for (w of ways; track w.id) {
+      <article class="card plain">
+        <mat-icon aria-hidden="true">{{ w.icon }}</mat-icon>
+        <span class="t">{{ 'overview.ways.' + w.id + '.t' | translate }}</span>
+        <span class="d">{{ 'overview.ways.' + w.id + '.d' | translate }}</span>
+      </article>
+    }
+  </div>
+
+  <ol class="flow" [attr.aria-label]="'overview.FLOW_ARIA' | translate">
+    @for (f of flow; track f; let i = $index) {
+      <li><span class="n" aria-hidden="true">{{ i + 1 }}</span>{{ 'overview.flow.' + f | translate }}</li>
+    }
+  </ol>
+
+  <div class="act-row">
+    <a class="act primary" [href]="links.contributing" target="_blank" rel="noopener noreferrer"><mat-icon aria-hidden="true">menu_book</mat-icon>{{ 'overview.OPEN_CONTRIBUTE' | translate }}</a>
+    <a class="act" [href]="links.newIssue" target="_blank" rel="noopener noreferrer"><mat-icon aria-hidden="true">bug_report</mat-icon>{{ 'overview.OPEN_ISSUES' | translate }}</a>
+    <a class="act" [href]="links.repo" target="_blank" rel="noopener noreferrer"><app-github-mark />{{ 'overview.CTA_GITHUB' | translate }}</a>
+  </div>
+  <p class="muted star">{{ 'overview.STAR_PLEASE' | translate }}</p>
 </section>
