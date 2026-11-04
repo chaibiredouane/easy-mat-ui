@@ -56,8 +56,11 @@ Install the peer dependencies if your project does not have them yet:
 
 ```bash
 ng add @angular/material
-npm install @ngx-translate/core @ngx-translate/http-loader bootstrap
+npm install @ngx-translate/core@^16 @ngx-translate/http-loader@^16 bootstrap
 ```
+
+Keep ngx-translate on version 16: a plain `npm install @ngx-translate/core` installs a newer major version, which this
+library does not support yet (for example `provideTranslateService({ defaultLanguage: 'en' })` no longer compiles).
 
 The components use Material icons. `ng add @angular/material` normally takes care of it; otherwise add the
 font to your `index.html`:
