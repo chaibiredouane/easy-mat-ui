@@ -43,6 +43,8 @@ export class TableToolbarComponent {
 
   @Output() searchTableFieldChange = new EventEmitter<string>();
   @Output() applyFilterEvent = new EventEmitter<KeyboardEvent>();
+  /** Emitted on every change of the search field, including those that do not come with a key (paste, drop, autofill). */
+  @Output() searchInput = new EventEmitter<Event>();
   @Output() filterTypeEvent = new EventEmitter<void>();
   @Output() clearTableFilterEvent = new EventEmitter<void>();
   @Output() addItem = new EventEmitter<void>();
@@ -59,6 +61,10 @@ export class TableToolbarComponent {
 
   applyFilter(event: KeyboardEvent) {
     this.applyFilterEvent.emit(event);
+  }
+
+  onSearchInput(event: Event) {
+    this.searchInput.emit(event);
   }
 
   filterType() {

@@ -20,7 +20,7 @@
           <div class="toolbar-main">
           <mat-form-field class="underline-style flex-grow-1 min-width-200 toolbar-search">
             <mat-label>{{ config.translations.search | translate }}</mat-label>
-            <input matInput [(ngModel)]="searchTableField" (keyup)="applyFilter($event)" autocomplete="off"/>
+            <input matInput [(ngModel)]="searchTableField" (keyup)="applyFilter($event)" (input)="onSearchInput($event)" autocomplete="off"/>
             @if (showFilterOperator) {
               <button mat-icon-button matSuffix (click)="filterType()" [title]="getTitleFilterOperator() | translate">
                 <mat-icon [ngClass]="getIconFilterOperator()">{{ getIconFilterOperator() }}</mat-icon>
