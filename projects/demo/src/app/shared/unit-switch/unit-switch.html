@@ -1,8 +1,8 @@
 <div class="unit-switch">
-  <span class="label" id="unit-label">{{ 'units.LABEL' | translate }}</span>
-  <div class="seg" role="radiogroup" aria-labelledby="unit-label">
-    @for (u of units; track u) {
-      <button type="button" role="radio" [attr.aria-checked]="settings.unit() === u" [class.on]="settings.unit() === u" [title]="'units.' + u + '_hint' | translate" (click)="setUnit(u)">{{ 'units.' + u | translate }}</button>
-    }
-  </div>
+  <span class="label">{{ 'units.LABEL' | translate }}</span>
+  <lib-easy-segmented
+    [options]="options()"
+    [selected]="settings.unit()"
+    [ariaLabel]="'units.LABEL' | translate"
+    (selectedChange)="setUnit($event)" />
 </div>

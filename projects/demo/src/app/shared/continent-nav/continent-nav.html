@@ -1,14 +1,5 @@
-<nav class="continents" [attr.aria-label]="'continents.ARIA' | translate">
-  @for (c of items(); track c.id) {
-    <button
-      type="button"
-      class="chip c-{{ c.id }}"
-      [class.on]="selected() === c.id"
-      [attr.aria-pressed]="selected() === c.id"
-      (click)="selected.set(c.id)">
-      <mat-icon aria-hidden="true">{{ c.icon }}</mat-icon>
-      <span class="t">{{ 'continents.' + c.id | translate }}</span>
-      <span class="n">{{ c.count }}</span>
-    </button>
-  }
-</nav>
+<lib-easy-chip-nav
+  [items]="items()"
+  [selected]="selected()"
+  [ariaLabel]="'continents.ARIA' | translate"
+  (selectedChange)="selected.set($any($event))" />

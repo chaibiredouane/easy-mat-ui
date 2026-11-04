@@ -27,6 +27,8 @@ export interface EasyCardConfig {
   actions?: EasyCardAction[];
   /** The whole card is a button (it emits `cardClick`). Ignored when the card has actions. */
   clickable?: boolean;
+  /** For a clickable card: a short invitation at the bottom, shown with an arrow ("Try it"). */
+  cta?: string;
 }
 
 /** Emitted when an action of a card is used. */

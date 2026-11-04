@@ -5,6 +5,8 @@
 
   display: block;
   min-width: 0;
+  /* The layout of the card depends on its own width (see the container query below), not on the screen. */
+  container-type: inline-size;
 }
 
 :host-context(body.dark-theme) {
@@ -60,12 +62,77 @@
   }
 }
 
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: auto;
+  padding-top: 10px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--easy-accent);
+
+  mat-icon {
+    width: 16px;
+    height: 16px;
+    font-size: 16px;
+  }
+}
+
+/* The arrow points the way the text reads. */
+:host-context([dir='rtl']) .cta mat-icon {
+  transform: scaleX(-1);
+}
+
 .actions {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   margin-top: auto;
   padding-top: 12px;
+}
+
+/* A wide card puts its icon beside the text, so it is low instead of tall and empty. */
+@container (min-width: 380px) {
+  .card {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-content: start;
+    align-items: start;
+    column-gap: 16px;
+    padding: 20px 22px;
+
+    .icon {
+      grid-row: 1 / span 4;
+      width: 28px;
+      height: 28px;
+      margin-top: 2px;
+      font-size: 28px;
+    }
+
+    .title,
+    .description,
+    .cta,
+    .actions {
+      grid-column: 2;
+    }
+
+    .title {
+      margin-top: 0;
+    }
+
+    /* A card without icon uses the whole width. */
+    &:not(:has(.icon)) {
+      grid-template-columns: minmax(0, 1fr);
+
+      .title,
+      .description,
+      .cta,
+      .actions {
+        grid-column: 1;
+      }
+    }
+  }
 }
 
 .action {

@@ -49,6 +49,13 @@ describe('EasyCard', () => {
     expect(emitted).toEqual([config]);
   });
 
+  it('shows the invitation of a clickable card, and only for a card that is a button', () => {
+    setup({ title: 'Table', clickable: true, cta: 'Try it' });
+    expect(el('.cta')!.textContent).toContain('Try it');
+    setup({ title: 'Table', cta: 'Try it' });
+    expect(el('.cta')).toBeNull();
+  });
+
   it('is not a button when it has actions, even if it is clickable', () => {
     setup({ title: 'With actions', clickable: true, actions: [{ id: 'go', label: 'Go' }] });
     expect(el('button.card')).toBeNull();

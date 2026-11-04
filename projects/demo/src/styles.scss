@@ -41,38 +41,6 @@ code {
   color: var(--code-color);
 }
 
-/* Language menu (an overlay, so its rules cannot live in the component). */
-.language-menu .mat-mdc-menu-item .mat-mdc-menu-item-text {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  width: 100%;
-  min-width: 190px;
-}
-
-.language-menu .option .label {
-  flex: 1;
-}
-
-.language-menu .option .check {
-  display: inline-flex;
-  color: var(--demo-accent);
-}
-
-.language-menu .option .check .mat-icon {
-  margin: 0;
-}
-
-/* Arabic letters look small next to Latin ones at the same size. */
-.language-menu .option[lang='ar'] .label {
-  font-size: 1.12em;
-}
-
-.language-menu .option[aria-checked='true'] {
-  background: var(--hover-color);
-  font-weight: 500;
-}
-
 /* Arabic names. */
 .rtl {
   direction: rtl;

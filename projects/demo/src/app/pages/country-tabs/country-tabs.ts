@@ -1,14 +1,13 @@
 import { Component, effect, inject, OnInit, untracked } from '@angular/core';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { firstValueFrom } from 'rxjs';
-import { EasyTableComponent, EasyTableConfig, EasyTableDialogResult } from 'easy-mat-ui-ng20';
+import { EasyPageHeader, EasyTableComponent, EasyTableConfig, EasyTableDialogResult } from 'easy-mat-ui-ng20';
 import { City, CityRow, Country } from '../../models/geo.model';
 import { DisplaySettings } from '../../services/display-settings';
 import { GeoService } from '../../services/geo.service';
 import { LanguageService } from '../../services/language.service';
 import { CodePanel } from '../../shared/code-panel/code-panel';
 import { isSave } from '../../shared/dialog';
-import { PageHeader } from '../../shared/page-header/page-header';
 import { UnitSwitch } from '../../shared/unit-switch/unit-switch';
 import { cityRows, toCity } from '../cities/cities.config';
 import { countryTable } from '../countries/countries.config';
@@ -16,7 +15,7 @@ import { cityTabs } from './country-tabs.config';
 
 @Component({
   selector: 'app-country-tabs',
-  imports: [EasyTableComponent, PageHeader, UnitSwitch, CodePanel, TranslatePipe],
+  imports: [EasyTableComponent, EasyPageHeader, UnitSwitch, CodePanel, TranslatePipe],
   templateUrl: './country-tabs.html',
   styleUrl: './country-tabs.scss'
 })

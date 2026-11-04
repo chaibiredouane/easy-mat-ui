@@ -1,7 +1,8 @@
-import { NgTemplateOutlet } from '@angular/common';
-import { Component, output, signal } from '@angular/core';
+import { Component, computed, inject, output, signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { EasyCardConfig, EasyCardGrid } from 'easy-mat-ui-ng20';
+import { LanguageService } from '../../services/language.service';
 import { GithubMark } from '../../shared/github-mark/github-mark';
 import { LINKS } from '../../shared/links';
 
@@ -11,11 +12,14 @@ import { LINKS } from '../../shared/links';
  */
 @Component({
   selector: 'app-overview',
-  imports: [MatIconModule, TranslatePipe, GithubMark, NgTemplateOutlet],
+  imports: [MatIconModule, TranslatePipe, GithubMark, EasyCardGrid],
   templateUrl: './overview.html',
   styleUrl: './overview.scss'
 })
 export class Overview {
+  private readonly translate = inject(TranslateService);
+  private readonly lang = inject(LanguageService);
+
   /** Asks the shell to open another page. */
   readonly open = output<string>();
 
@@ -49,6 +53,36 @@ export class Overview {
   ] as const;
 
   readonly flow = ['fork', 'branch', 'pr'] as const;
+
+  // The two grids below are lib-easy-card-grid of easy-mat-ui: the demo only gives it the texts of its dictionaries.
+  readonly featureCards = computed<EasyCardConfig[]>(() => {
+    this.lang.current(); // the texts change with the language
+    const t = (key: string) => this.translate.instant(key);
+    return this.features.map((feature) => ({
+      id: feature.id,
+      icon: feature.icon,
+      title: t(`overview.features.${feature.id}.t`),
+      description: t(`overview.features.${feature.id}.d`),
+      clickable: !!feature.page,
+      cta: feature.page ? t('overview.TRY') : undefined
+    }));
+  });
+
+  readonly wayCards = computed<EasyCardConfig[]>(() => {
+    this.lang.current();
+    return this.ways.map((way) => ({
+      id: way.id,
+      icon: way.icon,
+      title: this.translate.instant(`overview.ways.${way.id}.t`),
+      description: this.translate.instant(`overview.ways.${way.id}.d`)
+    }));
+  });
+
+  /** A card that leads to a demo page was used: open that page. */
+  onFeature(card: EasyCardConfig): void {
+    const page = this.features.find((feature) => feature.id === card.id)?.page;
+    if (page) this.open.emit(page);
+  }
 
   readonly installCommand = 'npm install easy-mat-ui-ng20';
 

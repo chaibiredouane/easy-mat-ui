@@ -1,9 +1,7 @@
-<app-page-header
-  icon="location_city"
-  [title]="'pages.cities.title' | translate"
-  [subtitle]="'pages.cities.subtitle' | translate">
+<lib-easy-page-header
+  [config]="{ icon: 'location_city', title: ('pages.cities.title' | translate), subtitle: ('pages.cities.subtitle' | translate) }">
   <app-unit-switch />
-</app-page-header>
+</lib-easy-page-header>
 
 <app-continent-nav [isoCodes]="isoCodes()" [(selected)]="continent" />
 
@@ -26,16 +24,16 @@
 
     @if (country()) {
       <!-- The country itself is already in the dropdown: only the figures are repeated here. -->
-      <dl class="stats">
-        <div class="stat">
-          <dt>{{ 'pages.cities.STAT_CITIES' | translate }}</dt>
-          <dd>{{ cityCount() }}</dd>
-        </div>
-        <div class="stat">
-          <dt>{{ 'pages.cities.STAT_TOTAL' | translate }}</dt>
-          <dd class="big" [title]="totalExact() + ' · ' + ('pages.cities.STAT_TOTAL_HINT' | translate)">{{ totalFormatted() }}</dd>
-        </div>
-      </dl>
+      <div class="stats">
+        <lib-easy-stat [config]="{ label: ('pages.cities.STAT_CITIES' | translate), value: cityCount() }" />
+        <lib-easy-stat
+          [config]="{
+            label: ('pages.cities.STAT_TOTAL' | translate),
+            value: totalFormatted(),
+            hint: totalExact() + ' · ' + ('pages.cities.STAT_TOTAL_HINT' | translate),
+            tone: 'accent'
+          }" />
+      </div>
     }
   </section>
 

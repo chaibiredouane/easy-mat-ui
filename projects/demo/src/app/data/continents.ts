@@ -5,17 +5,19 @@ export interface Continent {
   id: ContinentFilter;
   /** Material icon: no continent has an icon of its own, so each one gets a symbol of its landscape. */
   icon: string;
+  /** Colour of the button (white text on it reaches 4.5:1 or more). "All" has none: it takes the accent of the theme. */
+  color?: string;
 }
 
 /** `all` first, then the continents in the order of the navigation. */
 export const CONTINENTS: readonly Continent[] = [
   { id: 'all', icon: 'public' },
-  { id: 'africa', icon: 'wb_sunny' },
-  { id: 'asia', icon: 'temple_buddhist' },
-  { id: 'europe', icon: 'castle' },
-  { id: 'northAmerica', icon: 'location_city' },
-  { id: 'southAmerica', icon: 'forest' },
-  { id: 'oceania', icon: 'surfing' }
+  { id: 'africa', icon: 'wb_sunny', color: '#b45309' },
+  { id: 'asia', icon: 'temple_buddhist', color: '#be123c' },
+  { id: 'europe', icon: 'castle', color: '#1d4ed8' },
+  { id: 'northAmerica', icon: 'location_city', color: '#15803d' },
+  { id: 'southAmerica', icon: 'forest', color: '#0f766e' },
+  { id: 'oceania', icon: 'surfing', color: '#7e22ce' }
 ];
 
 /**
