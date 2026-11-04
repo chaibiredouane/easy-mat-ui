@@ -12,6 +12,7 @@ follows [Semantic Versioning](https://semver.org/) (see [Versioning](README.md#v
 - `MatColumnTyped.headerClass`: CSS class(es) for the header cell of one column, for example `text-center` to centre the
   title of an icon column (Actions, Flag), even in first position. It is applied to the header only, never to the cells,
   and is empty by default, so existing tables look as before.
+  The demo uses it to centre the title of its flag and actions columns.
 
 ### Fixed
 - Table on a phone: the first column title was cut at its right edge; it now has room on the right.

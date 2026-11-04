@@ -462,7 +462,7 @@ th.mat-sort-header-disabled {
   }
 
   /* The first title was cut at its right edge: leave room for it (and for the sort arrow). */
-  .mat-mdc-table th.mat-mdc-header-cell:first-child:not(.mat-column-actions) {
+  .mat-mdc-table th.mat-mdc-header-cell:first-child:not(.mat-column-actions):not(.text-center) {
     padding-right: 20px;
   }
 }
