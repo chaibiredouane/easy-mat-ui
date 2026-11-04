@@ -49,27 +49,36 @@ function modelFile(model: ModelSpec): GeneratedFile {
   return { path: `${model.fileBase}.model.ts`, role: 'model', content: `export class ${model.className} {\n${lines.join('\n')}\n}\n` };
 }
 
-/** Example rows, so the page shows something as soon as it is generated. */
-function sampleRows(model: ModelSpec, name: string, count: number, parentCount: number, isChild: boolean): string {
+export type SampleValue = string | number | boolean | Date;
+
+/**
+ * Example rows, so a page shows something as soon as it is generated. A child row points to a parent with `parentId`.
+ * The Builder of the demo shows these same rows in its preview.
+ */
+export function sampleRecords(model: ModelSpec, count: number, parentCount = 0, isChild = false): Record<string, SampleValue>[] {
   const keyName = keyFieldOf(model).name;
-  const rows = Array.from({ length: count }, (_, i) => {
+  return Array.from({ length: count }, (_, i) => {
     const n = i + 1;
-    const properties = model.fields.map((field) => {
-      if (field.name === keyName) return `${field.name}: ${field.type === 'number' ? n : quote(String(n))}`;
-      if (isChild && field.name === 'parentId') return `${field.name}: ${(i % Math.max(1, parentCount)) + 1}`;
-      switch (field.type) {
-        case 'string':
-          return `${field.name}: ${quote(`${field.name} ${n}`)}`;
-        case 'number':
-          return `${field.name}: ${n * 10}`;
-        case 'boolean':
-          return `${field.name}: ${n % 2 === 1}`;
-        case 'date':
-          return `${field.name}: new Date(2026, 0, ${n})`;
-      }
-    });
-    return `  { ${properties.join(', ')} }`;
+    const row: Record<string, SampleValue> = {};
+    for (const field of model.fields) {
+      if (field.name === keyName) row[field.name] = field.type === 'number' ? n : String(n);
+      else if (isChild && field.name === 'parentId') row[field.name] = (i % Math.max(1, parentCount)) + 1;
+      else if (field.type === 'string') row[field.name] = `${field.name} ${n}`;
+      else if (field.type === 'number') row[field.name] = n * 10;
+      else if (field.type === 'boolean') row[field.name] = n % 2 === 1;
+      else row[field.name] = new Date(2026, 0, n);
+    }
+    return row;
   });
+}
+
+const literal = (value: SampleValue): string => (value instanceof Date ? `new Date(2026, 0, ${value.getDate()})` : typeof value === 'string' ? quote(value) : String(value));
+
+/** The example rows as a TypeScript constant. */
+function sampleRows(model: ModelSpec, name: string, count: number, parentCount: number, isChild: boolean): string {
+  const rows = sampleRecords(model, count, parentCount, isChild).map(
+    (record) => `  { ${model.fields.map((field) => `${field.name}: ${literal(record[field.name])}`).join(', ')} }`
+  );
   // Properties that are left out would be missing from the rows: the cast says that it is intended.
   const cast = model.ignored?.length ? ` as ${model.className}[]` : '';
   return `const ${name}: ${model.className}[] = [\n${rows.join(',\n')}\n]${cast};`;

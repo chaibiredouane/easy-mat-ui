@@ -53,6 +53,12 @@
         @case ('countries') { <app-countries /> }
         @case ('tabs') { <app-country-tabs /> }
         @case ('cities') { <app-cities /> }
+        <!-- The builder and the page generator are loaded when the page is opened, not with the application. -->
+        @case ('builder') {
+          @defer {
+            <app-builder />
+          }
+        }
       }
     </div>
   </main>

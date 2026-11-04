@@ -165,8 +165,14 @@ export function generatePage(config: PageConfig): GenerationResult {
   if (config.blocks.some((block) => block.type === 'language-switch' && block.languages.some((language) => language.flag))) {
     warnings.push('Flags use the flag-icons stylesheet: npm install flag-icons, then add "node_modules/flag-icons/css/flag-icons.min.css" to the styles of angular.json.');
   }
-  if (config.blocks.some((block) => block.type === 'table' && block.model.generate)) {
-    warnings.push('The model and the rows are placeholders (item1, item2...): rename them, or point the table to your own model.');
+  const table = config.blocks.find((block) => block.type === 'table');
+  if (table?.type === 'table' && table.model.generate) {
+    // The generic model has fields named item1, item2...; a model written by the developer does not.
+    warnings.push(
+      table.model.fields.some((field) => /^item\d+$/.test(field.name))
+        ? 'The model and the rows are placeholders (item1, item2...): rename them, or point the table to your own model.'
+        : 'The rows are example data: replace them with your own data. The model file was generated from the fields you gave.'
+    );
   }
 
   return {

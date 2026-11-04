@@ -14,6 +14,7 @@ import {
 } from 'easy-mat-ui-ng20';
 import { map } from 'rxjs';
 import { LANGUAGES } from './i18n/languages';
+import { Builder } from './pages/builder/builder';
 import { Cities } from './pages/cities/cities';
 import { Countries } from './pages/countries/countries';
 import { CountryTabs } from './pages/country-tabs/country-tabs';
@@ -27,7 +28,8 @@ const PAGES = [
   { id: 'overview', icon: 'home' },
   { id: 'countries', icon: 'public' },
   { id: 'tabs', icon: 'tab' },
-  { id: 'cities', icon: 'map' }
+  { id: 'cities', icon: 'map' },
+  { id: 'builder', icon: 'build' }
 ] as const;
 
 /** The demo offers two themes. (EasyThemeService also has a 'system' mode, which the demo does not expose.) */
@@ -38,7 +40,7 @@ const THEMES: { id: EasyThemeMode; icon: string }[] = [
 
 @Component({
   selector: 'app-root',
-  imports: [Dir, MatIconModule, TranslatePipe, GithubMark, EasySegmented, EasyLanguageSwitch, Overview, Countries, CountryTabs, Cities],
+  imports: [Dir, MatIconModule, TranslatePipe, GithubMark, EasySegmented, EasyLanguageSwitch, Overview, Countries, CountryTabs, Cities, Builder],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })

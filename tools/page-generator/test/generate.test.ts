@@ -225,6 +225,17 @@ describe('long import lists', () => {
   });
 });
 
+describe('notes for the developer', () => {
+  test('a generic model is said to be a placeholder, a model of the developer is not', () => {
+    const own: ModelSpec = { className: 'Product', fileBase: 'product', generate: true, fields: [{ name: 'id', type: 'number' }, { name: 'name', type: 'string' }] };
+    const generic = generatePage(page({ blocks: [defaultBlock('table', 'a')] }));
+    const mine = generatePage(page({ blocks: [{ ...(defaultBlock('table', 'a') as any), model: own }] }));
+    assert.ok(generic.warnings.some((w) => /placeholders \(item1/.test(w)));
+    assert.ok(!mine.warnings.some((w) => /placeholders/.test(w)));
+    assert.ok(mine.warnings.some((w) => /example data/.test(w)));
+  });
+});
+
 describe('table with a child table', () => {
   const block = { ...(defaultBlock('table', 'stock') as any), child: { title: 'Details', model: genericChildModel() } };
   const result = generatePage(page({ blocks: [block] }));
