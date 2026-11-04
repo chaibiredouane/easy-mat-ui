@@ -11,6 +11,7 @@
     "watch": "ng build easy-mat-ui --watch --configuration development",
     "test": "ng test --watch=false --browsers=ChromeHeadless",
     "test:generator": "tsc -p tools/page-generator/tsconfig.json && node --test \"dist/page-generator/test/*.test.js\"",
+    "test:release-notes": "node --test scripts/release-notes.test.cjs",
     "check:generated": "node scripts/check-generated-pages.cjs",
     "check:examples": "ngc -p projects/demo/tsconfig.examples.json",
     "pack": "npm run build && cd dist/easy-mat-ui && npm pack",
