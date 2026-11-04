@@ -5,7 +5,7 @@
 [![Angular](https://img.shields.io/badge/Angular-20-dd0031.svg)](https://angular.dev)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-**[Live demo](https://easy-mat-ui.web.app/)** · **[Documentation](https://easy-mat-ui.web.app/docs/)** · [npm](https://www.npmjs.com/package/easy-mat-ui-ng20) · [Changelog](CHANGELOG.md)
+**[Live demo](https://easy-mat-ui.web.app/)** · **[Try it on StackBlitz](https://stackblitz.com/github/chaibiredouane/easy-mat-ui/tree/main/examples/stackblitz-starter)** · **[Documentation](https://easy-mat-ui.web.app/docs/)** · [npm](https://www.npmjs.com/package/easy-mat-ui-ng20) · [Changelog](CHANGELOG.md)
 
 A set of customizable Angular Material components built around a configurable **data table**:
 filtering, sorting, pagination, typed columns, expandable rows, tabbed child tables, a toolbar,
@@ -45,6 +45,8 @@ Peer dependencies: `@angular/core`, `@angular/common`, `@angular/forms`, `@angul
 `bootstrap` `^5`, `rxjs` `^7`. Optional: `@ngx-translate/http-loader`, `flag-icons` (country columns).
 
 ## Installation
+
+Want to see it first? The [starter project on StackBlitz](https://stackblitz.com/github/chaibiredouane/easy-mat-ui/tree/main/examples/stackblitz-starter) runs in your browser, with nothing to install. Its source is in [`examples/stackblitz-starter`](https://github.com/chaibiredouane/easy-mat-ui/tree/main/examples/stackblitz-starter).
 
 ```bash
 npm install easy-mat-ui-ng20

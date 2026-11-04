@@ -8,6 +8,10 @@ follows [Semantic Versioning](https://semver.org/) (see [Versioning](README.md#v
 
 ## [20.0.4] - 2026-11-04
 
+### Added
+- `examples/stackblitz-starter`: a minimal Angular 20 project (data table with filters and dialog, and the reusable
+  components) that opens in StackBlitz with nothing to install; linked from the README and the documentation.
+
 ### Changed
 - README: the Page builder of the demo and the `add-page` command are explained together (what each one does, how they
   share one generator, how to pass the description from one to the other, and what they do not do).
