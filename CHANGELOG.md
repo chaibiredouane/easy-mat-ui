@@ -6,6 +6,24 @@ follows [Semantic Versioning](https://semver.org/) (see [Versioning](README.md#v
 
 ## [Unreleased]
 
+## [20.0.3] - 2026-11-04
+
+### Added
+- `MatColumnTyped.headerClass`: CSS class(es) for the header cell of one column, for example `text-center` to centre the
+  title of an icon column (Actions, Flag), even in first position. It is applied to the header only, never to the cells,
+  and is empty by default, so existing tables look as before.
+
+### Fixed
+- Table on a phone: the first column title was cut at its right edge; it now has room on the right.
+- The README shown on npm had broken "Live demo" and "Documentation" links (a placeholder was left in); they now point to
+  https://easy-mat-ui.web.app.
+
+### Changed
+- npm description, keywords and homepage (the live demo) describe the library more precisely.
+- Documentation: five pages written around common searches (Angular Material table, filters and pagination, reusable
+  components, page generator, library comparison), a longer FAQ and guidance for AI assistants in `llms.txt`.
+- `check:examples` compiles the code samples of the documentation in CI.
+
 ## [20.0.2] - 2026-11-04
 
 ### Added

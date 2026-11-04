@@ -1,19 +1,29 @@
 {
   "name": "easy-mat-ui-ng20",
-  "version": "20.0.2",
-  "description": "A customizable Angular Material library: data tables, dialogs and multi-select, with i18n support (Angular 20)",
+  "version": "20.0.3",
+  "description": "Angular 20 data table and reusable UI components on Angular Material: filters, pagination, CRUD dialog, child tables, themes, page generator CLI",
   "keywords": [
     "angular",
-    "material",
-    "table",
-    "bootstrap",
-    "i18n",
-    "component",
-    "easy-mat-ui",
     "angular-20",
-    "angular-library",
+    "angular-material",
+    "angular-table",
+    "angular-data-table",
+    "angular-components",
+    "angular-ui-library",
     "mat-table",
-    "data-table"
+    "data-table",
+    "datatable",
+    "table-filter",
+    "pagination",
+    "crud",
+    "dialog",
+    "standalone-components",
+    "signals",
+    "material-design",
+    "i18n",
+    "rtl",
+    "page-generator",
+    "easy-mat-ui"
   ],
   "author": "Redouane Chaibi (https://github.com/chaibiredouane)",
   "license": "MIT",
@@ -62,5 +72,5 @@
   "bugs": {
     "url": "https://github.com/chaibiredouane/easy-mat-ui/issues"
   },
-  "homepage": "https://github.com/chaibiredouane/easy-mat-ui#readme"
+  "homepage": "https://easy-mat-ui.web.app/"
 }
