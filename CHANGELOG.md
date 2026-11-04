@@ -6,6 +6,8 @@ follows [Semantic Versioning](https://semver.org/) (see [Versioning](README.md#v
 
 ## [Unreleased]
 
+## [20.0.2] - 2026-11-04
+
 ### Added
 - Reusable interface components, each with `@Input()` / `@Output()` and a typed model:
   `lib-easy-segmented` (a group of buttons of which one is chosen, as a setting or as tabs),
