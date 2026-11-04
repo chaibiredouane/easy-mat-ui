@@ -12,6 +12,7 @@ const SITE = (process.env.SITE_URL || 'https://easy-mat-ui.web.app').replace(/\/
 const OUT = path.join(__dirname, '..', 'dist', 'demo', 'browser');
 const GITHUB = 'https://github.com/chaibiredouane/easy-mat-ui';
 const NPM = 'https://www.npmjs.com/package/easy-mat-ui-ng20';
+const STACKBLITZ = 'https://stackblitz.com/github/chaibiredouane/easy-mat-ui/tree/main/examples/stackblitz-starter';
 const TODAY = new Date().toISOString().slice(0, 10);
 const NAME = 'Easy Mat UI';
 
@@ -23,6 +24,10 @@ const PAGES = [
     description: 'Install easy-mat-ui-ng20, provide ngx-translate and render your first Angular Material data table from one configuration object.',
     intro: 'Easy Mat UI is an Angular library built on Angular Material. This page installs it and renders a first table.',
     blocks: [
+      { h2: 'Try it online first', items: [
+        { p: 'Nothing to install: the starter project opens in your browser with a data table (filters, pagination, create / edit / view dialog) and the reusable components, and you can edit the code.' },
+        { links: [['Open the starter project on StackBlitz', STACKBLITZ]] }
+      ] },
       { h2: 'Requirements', items: [
         { ul: ['Angular 20 (package easy-mat-ui-ng20). Angular 19 and 21 build and run but are not officially supported.', 'Angular Material and CDK 20, @ngx-translate/core 16, Bootstrap 5, RxJS 7.', 'Optional: flag-icons for country flags.'] }
       ] },
@@ -162,7 +167,7 @@ const FAQ = [
 
 // ---- rendering ------------------------------------------------------------------------------------------------------
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-const url = (slug) => `${SITE}/docs/${slug}/`;
+const url = (slug) => (/^https?:/.test(slug) ? slug : `${SITE}/docs/${slug}/`); // a full address is kept as it is
 
 function htmlBlocks(page) {
   return page.blocks.map((b) => `<h2>${esc(b.h2)}</h2>\n` + b.items.map((it) => {
@@ -274,6 +279,7 @@ ${PAGES.map((p) => `- [${p.title}](${url(p.slug)}): ${p.description}`).join('\n'
 - [GitHub repository](${GITHUB}): source code, README, changelog, issues
 - [npm package](${NPM}): easy-mat-ui-ng20
 - [Live demo](${SITE}/): interactive demo with the source of every page
+- [Starter project on StackBlitz](${STACKBLITZ}): a minimal Angular 20 project to edit in the browser, nothing to install
 
 ## Optional
 - [Full documentation as one text file](${SITE}/llms-full.txt)

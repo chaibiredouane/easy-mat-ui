@@ -5,7 +5,7 @@
 [![Angular](https://img.shields.io/badge/Angular-20-dd0031.svg)](https://angular.dev)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-**[Live demo](https://easy-mat-ui.web.app/)** · **[Documentation](https://easy-mat-ui.web.app/docs/)** · [npm](https://www.npmjs.com/package/easy-mat-ui-ng20) · [Changelog](CHANGELOG.md)
+**[Live demo](https://easy-mat-ui.web.app/)** · **[Try it on StackBlitz](https://stackblitz.com/github/chaibiredouane/easy-mat-ui/tree/main/examples/stackblitz-starter)** · **[Documentation](https://easy-mat-ui.web.app/docs/)** · [npm](https://www.npmjs.com/package/easy-mat-ui-ng20) · [Changelog](CHANGELOG.md)
 
 A set of customizable Angular Material components built around a configurable **data table**:
 filtering, sorting, pagination, typed columns, expandable rows, tabbed child tables, a toolbar,
@@ -25,7 +25,7 @@ a configurable **create / edit / view dialog** and a **multi-select** control, w
 - Reusable interface components, each with `@Input()` / `@Output()` and a typed model: `lib-easy-segmented`,
   `lib-easy-chip-nav`, `lib-easy-language-switch`, `lib-easy-card` / `lib-easy-card-grid`, `lib-easy-stat` and
   `lib-easy-page-header`.
-- `npx easy-mat-ui add-page`: generates a page from these components and a table (see [Generate a page](#generate-a-page)).
+- **Page generation**: the *Page builder* of the demo and the `npx easy-mat-ui add-page` command generate a page from these components and a table (see [Generate a page](#generate-a-page)).
 - **Light and dark themes** switchable at runtime (`EasyThemeService`), driven by CSS variables.
 - Responsive layout (tables adapt below 768 px and 1024 px) and no WCAG 2 A/AA violation reported by axe-core on the demo.
 - Shared models, enums and configuration classes exported from one entry point.
@@ -45,6 +45,8 @@ Peer dependencies: `@angular/core`, `@angular/common`, `@angular/forms`, `@angul
 `bootstrap` `^5`, `rxjs` `^7`. Optional: `@ngx-translate/http-loader`, `flag-icons` (country columns).
 
 ## Installation
+
+Want to see it first? The [starter project on StackBlitz](https://stackblitz.com/github/chaibiredouane/easy-mat-ui/tree/main/examples/stackblitz-starter) runs in your browser, with nothing to install. Its source is in [`examples/stackblitz-starter`](https://github.com/chaibiredouane/easy-mat-ui/tree/main/examples/stackblitz-starter).
 
 ```bash
 npm install easy-mat-ui-ng20
@@ -143,21 +145,61 @@ dialog.open({
 
 ## Generate a page
 
-`easy-mat-ui add-page` writes an Angular page for you. You pick the components (page header, key figures, category
-buttons, segmented control, language picker, card grid, and a data table with an optional child table), and it
-generates the component, the template, the table configuration and the models.
+Every admin screen starts the same way: a header, a few figures, a table, a model, a table configuration, translations.
+Easy Mat UI lets you generate that starting point instead of typing it, in two ways that share **one generator**:
+
+| | Page builder | `add-page` command |
+|---|---|---|
+| Where | A page of the [live demo](https://easy-mat-ui.web.app/), in your browser | Your terminal, in an Angular project |
+| You | Click the components you want, define the fields, see a live preview | Answer a few questions, or pass options |
+| You get | The generated files to copy, the command to run, and a downloadable description (`.page.json`) | The files written in your project, at the right place |
+| Installs anything | No | No |
+
+### The idea
+
+1. **Describe** the page: which components (page header, key figures, category buttons, segmented control, language
+   picker, card grid, a data table with an optional child table) and, for the table, the fields of its model.
+2. **Generate** the code from that description: a standalone component, its template, the table configuration and the
+   models. Nothing is hidden: it is ordinary Angular code that uses the components of this library.
+3. **Own it**: the result is a starting point. You edit it and connect your own data (a service, an API call). The
+   generator does not touch your code afterwards.
+
+### Page builder (in the browser)
+
+Open the *Page builder* of the [live demo](https://easy-mat-ui.web.app/). Choose the components, add the fields of the
+table (text, number, date, yes/no), and switch filters or the child table on. The preview uses the real components, so
+what you see is what the code does. Then:
+
+- copy the generated files one by one;
+- copy the exact command that reproduces the page in your project;
+- download the description of the page (`my-page.page.json`) to hand it to the command below.
+
+It is also a quick way to discover which components exist and how they fit together, without installing anything.
+
+### `add-page` command (in your project)
 
 ```bash
 npx easy-mat-ui add-page          # asks what it needs
 npx easy-mat-ui add-page --name stock-items --blocks page-header,stat,table --dry-run --print
+npx easy-mat-ui add-page --config my-page.page.json    # the description downloaded from the Page builder
 ```
 
+Run it at the root of your Angular project. `--dry-run --print` shows what would be written and writes nothing, which is
+the safe way to try it. `--help` lists every option.
+
 - **Models**: an existing `*.model.ts` that matches the page name is reused. Otherwise a generic model (`item1`,
-  `item2`, `item3`) is generated, with example rows and text, icon and action columns.
+  `item2`, `item3`) is generated, with example rows and text, icon and action columns. Field types it cannot map (for
+  example `string[]`) are ignored instead of producing code that does not compile.
 - **Translations**: with ngx-translate the code uses translation keys, and the new entries are added to your English
   file. Without it the texts are written in the code. Nothing is ever installed.
-- **Prefer a screen?** The *Page builder* of the [live demo](https://easy-mat-ui.web.app/) does the same with a preview, and downloads
-  a description that `--config` reads. `--help` lists every option.
+- **Quality**: the generator has unit tests, and the continuous integration compiles the generated pages with strict
+  Angular templates, so generated code that stops compiling fails the build.
+
+### What it does not do
+
+- It generates a **starting point, not a finished screen**: the logic and the data calls are yours.
+- It does not call an API and does not create routes for you.
+- It generates code for the components of `easy-mat-ui-ng20`, not generic Angular Material code.
 
 ## Demo application
 

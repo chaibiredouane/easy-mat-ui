@@ -31,7 +31,7 @@ export class Countries implements OnInit {
   tableChildConfig!: EasyTableConfig<CityRow>;
 
   /** Shared with the other pages that list countries. */
-  readonly continent = this.display.continent;
+  continent = this.display.continent;
   readonly isoCodes = signal<string[]>([]);
 
   private allCountries: Country[] = [];
