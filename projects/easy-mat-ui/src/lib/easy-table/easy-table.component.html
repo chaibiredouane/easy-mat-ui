@@ -68,7 +68,8 @@
                 <th mat-header-cell *matHeaderCellDef
                     mat-sort-header
                     [disabled]="config.withFilterInHeader || col.name === '#' || col.name === 'actions'"
-                    [ngClass]="[col.size, col.stickyClass, col.groupClass || ('group' + getGroupIndex(grouped[0]))]"
+                    [ngClass]="[col.size, col.stickyClass, col.headerClass, col.groupClass || ('group' + getGroupIndex(grouped[0]))]"
+                    [class.has-header-class]="!!col.headerClass"
                     class="custom-th-cell">
                   <div class="header-label">
                     @if (col.headerIcon) {
