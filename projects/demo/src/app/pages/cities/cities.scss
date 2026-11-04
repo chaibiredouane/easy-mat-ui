@@ -36,37 +36,6 @@ app-continent-nav {
   margin: 0;
 }
 
-.stat {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 2px;
-  min-width: 110px;
-  padding: 8px 14px;
-  border-radius: var(--radius-md);
-  background: var(--hover-color);
-
-  dt {
-    font-size: 0.72rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: var(--text-muted);
-  }
-
-  dd {
-    margin: 0;
-    font-size: 1.05rem;
-    font-weight: 600;
-    font-variant-numeric: tabular-nums;
-  }
-
-  .big {
-    font-size: 1.3rem;
-    color: var(--demo-accent);
-  }
-}
-
 /* The table scrolls sideways by itself, only when it needs to. */
 .table-wrap {
   max-width: 100%;
@@ -91,7 +60,7 @@ app-continent-nav {
     flex-basis: 100%;
   }
 
-  .stat {
+  .stats lib-easy-stat {
     flex: 1 1 auto;
   }
 }

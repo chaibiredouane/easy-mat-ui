@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "../../dist/easy-mat-ui/page-generator"
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["test"]
+}

@@ -1,0 +1,22 @@
+<nav class="chips" [attr.aria-label]="ariaLabel || null">
+  @for (item of items; track item.id) {
+    <button
+      type="button"
+      class="chip"
+      [class.on]="item.id === selected"
+      [class.colored]="!!item.color"
+      [style.--c]="item.color || null"
+      [attr.aria-pressed]="item.id === selected"
+      [disabled]="!!item.disabled"
+      [title]="item.hint || ''"
+      (click)="select(item)">
+      @if (item.icon) {
+        <mat-icon aria-hidden="true">{{ item.icon }}</mat-icon>
+      }
+      <span class="t">{{ item.label }}</span>
+      @if (item.count !== undefined && item.count !== null) {
+        <span class="n">{{ item.count }}</span>
+      }
+    </button>
+  }
+</nav>

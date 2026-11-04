@@ -1,0 +1,12 @@
+<header class="page-header">
+  @if (config.icon) {
+    <span class="icon" aria-hidden="true"><mat-icon>{{ config.icon }}</mat-icon></span>
+  }
+  <div class="text">
+    <h2>{{ config.title }}</h2>
+    @if (config.subtitle) {
+      <p>{{ config.subtitle }}</p>
+    }
+  </div>
+  <div class="controls"><ng-content /></div>
+</header>

@@ -25,6 +25,8 @@ jobs:
       - run: npm test
         env:
           CHROME_BIN: /usr/bin/google-chrome
+      - run: npm run test:generator
+      - run: npm run check:generated
       - name: Check tag matches package version
         run: |
           PKG_VERSION=$(node -p "require('./projects/easy-mat-ui/package.json').version")

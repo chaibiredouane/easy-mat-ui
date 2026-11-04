@@ -53,27 +53,9 @@
 <section class="block" aria-labelledby="features-title">
   <h3 id="features-title">{{ 'overview.FEATURES_TITLE' | translate }}</h3>
   <p class="muted">{{ 'overview.FEATURES_LEAD' | translate }}</p>
-  <div class="grid features">
-    @for (f of features; track f.id) {
-      @if (f.page) {
-        <button type="button" class="card" (click)="open.emit(f.page)">
-          <ng-container *ngTemplateOutlet="featureBody; context: { $implicit: f }" />
-          <span class="try">{{ 'overview.TRY' | translate }}<mat-icon aria-hidden="true">arrow_forward</mat-icon></span>
-        </button>
-      } @else {
-        <article class="card plain">
-          <ng-container *ngTemplateOutlet="featureBody; context: { $implicit: f }" />
-        </article>
-      }
-    }
-  </div>
+  <!-- lib-easy-card-grid of easy-mat-ui: a card that leads to a demo page is clickable. -->
+  <lib-easy-card-grid [items]="featureCards()" [columns]="3" [minWidth]="280" (cardClick)="onFeature($event)" />
 </section>
-
-<ng-template #featureBody let-f>
-  <mat-icon aria-hidden="true">{{ f.icon }}</mat-icon>
-  <span class="t">{{ 'overview.features.' + f.id + '.t' | translate }}</span>
-  <span class="d">{{ 'overview.features.' + f.id + '.d' | translate }}</span>
-</ng-template>
 
 <section class="steps" [attr.aria-label]="'overview.STEPS_ARIA' | translate">
   @for (s of steps; track s.id; let i = $index) {
@@ -115,15 +97,7 @@
   <h3 id="join-title">{{ 'overview.CONTRIBUTE_TITLE' | translate }}</h3>
   <p class="muted">{{ 'overview.CONTRIBUTE_LEAD' | translate }}</p>
 
-  <div class="grid ways">
-    @for (w of ways; track w.id) {
-      <article class="card plain">
-        <mat-icon aria-hidden="true">{{ w.icon }}</mat-icon>
-        <span class="t">{{ 'overview.ways.' + w.id + '.t' | translate }}</span>
-        <span class="d">{{ 'overview.ways.' + w.id + '.d' | translate }}</span>
-      </article>
-    }
-  </div>
+  <lib-easy-card-grid [items]="wayCards()" [columns]="4" [minWidth]="240" />
 
   <ol class="flow" [attr.aria-label]="'overview.FLOW_ARIA' | translate">
     @for (f of flow; track f; let i = $index) {

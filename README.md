@@ -22,6 +22,10 @@ a configurable **create / edit / view dialog** and a **multi-select** control, w
 - Expandable rows with **child tables**, or several child tables in **tabs** (`childConfig`).
 - `EasyDialogService`: a configurable dialog to create, edit or view a record.
 - `lib-easy-multi-select`: a searchable multi-select with select-all, clear, read-only and compact modes, or a single-choice dropdown (`single`).
+- Reusable interface components, each with `@Input()` / `@Output()` and a typed model: `lib-easy-segmented`,
+  `lib-easy-chip-nav`, `lib-easy-language-switch`, `lib-easy-card` / `lib-easy-card-grid`, `lib-easy-stat` and
+  `lib-easy-page-header`.
+- `npx easy-mat-ui add-page`: generates a page from these components and a table (see [Generate a page](#generate-a-page)).
 - **Light and dark themes** switchable at runtime (`EasyThemeService`), driven by CSS variables.
 - Responsive layout (tables adapt below 768 px and 1024 px) and no WCAG 2 A/AA violation reported by axe-core on the demo.
 - Shared models, enums and configuration classes exported from one entry point.
@@ -136,6 +140,24 @@ dialog.open({
   ]
 }).afterClosed().subscribe(result => console.log(result?.event, result?.data));
 ```
+
+## Generate a page
+
+`easy-mat-ui add-page` writes an Angular page for you. You pick the components (page header, key figures, category
+buttons, segmented control, language picker, card grid, and a data table with an optional child table), and it
+generates the component, the template, the table configuration and the models.
+
+```bash
+npx easy-mat-ui add-page          # asks what it needs
+npx easy-mat-ui add-page --name stock-items --blocks page-header,stat,table --dry-run --print
+```
+
+- **Models**: an existing `*.model.ts` that matches the page name is reused. Otherwise a generic model (`item1`,
+  `item2`, `item3`) is generated, with example rows and text, icon and action columns.
+- **Translations**: with ngx-translate the code uses translation keys, and the new entries are added to your English
+  file. Without it the texts are written in the code. Nothing is ever installed.
+- **Prefer a screen?** The *Page builder* of the [live demo](__SITE_URL__/) does the same with a preview, and downloads
+  a description that `--config` reads. `--help` lists every option.
 
 ## Demo application
 

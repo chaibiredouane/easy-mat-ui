@@ -100,6 +100,8 @@ git push --force-with-lease
 - Do not rename or remove public selectors, inputs, outputs, models or enums in a minor or patch release.
   Breaking changes require a major version and a changelog entry.
 - If you changed what users see, check the demo (`npm start`) in the light and the dark theme.
+- If you changed the page generator (`tools/page-generator`), run `npm run test:generator`, then `npm run build` and
+  `npm run check:generated`: the second one generates pages and compiles them with the Angular compiler.
 
 ## Releases and hotfixes
 

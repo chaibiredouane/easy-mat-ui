@@ -1,0 +1,56 @@
+:host {
+  --easy-accent: var(--color-primary-blue-strong, #1f6f8b);
+  --easy-on-accent: #ffffff;
+  --easy-muted: var(--text-muted, color-mix(in srgb, var(--text-color, #0f172a) 62%, transparent));
+
+  display: block;
+}
+
+:host-context(body.dark-theme) {
+  --easy-on-accent: #0b1220;
+}
+
+.page-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+  margin: 8px 0 16px;
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md, 10px);
+  background: var(--easy-accent);
+  color: var(--easy-on-accent);
+  box-shadow: var(--shadow-sm, 0 1px 2px rgba(15, 23, 42, 0.06));
+}
+
+.text {
+  flex: 1 1 260px;
+  min-width: 0;
+}
+
+h2 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+p {
+  margin: 4px 0 0;
+  max-width: 75ch;
+  color: var(--easy-muted);
+  line-height: 1.45;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}

@@ -1,9 +1,7 @@
-<app-page-header
-  icon="tab"
-  [title]="'pages.tabs.title' | translate"
-  [subtitle]="'pages.tabs.subtitle' | translate">
+<lib-easy-page-header
+  [config]="{ icon: 'tab', title: ('pages.tabs.title' | translate), subtitle: ('pages.tabs.subtitle' | translate) }">
   <app-unit-switch />
-</app-page-header>
+</lib-easy-page-header>
 
 @if (isReady) {
   <div class="table-wrap">

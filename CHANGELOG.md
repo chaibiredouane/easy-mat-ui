@@ -6,6 +6,23 @@ follows [Semantic Versioning](https://semver.org/) (see [Versioning](README.md#v
 
 ## [Unreleased]
 
+### Added
+- Reusable interface components, each with `@Input()` / `@Output()` and a typed model:
+  `lib-easy-segmented` (a group of buttons of which one is chosen, as a setting or as tabs),
+  `lib-easy-chip-nav` (buttons with icon, colour and count to browse by category),
+  `lib-easy-language-switch` (menu or inline, flag / name / code; independent of any translation library),
+  `lib-easy-card` and `lib-easy-card-grid` (cards with icon, title, description, actions; responsive grid),
+  `lib-easy-stat` (a key figure) and `lib-easy-page-header` (icon, title, subtitle and a slot for controls).
+- `easy-mat-ui add-page` command (`npx easy-mat-ui add-page`): generates an Angular page from these components and from
+  the table, as a component, a template, a table configuration and models. Components can be used alone or combined
+  with a table and a child table. It reuses an existing `*.model.ts` that matches the page name or generates a generic
+  one (`item1`, `item2`, `item3`), and it either writes translation keys (and adds them to the English file) or plain
+  texts: it never installs a translation library. `--dry-run`, `--config` and `--help` are available.
+
+### Fixed
+- Table toolbar on a phone: the search field and the action buttons stay on one line (the search field gives up width)
+  instead of the buttons dropping under it.
+
 ## [20.0.1] - 2026-11-04
 
 ### Added

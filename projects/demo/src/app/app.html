@@ -12,39 +12,37 @@
       </a>
     </h1>
 
-    <nav class="tabs" role="tablist" [attr.aria-label]="'app.PAGES' | translate" (keydown)="onTabKeydown($event)">
-      @for (p of pages; track p.id; let i = $index) {
-        <button
-          #tabButton
-          type="button"
-          role="tab"
-          class="tab"
-          [id]="'tab-' + p.id"
-          [class.on]="index() === i"
-          [attr.aria-selected]="index() === i"
-          aria-controls="panel"
-          [attr.tabindex]="index() === i ? 0 : -1"
-          (click)="index.set(i)">
-          <mat-icon aria-hidden="true">{{ p.icon }}</mat-icon>
-          <span class="txt">{{ 'nav.' + p.id | translate }}</span>
-        </button>
-      }
-    </nav>
+    <lib-easy-segmented
+      class="tabs"
+      size="lg"
+      semantics="tab"
+      panelId="panel"
+      idPrefix="tab-"
+      [collapseInactive]="true"
+      [stretch]="mobile()"
+      [options]="pageOptions()"
+      [selected]="pages[index()].id"
+      [ariaLabel]="'app.PAGES' | translate"
+      (selectedChange)="open($event)" />
 
     <div class="controls">
       <a class="ext" [href]="links.repo" target="_blank" rel="noopener noreferrer" [title]="('overview.OPEN_REPO' | translate) + ' (' + ('app.GITHUB' | translate) + ')'" [attr.aria-label]="('overview.OPEN_REPO' | translate) + ' (' + ('app.GITHUB' | translate) + ')'">
         <app-github-mark />
       </a>
 
-      <div class="theme" role="radiogroup" [attr.aria-label]="'app.THEME' | translate">
-        @for (t of themes; track t.id) {
-          <button type="button" role="radio" [attr.aria-checked]="mode() === t.id" [class.on]="mode() === t.id" [attr.aria-label]="'theme.ARIA' | translate: { name: ('theme.' + t.id | translate) }" [title]="'theme.' + t.id | translate" (click)="setTheme(t.id)">
-            <mat-icon aria-hidden="true">{{ t.icon }}</mat-icon>
-          </button>
-        }
-      </div>
+      <lib-easy-segmented
+        size="lg"
+        [iconOnly]="true"
+        [options]="themeOptions()"
+        [selected]="mode()"
+        [ariaLabel]="'app.THEME' | translate"
+        (selectedChange)="setTheme($event)" />
 
-      <app-language-switch />
+      <lib-easy-language-switch
+        [languages]="languages"
+        [selected]="lang.current().code"
+        [ariaLabel]="'app.CHOOSE_LANGUAGE' | translate"
+        (selectedChange)="lang.set($any($event))" />
     </div>
   </header>
 
@@ -55,6 +53,12 @@
         @case ('countries') { <app-countries /> }
         @case ('tabs') { <app-country-tabs /> }
         @case ('cities') { <app-cities /> }
+        <!-- The builder and the page generator are loaded when the page is opened, not with the application. -->
+        @case ('builder') {
+          @defer {
+            <app-builder />
+          }
+        }
       }
     </div>
   </main>

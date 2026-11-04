@@ -69,7 +69,7 @@ export const EN = {
     FOOTER_CONTRIBUTE: 'Contributions are welcome.',
     FOOTER_DATA: 'Demo data: GeoNames (CC BY 4.0) and Wikipedia (CC BY-SA 4.0).'
   },
-  nav: { overview: 'Overview', countries: 'Countries & cities', tabs: 'Child tabs', cities: 'Cities' },
+  nav: { overview: 'Overview', countries: 'Countries & cities', tabs: 'Child tabs', cities: 'Cities', builder: 'Page builder' },
   continents: {
     ARIA: 'Browse by continent',
     all: 'All',
@@ -190,6 +190,90 @@ export const EN = {
       pr: 'Open a pull request: we review it together'
     },
     STAR_PLEASE: 'If the library helps you, a star on GitHub helps others find it.'
+  },
+  builder: {
+    TITLE: 'Page builder',
+    SUBTITLE: 'Choose the components, set them up and get the template, the TypeScript and the models. The command can also write the files in your project.',
+    STEP_PAGE: 'Page',
+    STEP_COMPONENTS: 'Components',
+    STEP_SETTINGS: 'Settings',
+    PAGE_NAME: 'Page name',
+    PAGE_NAME_HINT: 'Lower case with hyphens. The folder, the files and the selector come from it.',
+    TEXTS: 'Texts',
+    TEXTS_KEYS: 'Translation keys',
+    TEXTS_PLAIN: 'Plain texts',
+    TEXTS_HINT_KEYS: 'The code reads the texts with ngx-translate and the entries for the English file are generated.',
+    TEXTS_HINT_PLAIN: 'The texts are written in the code: no translation library is needed.',
+    SELECT_ONE: 'Choose at least one component.',
+    categories: {
+      Page: 'Page',
+      Data: 'Data',
+      Navigation: 'Navigation',
+      Content: 'Content',
+      Settings: 'Settings'
+    },
+    components: {
+      'page-header': { t: 'Page header', d: 'Icon, title and subtitle.' },
+      stat: { t: 'Key figures', d: 'A few numbers with a label and a tone.' },
+      'chip-nav': { t: 'Category buttons', d: 'Icon, colour and count to browse by category.' },
+      segmented: { t: 'Segmented control', d: 'One choice among a few: a setting, a view.' },
+      'language-switch': { t: 'Language picker', d: 'A menu or buttons to choose the language.' },
+      'card-grid': { t: 'Card grid', d: 'Icon, title and description in a responsive grid.' },
+      table: { t: 'Data table', d: 'Filters, pagination, add / edit / delete, and a child table.' }
+    },
+    f: {
+      title: 'Title',
+      subtitle: 'Subtitle',
+      icon: 'Icon',
+      label: 'Label',
+      value: 'Value',
+      color: 'Colour',
+      count: 'Count',
+      description: 'Description',
+      tone: 'Tone',
+      clickable: 'Clickable',
+      name: 'Name',
+      type: 'Type'
+    },
+    ADD_ROW: 'Add',
+    REMOVE_ROW: 'Remove',
+    tones: {
+      neutral: 'Neutral',
+      accent: 'Accent',
+      success: 'Success',
+      warning: 'Warning',
+      danger: 'Danger'
+    },
+    MODEL: 'Model',
+    MODEL_GENERIC: 'Generic model (item1, item2, item3)',
+    MODEL_OWN: 'My own fields',
+    FIELDS: 'Fields',
+    CHILD: 'Child table under each row',
+    CAN_CREATE: 'Add',
+    CAN_UPDATE: 'Edit',
+    CAN_DELETE: 'Delete',
+    FILTERS: 'Column filters',
+    PAGE_SIZE: 'Rows per page',
+    types: { string: 'Text', number: 'Number', boolean: 'Yes / no', date: 'Date' },
+    LAYOUT: 'Layout',
+    layouts: { menu: 'Menu', inline: 'Buttons' },
+    DISPLAY: 'Shows',
+    displays: { 'flag-name': 'Flag and name', flag: 'Flag', name: 'Name', code: 'Code' },
+    LANGUAGES: 'Languages',
+    ICON_ONLY: 'Icons only',
+    SIZE: 'Size',
+    COLUMNS: 'Columns',
+    PREVIEW: 'Preview',
+    PREVIEW_TABLE_NOTE: 'The table is shown with example rows (the child table is not shown).',
+    CODE: 'Generated code',
+    TRANSLATIONS_TAB: 'English entries',
+    TRANSLATIONS_HINT: 'Add these entries to your English translation file. The command does it for you.',
+    NOTES: 'Good to know',
+    COMMAND: 'Or write the files in your project',
+    COMMAND_TEXT: 'Download the description, then run the command at the root of your Angular project.',
+    DOWNLOAD: 'Download the description',
+    COPY_COMMAND: 'Copy the command',
+    ERROR: 'This page cannot be generated yet'
   }
 };
 

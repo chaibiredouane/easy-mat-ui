@@ -23,3 +23,18 @@ export * from './lib/utils/enums';
 export * from './lib/utils/title-formatter';
 export * from './lib/theme/easy-theme.service';
 export * from './lib/i18n/easy-paginator-intl';
+
+// Reusable interface components. Each one takes its data with @Input(), reports with @Output(), and has a model.
+export * from './lib/easy-segmented/easy-segmented';
+export * from './lib/model/easy-segmented.model';
+export * from './lib/easy-chip-nav/easy-chip-nav';
+export * from './lib/model/easy-chip-nav.model';
+export * from './lib/easy-language-switch/easy-language-switch';
+export * from './lib/model/easy-language-switch.model';
+export * from './lib/easy-card/easy-card';
+export * from './lib/easy-card/easy-card-grid';
+export * from './lib/model/easy-card.model';
+export * from './lib/easy-stat/easy-stat';
+export * from './lib/model/easy-stat.model';
+export * from './lib/easy-page-header/easy-page-header';
+export * from './lib/model/easy-page-header.model';

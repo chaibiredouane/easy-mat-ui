@@ -221,3 +221,36 @@
 :host > .row > .col-12 {
   padding-right: 8px !important;
 }
+
+/* The search field and the action buttons form one group. On a large screen it does not exist for the layout:
+   its children take part in the row as before, and wrap when there is no room. */
+.toolbar-main {
+  display: contents;
+}
+
+/* On a phone the group is a single line: the search field gives up width so that the buttons stay beside it. */
+@media (max-width: 600px) {
+  .toolbar-filter-block {
+    min-width: 0 !important;
+    flex-basis: 100%;
+  }
+
+  .toolbar-main {
+    display: flex;
+    flex: 1 1 100%;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .toolbar-main .toolbar-search {
+    flex: 1 1 0;
+    min-width: 0 !important;
+  }
+
+  .toolbar-main .toolbar-actions {
+    flex: none;
+    flex-wrap: nowrap;
+  }
+}
