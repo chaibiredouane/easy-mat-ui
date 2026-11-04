@@ -1,6 +1,6 @@
 {
   "name": "easy-mat-ui-ng20",
-  "version": "20.0.0",
+  "version": "20.0.1",
   "description": "A customizable Angular Material library: data tables, dialogs and multi-select, with i18n support (Angular 20)",
   "keywords": [
     "angular",
