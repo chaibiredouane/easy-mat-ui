@@ -11,7 +11,9 @@ import { LanguageService } from '../../services/language.service';
 @Component({
   selector: 'app-continent-nav',
   imports: [EasyChipNav, TranslatePipe],
-  templateUrl: './continent-nav.html'
+  templateUrl: './continent-nav.html',
+  // A custom element is inline by default, which made the margin set by the pages (space before the table) ignored.
+  styles: [':host { display: block; }']
 })
 export class ContinentNav {
   private readonly translate = inject(TranslateService);
