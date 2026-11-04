@@ -19,7 +19,7 @@ export const LB: Dictionary = {
     nameAr: 'Numm (AR)',
     isCapital: 'Haaptstad',
     population: 'Awunner',
-    populationFormatted: 'Awunner (formatéiert)'
+    populationFormatted: 'Awunner'
   },
   TABS: { ALL: 'All Stied', TOP: 'Gréisste' },
   SEARCH: 'Sichen',
@@ -63,7 +63,17 @@ export const LB: Dictionary = {
     FOOTER_DATA: 'Demodaten: GeoNames (CC BY 4.0) a Wikipedia (CC BY-SA 4.0).'
   },
   nav: { overview: 'Iwwersiicht', countries: 'Länner a Stied', tabs: 'Ënnergeuerdnet Tabs', cities: 'Stied' },
-  theme: { light: 'Hell', dark: 'Däischter', system: 'System', ARIA: 'Design {{name}}' },
+  continents: {
+    ARIA: 'No Kontinent duerchsichen',
+    all: 'All',
+    africa: 'Afrika',
+    asia: 'Asien',
+    europe: 'Europa',
+    northAmerica: 'Nordamerika',
+    southAmerica: 'Südamerika',
+    oceania: 'Ozeanien'
+  },
+  theme: { light: 'Hell', dark: 'Däischter', ARIA: 'Design {{name}}' },
   units: {
     LABEL: 'Awunner',
     auto: 'Auto',
@@ -101,7 +111,10 @@ export const LB: Dictionary = {
     cities: {
       title: 'Stied vun all Land',
       subtitle: 'Wielt e Land an seng Stied ginn bei Bedarf gelueden. Eng Tabell, een Konfiguratiounsobjet: typiséiert Kolonnen, Kopffilteren (och fir d’Awunnerzuel), Statusikonen, Säitenëmbroch an en komplette Dialog fir derbäizesetzen, z’änneren, unzeweisen a ze läschen.',
-      COUNTRY: 'Land'
+      COUNTRY: 'Land',
+      STAT_CITIES: 'Opgelëscht Stied',
+      STAT_TOTAL: 'Gesamtawunnerzuel',
+      STAT_TOTAL_HINT: 'Zomm vun den Awunnerzuelen vun den ënnendrënner opgelëschte Stied'
     },
     CITIES_OF: 'Stied: {{name}}',
     LARGEST_OF: 'Gréisst Stied: {{name}}'
@@ -141,7 +154,6 @@ export const LB: Dictionary = {
       done: { t: 'Fäerdeg', d: 'Sich, Sortéieren, Säitenëmbroch, Dialogen, opmaachbar Zeilen, Tabs, Designen an i18n iwwerhëlt d’Bibliothéik.' }
     },
     IDEA_TITLE: 'D’ganz Iddi a 12 Zeilen',
-    IDEA_TEXT: 'Installéieren, d’Tabell beschreiwen, eng Komponent an d’Template setzen.',
     COMPAT_TITLE: 'Angular-Kompatibilitéit',
     COMPAT_TEXT: 'Gepréift duerch Bauen an Ausféiere vun der gepacktter Bibliothéik a propperen Uwendungen.',
     compat: {

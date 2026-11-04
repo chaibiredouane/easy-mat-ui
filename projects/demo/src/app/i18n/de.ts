@@ -19,7 +19,7 @@ export const DE: Dictionary = {
     nameAr: 'Name (AR)',
     isCapital: 'Hauptstadt',
     population: 'Einwohner',
-    populationFormatted: 'Einwohner (formatiert)'
+    populationFormatted: 'Einwohner'
   },
   TABS: { ALL: 'Alle Städte', TOP: 'Größte' },
   SEARCH: 'Suchen',
@@ -63,7 +63,17 @@ export const DE: Dictionary = {
     FOOTER_DATA: 'Demodaten: GeoNames (CC BY 4.0) und Wikipedia (CC BY-SA 4.0).'
   },
   nav: { overview: 'Übersicht', countries: 'Länder und Städte', tabs: 'Untergeordnete Tabs', cities: 'Städte' },
-  theme: { light: 'Hell', dark: 'Dunkel', system: 'System', ARIA: 'Design {{name}}' },
+  continents: {
+    ARIA: 'Nach Kontinent stöbern',
+    all: 'Alle',
+    africa: 'Afrika',
+    asia: 'Asien',
+    europe: 'Europa',
+    northAmerica: 'Nordamerika',
+    southAmerica: 'Südamerika',
+    oceania: 'Ozeanien'
+  },
+  theme: { light: 'Hell', dark: 'Dunkel', ARIA: 'Design {{name}}' },
   units: {
     LABEL: 'Einwohner',
     auto: 'Auto',
@@ -101,7 +111,10 @@ export const DE: Dictionary = {
     cities: {
       title: 'Städte eines beliebigen Landes',
       subtitle: 'Wählen Sie ein Land und seine Städte werden bei Bedarf geladen. Eine Tabelle, ein Konfigurationsobjekt: typisierte Spalten, Kopffilter (auch für die Einwohnerzahl), Statussymbole, Seitenumbruch und ein vollständiger Dialog zum Hinzufügen, Bearbeiten, Anzeigen und Löschen.',
-      COUNTRY: 'Land'
+      COUNTRY: 'Land',
+      STAT_CITIES: 'Aufgeführte Städte',
+      STAT_TOTAL: 'Gesamteinwohnerzahl',
+      STAT_TOTAL_HINT: 'Summe der Einwohnerzahlen der unten aufgeführten Städte'
     },
     CITIES_OF: 'Städte: {{name}}',
     LARGEST_OF: 'Größte Städte: {{name}}'
@@ -141,7 +154,6 @@ export const DE: Dictionary = {
       done: { t: 'Fertig', d: 'Suche, Sortierung, Seitenumbruch, Dialoge, aufklappbare Zeilen, Tabs, Designs und i18n übernimmt die Bibliothek.' }
     },
     IDEA_TITLE: 'Die ganze Idee in 12 Zeilen',
-    IDEA_TEXT: 'Installieren, die Tabelle beschreiben, eine Komponente ins Template setzen.',
     COMPAT_TITLE: 'Angular-Kompatibilität',
     COMPAT_TEXT: 'Geprüft durch Bauen und Ausführen der gepackten Bibliothek in sauberen Anwendungen.',
     compat: {

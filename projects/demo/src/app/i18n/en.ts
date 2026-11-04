@@ -25,7 +25,7 @@ export const EN = {
     nameAr: 'Name (AR)',
     isCapital: 'Capital',
     population: 'Population',
-    populationFormatted: 'Population (formatted)'
+    populationFormatted: 'Population'
   },
   TABS: { ALL: 'All cities', TOP: 'Largest' },
   SEARCH: 'Search',
@@ -70,7 +70,17 @@ export const EN = {
     FOOTER_DATA: 'Demo data: GeoNames (CC BY 4.0) and Wikipedia (CC BY-SA 4.0).'
   },
   nav: { overview: 'Overview', countries: 'Countries & cities', tabs: 'Child tabs', cities: 'Cities' },
-  theme: { light: 'Light', dark: 'Dark', system: 'System', ARIA: '{{name}} theme' },
+  continents: {
+    ARIA: 'Browse by continent',
+    all: 'All',
+    africa: 'Africa',
+    asia: 'Asia',
+    europe: 'Europe',
+    northAmerica: 'North America',
+    southAmerica: 'South America',
+    oceania: 'Oceania'
+  },
+  theme: { light: 'Light', dark: 'Dark', ARIA: '{{name}} theme' },
   units: {
     LABEL: 'Population',
     auto: 'Auto',
@@ -108,7 +118,10 @@ export const EN = {
     cities: {
       title: 'Cities of any country',
       subtitle: 'Pick a country and its cities load on demand. One table, one configuration object: typed columns, header filters (including population), status icons, pagination and a full add / edit / view / delete dialog.',
-      COUNTRY: 'Country'
+      COUNTRY: 'Country',
+      STAT_CITIES: 'Cities listed',
+      STAT_TOTAL: 'Total population',
+      STAT_TOTAL_HINT: 'Sum of the populations of the cities listed below'
     },
     CITIES_OF: 'Cities of {{name}}',
     LARGEST_OF: 'Largest cities of {{name}}'
@@ -148,7 +161,6 @@ export const EN = {
       done: { t: 'Done', d: 'Search, sorting, pagination, dialogs, expandable rows, tabs, themes and i18n are handled by the library.' }
     },
     IDEA_TITLE: 'The whole idea in 12 lines',
-    IDEA_TEXT: 'Install it, describe your table, put one component in the template.',
     COMPAT_TITLE: 'Angular compatibility',
     COMPAT_TEXT: 'Checked by building and running the packaged library in clean applications.',
     compat: {

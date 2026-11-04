@@ -1,7 +1,8 @@
-<!-- `dir` keeps the Material components (tabs, menus, overlays) in step with the language: Arabic is right to left. -->
+<!-- `dir` keeps the Material components (menus, overlays) in step with the language: Arabic is right to left. -->
 <div class="shell" [dir]="lang.dir()">
   <a class="skip" href="#content">{{ 'app.SKIP' | translate }}</a>
 
+  <!-- Three zones: the brand, the pages in the middle, the controls. -->
   <header class="bar">
     <h1 class="brand-title">
       <a class="brand" href="#" (click)="$event.preventDefault(); index.set(0)">
@@ -10,47 +11,52 @@
         <span class="ver">ng20 &middot; 20.0.0</span>
       </a>
     </h1>
-    <div class="spacer"></div>
 
-    <a class="ext" [href]="links.repo" target="_blank" rel="noopener noreferrer" [title]="'overview.OPEN_REPO' | translate">
-      <app-github-mark />
-      <span class="txt">{{ 'app.GITHUB' | translate }}</span>
-    </a>
-    <a class="ext npm" [href]="links.npm" target="_blank" rel="noopener noreferrer" [title]="'overview.CTA_NPM' | translate">
-      <span class="txt">{{ 'app.NPM' | translate }}</span>
-    </a>
-
-    <div class="theme" role="radiogroup" [attr.aria-label]="'app.THEME' | translate">
-      @for (t of themes; track t.id) {
-        <button type="button" role="radio" [attr.aria-checked]="mode() === t.id" [class.on]="mode() === t.id" [attr.aria-label]="'theme.ARIA' | translate: { name: ('theme.' + t.id | translate) }" [title]="'theme.' + t.id | translate" (click)="setTheme(t.id)">
-          <mat-icon aria-hidden="true">{{ t.icon }}</mat-icon><span class="txt">{{ 'theme.' + t.id | translate }}</span>
+    <nav class="tabs" role="tablist" [attr.aria-label]="'app.PAGES' | translate" (keydown)="onTabKeydown($event)">
+      @for (p of pages; track p.id; let i = $index) {
+        <button
+          #tabButton
+          type="button"
+          role="tab"
+          class="tab"
+          [id]="'tab-' + p.id"
+          [class.on]="index() === i"
+          [attr.aria-selected]="index() === i"
+          aria-controls="panel"
+          [attr.tabindex]="index() === i ? 0 : -1"
+          (click)="index.set(i)">
+          <mat-icon aria-hidden="true">{{ p.icon }}</mat-icon>
+          <span class="txt">{{ 'nav.' + p.id | translate }}</span>
         </button>
       }
-    </div>
+    </nav>
 
-    <app-language-switch />
+    <div class="controls">
+      <a class="ext" [href]="links.repo" target="_blank" rel="noopener noreferrer" [title]="('overview.OPEN_REPO' | translate) + ' (' + ('app.GITHUB' | translate) + ')'" [attr.aria-label]="('overview.OPEN_REPO' | translate) + ' (' + ('app.GITHUB' | translate) + ')'">
+        <app-github-mark />
+      </a>
+
+      <div class="theme" role="radiogroup" [attr.aria-label]="'app.THEME' | translate">
+        @for (t of themes; track t.id) {
+          <button type="button" role="radio" [attr.aria-checked]="mode() === t.id" [class.on]="mode() === t.id" [attr.aria-label]="'theme.ARIA' | translate: { name: ('theme.' + t.id | translate) }" [title]="'theme.' + t.id | translate" (click)="setTheme(t.id)">
+            <mat-icon aria-hidden="true">{{ t.icon }}</mat-icon>
+          </button>
+        }
+      </div>
+
+      <app-language-switch />
+    </div>
   </header>
 
   <main id="content">
-    <mat-tab-group class="showcase-tabs" mat-stretch-tabs="false" mat-align-tabs="start" animationDuration="150ms" [selectedIndex]="index()" (selectedIndexChange)="index.set($event)" [attr.aria-label]="'app.PAGES' | translate">
-      @for (p of pages; track p.id) {
-        <mat-tab>
-          <ng-template mat-tab-label>
-            <mat-icon class="tab-icon" aria-hidden="true">{{ p.icon }}</mat-icon>{{ 'nav.' + p.id | translate }}
-          </ng-template>
-          <ng-template matTabContent>
-            <div class="page">
-              @switch (p.id) {
-                @case ('overview') { <app-overview (open)="open($event)" /> }
-                @case ('countries') { <app-countries /> }
-                @case ('tabs') { <app-country-tabs /> }
-                @case ('cities') { <app-cities /> }
-              }
-            </div>
-          </ng-template>
-        </mat-tab>
+    <div class="page" role="tabpanel" id="panel" [attr.aria-labelledby]="'tab-' + pages[index()].id">
+      @switch (pages[index()].id) {
+        @case ('overview') { <app-overview (open)="open($event)" /> }
+        @case ('countries') { <app-countries /> }
+        @case ('tabs') { <app-country-tabs /> }
+        @case ('cities') { <app-cities /> }
       }
-    </mat-tab-group>
+    </div>
   </main>
 
   <footer class="foot">

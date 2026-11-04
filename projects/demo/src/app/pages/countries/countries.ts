@@ -1,12 +1,14 @@
-import { Component, effect, inject, OnInit, untracked } from '@angular/core';
+import { Component, effect, inject, OnInit, signal, untracked } from '@angular/core';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { firstValueFrom } from 'rxjs';
 import { EasyTableComponent, EasyTableConfig, EasyTableDialogResult } from 'easy-mat-ui-ng20';
+import { inContinent } from '../../data/continents';
 import { City, CityRow, Country } from '../../models/geo.model';
 import { DisplaySettings } from '../../services/display-settings';
 import { GeoService } from '../../services/geo.service';
 import { LanguageService } from '../../services/language.service';
 import { CodePanel } from '../../shared/code-panel/code-panel';
+import { ContinentNav } from '../../shared/continent-nav/continent-nav';
 import { isSave } from '../../shared/dialog';
 import { PageHeader } from '../../shared/page-header/page-header';
 import { UnitSwitch } from '../../shared/unit-switch/unit-switch';
@@ -15,7 +17,7 @@ import { countryTable } from './countries.config';
 
 @Component({
   selector: 'app-countries',
-  imports: [EasyTableComponent, PageHeader, UnitSwitch, CodePanel, TranslatePipe],
+  imports: [EasyTableComponent, PageHeader, UnitSwitch, ContinentNav, CodePanel, TranslatePipe],
   templateUrl: './countries.html',
   styleUrl: './countries.scss'
 })
@@ -29,6 +31,11 @@ export class Countries implements OnInit {
   tableConfig!: EasyTableConfig<Country>;
   tableChildConfig!: EasyTableConfig<CityRow>;
 
+  /** Shared with the other pages that list countries. */
+  readonly continent = this.display.continent;
+  readonly isoCodes = signal<string[]>([]);
+
+  private allCountries: Country[] = [];
   private cities: City[] = [];
   private current: Country | null = null;
 
@@ -37,6 +44,11 @@ export class Countries implements OnInit {
       this.display.unit();
       this.lang.current();
       untracked(() => this.refreshChildTable());
+    });
+    // Another continent: the table lists only its countries.
+    effect(() => {
+      this.continent();
+      untracked(() => this.refreshCountries());
     });
   }
 
@@ -78,7 +90,15 @@ export class Countries implements OnInit {
   }
 
   private async loadCountries(): Promise<void> {
-    this.tableConfig = countryTable({ data: await firstValueFrom(this.api.getCountries()) });
+    this.allCountries = await firstValueFrom(this.api.getCountries());
+    this.isoCodes.set(this.allCountries.map((c) => c.isoCode));
+    this.refreshCountries();
+  }
+
+  private refreshCountries(): void {
+    if (this.allCountries.length === 0) return;
+    const continent = this.continent();
+    this.tableConfig = countryTable({ data: this.allCountries.filter((c) => inContinent(c.isoCode, continent)) });
   }
 
   private refreshChildTable(): void {

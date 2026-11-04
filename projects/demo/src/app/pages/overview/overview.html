@@ -1,29 +1,40 @@
 <section class="hero">
-  <span class="tag"><mat-icon aria-hidden="true">favorite</mat-icon>{{ 'overview.BADGE' | translate }}</span>
-  <h2>{{ 'overview.HERO_TITLE' | translate }}</h2>
-  <p class="lead">{{ 'overview.HERO_LEAD' | translate }}</p>
+  <div class="copy">
+    <span class="tag"><mat-icon aria-hidden="true">favorite</mat-icon>{{ 'overview.BADGE' | translate }}</span>
+    <h2>{{ 'overview.HERO_TITLE' | translate }}</h2>
+    <p class="lead">{{ 'overview.HERO_LEAD' | translate }}</p>
 
-  <div class="cta">
-    <button type="button" class="act primary" (click)="open.emit('cities')">
-      <mat-icon aria-hidden="true">play_arrow</mat-icon>{{ 'overview.EXPLORE' | translate }}
-    </button>
-    <a class="act" [href]="links.npm" target="_blank" rel="noopener noreferrer">
-      <mat-icon aria-hidden="true">inventory_2</mat-icon>{{ 'overview.CTA_NPM' | translate }}
-    </a>
-    <a class="act" [href]="links.repo" target="_blank" rel="noopener noreferrer">
-      <app-github-mark />{{ 'overview.CTA_GITHUB' | translate }}
-    </a>
+    <div class="cta">
+      <button type="button" class="act accent" (click)="open.emit('cities')">
+        <mat-icon aria-hidden="true">play_arrow</mat-icon>{{ 'overview.EXPLORE' | translate }}
+      </button>
+      <a class="act" [href]="links.npm" target="_blank" rel="noopener noreferrer">
+        <mat-icon aria-hidden="true">inventory_2</mat-icon>{{ 'overview.CTA_NPM' | translate }}
+      </a>
+      <a class="act" [href]="links.repo" target="_blank" rel="noopener noreferrer">
+        <app-github-mark />{{ 'overview.CTA_GITHUB' | translate }}
+      </a>
+    </div>
+
+    <div class="install">
+      <code dir="ltr">{{ installCommand }}</code>
+      <button type="button" (click)="copyInstall()" [attr.aria-label]="'overview.INSTALL_COPY' | translate">
+        <mat-icon aria-hidden="true">{{ copied() ? 'check' : 'content_copy' }}</mat-icon>
+        @if (copied()) {
+          <span>{{ 'overview.INSTALL_COPIED' | translate }}</span>
+        }
+      </button>
+    </div>
   </div>
 
-  <div class="install">
-    <code dir="ltr">{{ installCommand }}</code>
-    <button type="button" (click)="copyInstall()" [attr.aria-label]="'overview.INSTALL_COPY' | translate">
-      <mat-icon aria-hidden="true">{{ copied() ? 'check' : 'content_copy' }}</mat-icon>
-      @if (copied()) {
-        <span>{{ 'overview.INSTALL_COPIED' | translate }}</span>
-      }
-    </button>
-  </div>
+  <!-- The whole idea: one configuration object and one component. -->
+  <figure class="code-card" dir="ltr">
+    <div class="file"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>countries.config.ts</div>
+    <pre tabindex="0"><code>{{ config }}</code></pre>
+    <div class="file"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>countries.html</div>
+    <pre tabindex="0"><code>{{ template }}</code></pre>
+    <figcaption dir="auto">{{ 'overview.IDEA_TITLE' | translate }}</figcaption>
+  </figure>
 </section>
 
 <section class="open-card" aria-labelledby="open-title">
@@ -31,18 +42,18 @@
   <div class="body">
     <h3 id="open-title">{{ 'overview.OPEN_TITLE' | translate }}</h3>
     <p>{{ 'overview.OPEN_TEXT' | translate }}</p>
-    <div class="act-row">
-      <a class="act small" [href]="links.repo" target="_blank" rel="noopener noreferrer"><app-github-mark />{{ 'overview.OPEN_REPO' | translate }}</a>
-      <a class="act small" [href]="links.contributing" target="_blank" rel="noopener noreferrer"><mat-icon aria-hidden="true">menu_book</mat-icon>{{ 'overview.OPEN_CONTRIBUTE' | translate }}</a>
-      <a class="act small" [href]="links.newIssue" target="_blank" rel="noopener noreferrer"><mat-icon aria-hidden="true">bug_report</mat-icon>{{ 'overview.OPEN_ISSUES' | translate }}</a>
-    </div>
+  </div>
+  <div class="open-actions">
+    <a class="act small" [href]="links.repo" target="_blank" rel="noopener noreferrer"><app-github-mark />{{ 'overview.OPEN_REPO' | translate }}</a>
+    <a class="act small" [href]="links.contributing" target="_blank" rel="noopener noreferrer"><mat-icon aria-hidden="true">menu_book</mat-icon>{{ 'overview.OPEN_CONTRIBUTE' | translate }}</a>
+    <a class="act small" [href]="links.newIssue" target="_blank" rel="noopener noreferrer"><mat-icon aria-hidden="true">bug_report</mat-icon>{{ 'overview.OPEN_ISSUES' | translate }}</a>
   </div>
 </section>
 
 <section class="block" aria-labelledby="features-title">
   <h3 id="features-title">{{ 'overview.FEATURES_TITLE' | translate }}</h3>
   <p class="muted">{{ 'overview.FEATURES_LEAD' | translate }}</p>
-  <div class="actions">
+  <div class="grid features">
     @for (f of features; track f.id) {
       @if (f.page) {
         <button type="button" class="card" (click)="open.emit(f.page)">
@@ -76,14 +87,6 @@
 </section>
 
 <section class="block">
-  <h3>{{ 'overview.IDEA_TITLE' | translate }}</h3>
-  <p class="muted">{{ 'overview.IDEA_TEXT' | translate }}</p>
-  <pre tabindex="0" dir="ltr"><code>{{ installCommand }}</code></pre>
-  <pre tabindex="0" dir="ltr"><code>{{ config }}</code></pre>
-  <pre tabindex="0" dir="ltr"><code>{{ template }}</code></pre>
-</section>
-
-<section class="block">
   <h3>{{ 'overview.COMPAT_TITLE' | translate }}</h3>
   <p class="muted">{{ 'overview.COMPAT_TEXT' | translate }}</p>
   <div class="scroll">
@@ -112,7 +115,7 @@
   <h3 id="join-title">{{ 'overview.CONTRIBUTE_TITLE' | translate }}</h3>
   <p class="muted">{{ 'overview.CONTRIBUTE_LEAD' | translate }}</p>
 
-  <div class="actions">
+  <div class="grid ways">
     @for (w of ways; track w.id) {
       <article class="card plain">
         <mat-icon aria-hidden="true">{{ w.icon }}</mat-icon>
@@ -129,7 +132,7 @@
   </ol>
 
   <div class="act-row">
-    <a class="act primary" [href]="links.contributing" target="_blank" rel="noopener noreferrer"><mat-icon aria-hidden="true">menu_book</mat-icon>{{ 'overview.OPEN_CONTRIBUTE' | translate }}</a>
+    <a class="act accent" [href]="links.contributing" target="_blank" rel="noopener noreferrer"><mat-icon aria-hidden="true">menu_book</mat-icon>{{ 'overview.OPEN_CONTRIBUTE' | translate }}</a>
     <a class="act" [href]="links.newIssue" target="_blank" rel="noopener noreferrer"><mat-icon aria-hidden="true">bug_report</mat-icon>{{ 'overview.OPEN_ISSUES' | translate }}</a>
     <a class="act" [href]="links.repo" target="_blank" rel="noopener noreferrer"><app-github-mark />{{ 'overview.CTA_GITHUB' | translate }}</a>
   </div>

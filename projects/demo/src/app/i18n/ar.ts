@@ -19,7 +19,7 @@ export const AR: Dictionary = {
     nameAr: 'الاسم (AR)',
     isCapital: 'عاصمة',
     population: 'عدد السكان',
-    populationFormatted: 'عدد السكان (منسّق)'
+    populationFormatted: 'عدد السكان'
   },
   TABS: { ALL: 'كل المدن', TOP: 'الأكبر' },
   SEARCH: 'بحث',
@@ -63,7 +63,17 @@ export const AR: Dictionary = {
     FOOTER_DATA: 'بيانات العرض: GeoNames (CC BY 4.0) وويكيبيديا (CC BY-SA 4.0).'
   },
   nav: { overview: 'نظرة عامة', countries: 'الدول والمدن', tabs: 'تبويبات فرعية', cities: 'المدن' },
-  theme: { light: 'فاتح', dark: 'داكن', system: 'النظام', ARIA: 'المظهر {{name}}' },
+  continents: {
+    ARIA: 'التصفح حسب القارة',
+    all: 'الكل',
+    africa: 'أفريقيا',
+    asia: 'آسيا',
+    europe: 'أوروبا',
+    northAmerica: 'أمريكا الشمالية',
+    southAmerica: 'أمريكا الجنوبية',
+    oceania: 'أوقيانوسيا'
+  },
+  theme: { light: 'فاتح', dark: 'داكن', ARIA: 'المظهر {{name}}' },
   units: {
     LABEL: 'عدد السكان',
     auto: 'تلقائي',
@@ -101,7 +111,10 @@ export const AR: Dictionary = {
     cities: {
       title: 'مدن أي دولة',
       subtitle: 'اختر دولة فتُحمَّل مدنها عند الطلب. جدول واحد وكائن إعداد واحد: أعمدة محدّدة الأنواع، ومرشحات في الترويسة (ومنها عدد السكان)، وأيقونات للحالة، وترقيم للصفحات، ونافذة كاملة للإضافة والتعديل والعرض والحذف.',
-      COUNTRY: 'الدولة'
+      COUNTRY: 'الدولة',
+      STAT_CITIES: 'المدن المعروضة',
+      STAT_TOTAL: 'إجمالي السكان',
+      STAT_TOTAL_HINT: 'مجموع سكان المدن المعروضة أدناه'
     },
     CITIES_OF: 'مدن {{name}}',
     LARGEST_OF: 'أكبر مدن {{name}}'
@@ -141,7 +154,6 @@ export const AR: Dictionary = {
       done: { t: 'انتهى', d: 'البحث والفرز وترقيم الصفحات والنوافذ والصفوف القابلة للتوسيع والتبويبات والمظاهر والترجمة تتولاها المكتبة.' }
     },
     IDEA_TITLE: 'الفكرة كلها في 12 سطراً',
-    IDEA_TEXT: 'ثبّتها، وصِف جدولك، وضع مكوّناً واحداً في القالب.',
     COMPAT_TITLE: 'التوافق مع Angular',
     COMPAT_TEXT: 'جرى التحقق منه ببناء المكتبة المعبّأة وتشغيلها في تطبيقات جديدة.',
     compat: {

@@ -4,6 +4,16 @@ All notable changes to this project are documented in this file.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project
 follows [Semantic Versioning](https://semver.org/) (see [Versioning](README.md#versioning)).
 
+## [Unreleased]
+
+### Added
+- `lib-easy-multi-select`: `single` input for a single-choice dropdown (no checkboxes, no select all). `change` still
+  emits an array, holding the chosen value.
+
+### Changed
+- `lib-easy-multi-select` follows later changes of its `data` and `selectedData` inputs (a filtered list, a selection
+  set by the parent), instead of reading them only once.
+
 ## [20.0.0] - 2026-11-03
 
 First release of the `easy-mat-ui-ng20` package, aligned with Angular 20.

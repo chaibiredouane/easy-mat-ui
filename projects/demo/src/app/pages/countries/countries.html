@@ -5,6 +5,8 @@
   <app-unit-switch />
 </app-page-header>
 
+<app-continent-nav [isoCodes]="isoCodes()" [(selected)]="continent" />
+
 @if (isReady) {
   <div class="table-wrap">
     <lib-easy-table

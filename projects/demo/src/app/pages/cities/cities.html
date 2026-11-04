@@ -2,18 +2,43 @@
   icon="location_city"
   [title]="'pages.cities.title' | translate"
   [subtitle]="'pages.cities.subtitle' | translate">
-  <label class="country">
-    <span>{{ 'pages.cities.COUNTRY' | translate }}</span>
-    <select (change)="onCountryChange($event)" [attr.aria-label]="'pages.cities.COUNTRY' | translate">
-      @for (c of countries; track c.id) {
-        <option [value]="c.id" [selected]="c.id === country.id">{{ countryLabel(c) }}</option>
-      }
-    </select>
-  </label>
   <app-unit-switch />
 </app-page-header>
 
+<app-continent-nav [isoCodes]="isoCodes()" [(selected)]="continent" />
+
 @if (isReady) {
+  <section class="country-bar">
+    <div class="picker">
+      <!-- The dropdown of easy-mat-ui, in single-choice mode: the list follows the continent chosen above. -->
+      <lib-easy-multi-select
+        idPrefix="country"
+        appearance="outline"
+        [single]="true"
+        [formField]="true"
+        [title]="'pages.cities.COUNTRY'"
+        [data]="options()"
+        valueField="key"
+        displayField="value"
+        [selectedData]="selectedOption()"
+        (change)="onCountryPick($event)" />
+    </div>
+
+    @if (country()) {
+      <!-- The country itself is already in the dropdown: only the figures are repeated here. -->
+      <dl class="stats">
+        <div class="stat">
+          <dt>{{ 'pages.cities.STAT_CITIES' | translate }}</dt>
+          <dd>{{ cityCount() }}</dd>
+        </div>
+        <div class="stat">
+          <dt>{{ 'pages.cities.STAT_TOTAL' | translate }}</dt>
+          <dd class="big" [title]="totalExact() + ' · ' + ('pages.cities.STAT_TOTAL_HINT' | translate)">{{ totalFormatted() }}</dd>
+        </div>
+      </dl>
+    }
+  </section>
+
   <div class="table-wrap">
     <lib-easy-table
       [config]="tableConfig"

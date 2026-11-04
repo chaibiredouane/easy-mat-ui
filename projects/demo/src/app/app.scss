@@ -31,14 +31,17 @@
   }
 }
 
+/* ---- header: brand | pages | controls ------------------------------------------------------------------------- */
 .bar {
   position: sticky;
   top: 0;
   z-index: 10;
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  grid-template-areas: 'brand tabs controls';
   align-items: center;
-  gap: 12px;
-  padding: 8px 16px;
+  gap: 8px 16px;
+  padding: 10px clamp(12px, 2vw, 40px);
   background: var(--card-bg);
   color: var(--card-text);
   border-bottom: 1px solid var(--border-color);
@@ -46,6 +49,8 @@
 }
 
 .brand-title {
+  grid-area: brand;
+  justify-self: start;
   margin: 0;
   font-size: inherit;
   font-weight: inherit;
@@ -77,10 +82,99 @@
   font-weight: 400;
 }
 
-.spacer {
-  flex: 1;
+/* The pages: one rounded group, the current page filled with the accent of the demo. */
+.tabs {
+  grid-area: tabs;
+  justify-self: center;
+  display: inline-flex;
+  gap: 2px;
+  max-width: 100%;
+  padding: 4px;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--card-text) 5%, transparent);
+  overflow-x: auto;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
+.tab {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 38px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-muted);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.18s, color 0.18s, box-shadow 0.18s;
+
+  mat-icon {
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
+  }
+
+  &:hover:not(.on) {
+    background: var(--hover-color);
+    color: var(--card-text);
+  }
+
+  &.on {
+    background: var(--demo-accent);
+    color: var(--demo-on-accent);
+    font-weight: 600;
+    box-shadow: 0 2px 8px -2px color-mix(in srgb, var(--demo-accent) 60%, transparent);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--demo-accent);
+    outline-offset: 2px;
+  }
+}
+
+/* Controls on the right: GitHub, theme, language. */
+.controls {
+  grid-area: controls;
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ext {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: var(--card-text);
+  font-size: 1.25rem;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background: var(--hover-color);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--demo-accent);
+    outline-offset: 2px;
+  }
+}
+
+/* Two themes, two icons. */
 .theme {
   display: inline-flex;
   padding: 3px;
@@ -92,23 +186,20 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 4px;
-    min-width: 36px;
-    min-height: 36px;
-    padding: 0 12px;
+    width: 38px;
+    height: 38px;
+    padding: 0;
     border: 0;
-    border-radius: 999px;
+    border-radius: 50%;
     background: transparent;
     color: var(--card-text);
     cursor: pointer;
-    font: inherit;
-    font-size: 0.82rem;
     transition: background-color 0.2s;
 
     mat-icon {
-      width: 18px;
-      height: 18px;
-      font-size: 18px;
+      width: 20px;
+      height: 20px;
+      font-size: 20px;
     }
 
     &:hover:not(.on) {
@@ -127,37 +218,18 @@
   }
 }
 
-/* GitHub and npm links of the header. */
-.ext {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  min-width: 44px;
-  min-height: 44px;
-  padding: 0 12px;
-  border-radius: 999px;
-  color: var(--card-text);
-  font-size: 0.85rem;
-  font-weight: 500;
-  text-decoration: none;
-  transition: background-color 0.2s;
-
-  &:hover {
-    background: var(--hover-color);
-  }
-
-  &:focus-visible {
-    outline: 2px solid var(--demo-accent);
-    outline-offset: 2px;
-  }
-
-  &.npm {
-    border: 1px solid var(--border-color);
-    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  }
+/* ---- page ------------------------------------------------------------------------------------------------------ */
+main {
+  max-width: 2400px;
+  margin: 0 auto;
+  padding: 16px clamp(12px, 2vw, 40px) 40px;
 }
 
+.page {
+  min-width: 0;
+}
+
+/* ---- footer ---------------------------------------------------------------------------------------------------- */
 .foot {
   display: flex;
   flex-wrap: wrap;
@@ -209,59 +281,50 @@
   }
 }
 
-main {
-  /* Side margin of the page. */
-  --page-gutter: clamp(12px, 2vw, 40px);
-  /*
-   * Room kept around the content for box-shadows (the widest one, --shadow-md in the dark theme, reaches about
-   * 12px sideways). The body of a tab clips whatever overflows it, so the tab body is widened by this amount
-   * into the page margin (see styles.scss) and `.page` gives it back as padding: the layout does not move,
-   * and the shadows of the first and last cards are no longer cut. It can never exceed the real margin, so it
-   * cannot cause a horizontal scrollbar.
-   */
-  --shadow-room: min(var(--page-gutter), 16px);
-
-  max-width: 2400px;
-  margin: 0 auto;
-  padding: 8px var(--page-gutter) 40px;
-}
-
-.page {
-  padding-top: 8px;
-  padding-inline: var(--shadow-room);
-  min-width: 0;
-}
-
-/* Below this width the header keeps brand, theme and language on one line; GitHub stays in the page and the footer. */
-@media (max-width: 420px) {
-  .ext {
-    display: none;
+/* ---- narrower screens ------------------------------------------------------------------------------------------ */
+/* Below this width the pages move to their own line under the brand and the controls. */
+@media (max-width: 1100px) {
+  .bar {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'brand controls'
+      'tabs tabs';
   }
 }
 
 @media (max-width: 600px) {
   .bar {
-    flex-wrap: wrap; /* brand, links, theme and language do not fit on one line of a phone */
-    padding: 6px 10px;
-    gap: 6px;
+    padding: 8px 12px;
   }
 
-  .ver,
-  .theme .txt,
-  .ext .txt,
-  .ext.npm {
+  .ver {
     display: none;
   }
 
-  .theme button {
-    width: 40px;
-    min-height: 44px;
-    padding: 0;
+  /* The tab list takes the whole width: icons only, and the current page also shows its name. */
+  .tabs {
+    justify-self: stretch;
+    display: flex;
+  }
+
+  .tab {
+    flex: 1 1 0;
+    padding: 0 10px;
+
+    &:not(.on) .txt {
+      display: none;
+    }
+
+    &.on {
+      flex: 3 1 0;
+    }
+  }
+
+  .ext {
+    display: none;
   }
 
   main {
-    --page-gutter: 12px;
-    padding-top: 4px;
-    padding-bottom: 32px;
+    padding: 12px 12px 32px;
   }
 }

@@ -5,8 +5,10 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnChanges,
   OnInit,
-  Output
+  Output,
+  SimpleChanges
 } from '@angular/core';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {MatSelect, MatSelectModule} from '@angular/material/select';
@@ -45,7 +47,7 @@ import {Utils} from '../utils/utils';
   styleUrls: ['./easy-multi-select.css', '../styles.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EasyMultiSelect implements OnInit, AfterViewInit {
+export class EasyMultiSelect implements OnInit, OnChanges, AfterViewInit {
   componentId = Math.random().toString(36).substring(2);
   @Input() data: Dictionary[] = [];
   @Input() title = 'multi select';
@@ -62,6 +64,11 @@ export class EasyMultiSelect implements OnInit, AfterViewInit {
   @Input() placeholder = '';
   /** Dense 32px field, used for the column filters in table headers. */
   @Input() compact = false;
+  /**
+   * Single choice: one value at a time, so a plain dropdown (no checkboxes, no select all). `change` still emits an
+   * array, holding the chosen value. Set it once: it cannot change after the component is created.
+   */
+  @Input() single = false;
 
   @Output() change = new EventEmitter<string[]>();
   multiSelectControl = new FormControl<string[]>([]);
@@ -75,18 +82,38 @@ export class EasyMultiSelect implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.data = (Utils.getUnique(this.data, this.valueField as string) as Dictionary[]).sort((a, b) =>
-      Utils.safeCompare(a[this.displayField], b[this.displayField])
-    );
+    this.prepareData();
     this.initFilterGroup();
-
-    if (this.selectedData.length > 0) {
-      const selectedValues = this.selectedData.map((x) => x[this.valueField] as string);
-      this.setMultiSelectControl(selectedValues);
-    }
+    this.applySelectedData();
 
     if (this.readOnly) {
       this.multiSelectControl.disable();
+    }
+  }
+
+  /** The list or the selection given by the parent changed after the first render (for example a filtered list). */
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['data'] && !changes['data'].firstChange) {
+      this.prepareData();
+      this.initFilterGroup();
+    }
+    if (changes['selectedData'] && !changes['selectedData'].firstChange) {
+      this.applySelectedData();
+    }
+  }
+
+  private prepareData(): void {
+    this.data = (Utils.getUnique(this.data, this.valueField as string) as Dictionary[]).sort((a, b) =>
+      Utils.safeCompare(a[this.displayField], b[this.displayField])
+    );
+  }
+
+  private applySelectedData(): void {
+    if (this.selectedData.length > 0) {
+      const selectedValues = this.selectedData.map((x) => x[this.valueField] as string);
+      this.setMultiSelectControl(selectedValues);
+    } else if (this.single) {
+      this.setMultiSelectControl(null);
     }
   }
 
@@ -98,7 +125,8 @@ export class EasyMultiSelect implements OnInit, AfterViewInit {
   }
 
   setMultiSelectControl(values: string[] | null): void {
-    this.multiSelectControl.setValue(values);
+    // A single-choice mat-select holds the value itself, a multiple one holds an array of values.
+    this.multiSelectControl.setValue(this.single ? ((values?.[0] ?? null) as unknown as string[] | null) : values);
   }
 
   private _filter(value: string, options: Dictionary[]): Dictionary[] {
@@ -139,6 +167,13 @@ export class EasyMultiSelect implements OnInit, AfterViewInit {
   }
 
   onSelectionChange(event: MatOptionSelectionChange): void {
+    if (this.single) {
+      if (event.isUserInput && event.source.selected) {
+        this.setMultiSelectControl([event.source.value]);
+        this.change.emit([event.source.value]);
+      }
+      return;
+    }
     let values = this.multiSelectControl.value ?? [];
     if (event.isUserInput) {
       if (event.source.selected && !values.includes(event.source.value)) {
@@ -156,7 +191,7 @@ export class EasyMultiSelect implements OnInit, AfterViewInit {
   }
 
   resetSelection(): void {
-    this.multiSelectControl.setValue([]);
+    this.setMultiSelectControl(this.single ? null : []);
     this.searchCtrl.setValue('');
     this.change.emit([]);
   }
@@ -176,7 +211,7 @@ export class EasyMultiSelect implements OnInit, AfterViewInit {
   }
 
   get hidePlaceholder(): boolean {
-    const value = this.multiSelectControl.value;
-    return Array.isArray(value) && value.length > 0;
+    const value: unknown = this.multiSelectControl.value;
+    return this.single ? value != null && value !== '' : Array.isArray(value) && value.length > 0;
   }
 }

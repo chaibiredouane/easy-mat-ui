@@ -19,7 +19,7 @@ export const FR: Dictionary = {
     nameAr: 'Nom (AR)',
     isCapital: 'Capitale',
     population: 'Population',
-    populationFormatted: 'Population (formatée)'
+    populationFormatted: 'Population'
   },
   TABS: { ALL: 'Toutes les villes', TOP: 'Les plus peuplées' },
   SEARCH: 'Rechercher',
@@ -63,7 +63,17 @@ export const FR: Dictionary = {
     FOOTER_DATA: 'Données de démonstration : GeoNames (CC BY 4.0) et Wikipédia (CC BY-SA 4.0).'
   },
   nav: { overview: 'Présentation', countries: 'Pays et villes', tabs: 'Onglets enfants', cities: 'Villes' },
-  theme: { light: 'Clair', dark: 'Sombre', system: 'Système', ARIA: 'Thème {{name}}' },
+  continents: {
+    ARIA: 'Parcourir par continent',
+    all: 'Tous',
+    africa: 'Afrique',
+    asia: 'Asie',
+    europe: 'Europe',
+    northAmerica: 'Amérique du Nord',
+    southAmerica: 'Amérique du Sud',
+    oceania: 'Océanie'
+  },
+  theme: { light: 'Clair', dark: 'Sombre', ARIA: 'Thème {{name}}' },
   units: {
     LABEL: 'Population',
     auto: 'Auto',
@@ -101,7 +111,10 @@ export const FR: Dictionary = {
     cities: {
       title: 'Les villes de n’importe quel pays',
       subtitle: 'Choisissez un pays et ses villes se chargent à la demande. Un tableau, un objet de configuration : colonnes typées, filtres d’en-tête (population comprise), icônes d’état, pagination et un dialogue complet d’ajout, de modification, de consultation et de suppression.',
-      COUNTRY: 'Pays'
+      COUNTRY: 'Pays',
+      STAT_CITIES: 'Villes listées',
+      STAT_TOTAL: 'Population totale',
+      STAT_TOTAL_HINT: 'Somme des populations des villes listées ci-dessous'
     },
     CITIES_OF: 'Villes : {{name}}',
     LARGEST_OF: 'Villes les plus peuplées : {{name}}'
@@ -141,7 +154,6 @@ export const FR: Dictionary = {
       done: { t: 'Terminé', d: 'Recherche, tri, pagination, dialogues, lignes dépliables, onglets, thèmes et i18n sont gérés par la bibliothèque.' }
     },
     IDEA_TITLE: 'Toute l’idée en 12 lignes',
-    IDEA_TEXT: 'Installez-la, décrivez votre tableau, placez un composant dans le template.',
     COMPAT_TITLE: 'Compatibilité Angular',
     COMPAT_TEXT: 'Vérifiée en compilant et en exécutant la bibliothèque empaquetée dans des applications vierges.',
     compat: {

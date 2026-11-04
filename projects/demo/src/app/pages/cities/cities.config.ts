@@ -55,8 +55,8 @@ export function cityColumns({ compact, localNames }: CityColumnsOptions): MatCol
     new MatColumnTyped({ name: 'name', translateTitle: t('name'), enableFilter: true, filterType: 'text' }),
     ...(localNames ? [new MatColumnTyped({ name: 'nameAr', translateTitle: t('nameAr'), cssClass: 'rtl' })] : []),
     capital,
-    // Text filters: they match any part of the value, so "12" finds 1,200,000 and "1.2" finds "1.2 M".
-    new MatColumnTyped({ name: 'population', translateTitle: t('population'), enableFilter: true, filterType: 'text' }),
+    // One population column: the formatted value (the raw number stays in the data, and in the edit dialog).
+    // A text filter matches any part of the shown value, so "M" finds the millions and "1.2" finds "1.2 M".
     new MatColumnTyped({ name: 'populationFormatted', translateTitle: t('populationFormatted'), enableFilter: true, filterType: 'text' }),
     actions
   ];

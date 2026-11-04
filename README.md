@@ -21,7 +21,7 @@ a configurable **create / edit / view dialog** and a **multi-select** control, w
   pagination, sticky columns and a header that stays pinned while the rows scroll.
 - Expandable rows with **child tables**, or several child tables in **tabs** (`childConfig`).
 - `EasyDialogService`: a configurable dialog to create, edit or view a record.
-- `lib-easy-multi-select`: a searchable multi-select with select-all, clear, read-only and compact modes.
+- `lib-easy-multi-select`: a searchable multi-select with select-all, clear, read-only and compact modes, or a single-choice dropdown (`single`).
 - **Light and dark themes** switchable at runtime (`EasyThemeService`), driven by CSS variables.
 - Responsive layout (tables adapt below 768 px and 1024 px) and no WCAG 2 A/AA violation reported by axe-core on the demo.
 - Shared models, enums and configuration classes exported from one entry point.
