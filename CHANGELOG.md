@@ -6,6 +6,8 @@ follows [Semantic Versioning](https://semver.org/) (see [Versioning](README.md#v
 
 ## [Unreleased]
 
+## [20.0.6] - 2026-11-04
+
 ### Fixed
 - `lib-easy-table` and `lib-easy-table-basic` no longer reorder the array they receive: they sort a copy. An array
   that is frozen or read-only (state frozen by a store, `Object.freeze`) used to throw `Cannot assign to read only
