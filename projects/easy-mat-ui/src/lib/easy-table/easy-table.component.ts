@@ -31,6 +31,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {TableToolbarComponent} from '../shared/table-toolbar/table-toolbar';
 import {MatColumnTyped} from '../model/mat-column-typed.model';
 import {MatTabCommon} from '../utils/matTabCommon';
+import {sortRows} from '../utils/sort-rows';
 import {MatSelectModule} from '@angular/material/select';
 import {MatTabsModule} from '@angular/material/tabs';
 import {EasyMultiSelect} from '../easy-multi-select/easy-multi-select';
@@ -276,19 +277,17 @@ export class EasyTableComponent<T extends Record<string, any>> implements OnInit
   }
 
   loadData() {
-    if (this.config?.sortedBy) {
-      this.config.data?.sort((x, y) => {
-        const valX = String(x[this.config?.sortedBy] ?? '');
-        const valY = String(y[this.config?.sortedBy] ?? '');
-        return valX.localeCompare(valY);
-      });
-    }
-    this.dataSource = new MatTableDataSource<any>(this.config.data);
+    this.dataSource = new MatTableDataSource<any>(this.displayRows());
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.dataSource.filter = this.searchText;
     this.updatePageSize();
     this.syncFiltersWithData();
+  }
+
+  /** The rows in display order: always a sorted copy, the array of the application is not reordered. */
+  private displayRows(): any[] {
+    return sortRows(this.config?.data, this.config?.sortedBy);
   }
 
   syncFiltersWithData(): void {
@@ -300,7 +299,7 @@ export class EasyTableComponent<T extends Record<string, any>> implements OnInit
       const field = column.name;
       const displayField = column.displayColumn ?? column.name;
 
-      const dataValues = this.config.data
+      const dataValues = this.displayRows()
         .map(item => item[field])
         .filter(val => val != null);
 
@@ -418,7 +417,7 @@ export class EasyTableComponent<T extends Record<string, any>> implements OnInit
   onOverwrite(element: any, col: MatColumnTyped, event: Event) {
     const input = event.target as HTMLInputElement | null;
     this.config.data.find(x => x[col.id] === element[col.id])[col.name] = input?.value ?? '';
-    this.dataSource = new MatTableDataSource<any>(this.config.data);
+    this.dataSource = new MatTableDataSource<any>(this.displayRows());
     this.overwrite.emit({source: col.name, value: input?.value ?? element[col.name], item: element});
   }
 
@@ -460,7 +459,7 @@ export class EasyTableComponent<T extends Record<string, any>> implements OnInit
     if (values.length > 0) {
       values.forEach(filter => {
         // @ts-ignore
-        _data.push(...this.config.data?.filter(x => filter.key == x[this.config.filterColumn.name]));
+        _data.push(...this.displayRows().filter(x => filter.key == x[this.config.filterColumn.name]));
       });
     }
     this.getData(_data);
@@ -491,7 +490,7 @@ export class EasyTableComponent<T extends Record<string, any>> implements OnInit
 
   async onChangeDdl(element: any, col: MatColumnTyped, value: any) {
     this.config.data.find(x => x[col.id] === element[col.id])[col.name] = value;
-    this.dataSource = new MatTableDataSource<any>(this.config.data);
+    this.dataSource = new MatTableDataSource<any>(this.displayRows());
     this.overwrite.emit({source: col.name, value: value[col.name], item: element});
   }
 

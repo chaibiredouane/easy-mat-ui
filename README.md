@@ -240,7 +240,7 @@ Key points of the configuration:
 
 - `childConfig` takes one configuration, or an array to get tabs (`tabTitle`, `tabIcon`).
 - `isExpanded: true` on the parent adds the expand button; `extendRow` tells you which row opened.
-- `sortedBy: ''` keeps the order given by your service (the default sorts by text).
+- `sortedBy: ''` keeps the order given by your service (by default the rows are ordered by their `id` property: numbers as numbers, anything else as text).
 - Rebuild a table configuration (a new `EasyTableConfig`) whenever its data changes.
 
 The demo data lives under `projects/demo/src/app/data` and is **not** part of the npm package. Countries and cities
