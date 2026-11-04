@@ -103,6 +103,21 @@ git push --force-with-lease
 - If you changed the page generator (`tools/page-generator`), run `npm run test:generator`, then `npm run build` and
   `npm run check:generated`: the second one generates pages and compiles them with the Angular compiler.
 
+## Automated checks
+
+GitHub runs these on every pull request:
+
+- **CI** (`build-and-test`): the build, the unit tests, the page generator tests, a compile check of the generated pages
+  and of the documentation examples, and the contents of the package. It is the check the branch rules in
+  [.github/BRANCH_PROTECTION.md](.github/BRANCH_PROTECTION.md) recommend requiring.
+- **CodeQL**: static analysis of the TypeScript and JavaScript code. Results are under *Security > Code scanning*.
+- **Audit**: `npm audit --audit-level=high` on the workspace. It is not a required check, so a new advisory does not
+  block an unrelated pull request, but it shows as a red cross on the branch and runs every Monday.
+
+Dependabot opens weekly pull requests against `develop` for dependency updates. The Angular packages update together.
+A major update of the Angular packages, TypeScript, RxJS, ngx-translate, Bootstrap or flag-icons is left for a person
+to decide, because it changes the Angular line the package supports.
+
 ## Releases and hotfixes
 
 For maintainers.

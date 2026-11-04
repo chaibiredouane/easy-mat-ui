@@ -6,6 +6,15 @@ follows [Semantic Versioning](https://semver.org/) (see [Versioning](README.md#v
 
 ## [Unreleased]
 
+### Added
+- Dependabot (`.github/dependabot.yml`): weekly pull requests for the npm dependencies and the GitHub Actions. The
+  Angular packages update together, and a major update of the Angular packages, TypeScript, RxJS, ngx-translate,
+  Bootstrap or flag-icons is left to a human.
+- CodeQL (`.github/workflows/codeql.yml`): static analysis of the TypeScript and JavaScript code on every push and
+  pull request, and every Monday.
+- An `Audit` workflow (`npm audit --audit-level=high`) on every push and pull request, and every Monday. It is not a
+  required check.
+
 ### Security
 - The repository and the demo site now build with Angular 20.3.35, Angular Material and CDK 20.2.14 and the Angular CLI
   20.3.42 (they were on 20.3.9 and 20.2.9). This clears the high-severity advisories that `npm audit` reported for the
