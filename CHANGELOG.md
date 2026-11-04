@@ -6,6 +6,14 @@ follows [Semantic Versioning](https://semver.org/) (see [Versioning](README.md#v
 
 ## [Unreleased]
 
+### Security
+- The repository and the demo site now build with Angular 20.3.35, Angular Material and CDK 20.2.14 and the Angular CLI
+  20.3.42 (they were on 20.3.9 and 20.2.9). This clears the high-severity advisories that `npm audit` reported for the
+  Angular packages used to build the demo (the XSS, XSRF and denial-of-service issues fixed up to 20.3.25). `npm audit`
+  now reports no critical and no high vulnerability, and none in production dependencies. The published package is
+  unchanged: its peer dependency range stays `^20.0.0`, so applications keep choosing their own Angular version, and
+  should be on a patched 20.3.x.
+
 ## [20.0.6] - 2026-11-04
 
 ### Fixed
