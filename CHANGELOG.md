@@ -6,6 +6,8 @@ follows [Semantic Versioning](https://semver.org/) (see [Versioning](README.md#v
 
 ## [Unreleased]
 
+## [20.0.1] - 2026-11-04
+
 ### Added
 - `lib-easy-multi-select`: `single` input for a single-choice dropdown (no checkboxes, no select all). `change` still
   emits an array, holding the chosen value.
