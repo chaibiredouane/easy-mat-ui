@@ -47,9 +47,7 @@ jobs:
           node-version: 22
           cache: npm
       - name: Use Angular ${{ matrix.angular }}
-        run: |
-          node scripts/use-angular-version.cjs ${{ matrix.angular }}
-          npm install --legacy-peer-deps --no-package-lock --no-audit --no-fund
+        run: node scripts/use-angular-version.cjs ${{ matrix.angular }} --install
       - run: npm run build
       - run: npm test
         env:
