@@ -58,4 +58,4 @@ jobs:
       - run: npm run check:generated
       - run: npm run check:examples
       - name: Build the demo
-        run: npx ng build demo --configuration development
+        run: npm run build:demo
