@@ -210,13 +210,13 @@
           </div>
         }
         @if (nav(); as n) {
-          <lib-easy-chip-nav [items]="n.items" [selected]="navSelected() ?? n.selected ?? n.items[0]?.id ?? ''" (selectedChange)="navSelected.set($event)" />
+          <lib-easy-chip-nav [items]="n.items" [selected]="navCurrent(n)" (selectedChange)="navSelected.set($event)" />
         }
         @if (segmented(); as g) {
           <div>
             <lib-easy-segmented
               [options]="g.options"
-              [selected]="segmentedSelected() ?? g.selected ?? g.options[0]?.id ?? ''"
+              [selected]="segmentedCurrent(g)"
               [iconOnly]="!!g.iconOnly"
               [size]="g.size ?? 'md'"
               (selectedChange)="segmentedSelected.set($event)" />
@@ -226,7 +226,7 @@
           <div>
             <lib-easy-language-switch
               [languages]="l.languages"
-              [selected]="languageSelected() ?? l.selected ?? l.languages[0]?.code ?? ''"
+              [selected]="languageCurrent(l)"
               [layout]="l.layout ?? 'menu'"
               [display]="l.display ?? 'flag-name'"
               (selectedChange)="languageSelected.set($event)" />

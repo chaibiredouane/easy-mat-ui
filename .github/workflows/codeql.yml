@@ -1,0 +1,32 @@
+name: CodeQL
+
+# Static analysis of the TypeScript and JavaScript code. Results appear under Security > Code scanning.
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  schedule:
+    # Mondays, so that new queries also run on code that has not changed.
+    - cron: '23 4 * * 1'
+
+permissions:
+  contents: read
+
+jobs:
+  analyze:
+    name: Analyze (javascript-typescript)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+      security-events: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: github/codeql-action/init@v4
+        with:
+          languages: javascript-typescript
+          build-mode: none
+      - uses: github/codeql-action/analyze@v4
+        with:
+          category: /language:javascript-typescript

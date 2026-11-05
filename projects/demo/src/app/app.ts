@@ -1,6 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Dir } from '@angular/cdk/bidi';
-import { Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
@@ -39,6 +39,7 @@ const THEMES: { id: EasyThemeMode; icon: string }[] = [
 ];
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Default,
   selector: 'app-root',
   imports: [Dir, MatIconModule, TranslatePipe, GithubMark, EasySegmented, EasyLanguageSwitch, Overview, Countries, CountryTabs, Cities, Builder],
   templateUrl: './app.html',

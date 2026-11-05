@@ -18,6 +18,8 @@ jobs:
         with:
           node-version: 22
           cache: npm
+      - name: Check that the lock file uses the public registry
+        run: node scripts/check-lock-registry.cjs
       - run: npm ci
       - run: npm run build
       - run: npm test
@@ -25,9 +27,37 @@ jobs:
           CHROME_BIN: /usr/bin/google-chrome
       - name: Test the page generator
         run: npm run test:generator
+      - name: Test the release notes script
+        run: npm run test:release-notes
       - name: Check that the generated pages compile
         run: npm run check:generated
       - name: Check that the documentation examples compile
         run: npm run check:examples
       - name: Inspect package contents
         run: cd dist/easy-mat-ui && npm pack --dry-run
+
+  # The library is built against Angular 20 above. The same source must also build, pass its tests and generate
+  # compilable pages with the newer Angular majors its peer dependencies accept.
+  compatibility:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        angular: [21, 22]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Use Angular ${{ matrix.angular }}
+        run: node scripts/use-angular-version.cjs ${{ matrix.angular }} --install
+      - run: npm run build
+      - run: npm test
+        env:
+          CHROME_BIN: /usr/bin/google-chrome
+      - run: npm run test:generator
+      - run: npm run check:generated
+      - run: npm run check:examples
+      - name: Build the demo
+        run: npm run build:demo

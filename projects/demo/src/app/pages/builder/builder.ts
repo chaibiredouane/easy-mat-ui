@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import {
@@ -85,6 +85,7 @@ const orUndefined = (value: unknown): string | undefined => text(value).trim() |
  * here with simple controls, shown live with the real components, and turned into code by the same generator.
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.Default,
   selector: 'app-builder',
   imports: [
     MatIconModule,
@@ -198,6 +199,17 @@ export class Builder {
   readonly navSelected = signal<string | null>(null);
   readonly segmentedSelected = signal<string | null>(null);
   readonly languageSelected = signal<string | null>(null);
+
+  /** What the preview shows as chosen: the user's pick, else the block's own choice, else its first entry (none if empty). */
+  navCurrent(n: ChipNavBlock): string {
+    return this.navSelected() ?? n.selected ?? n.items[0]?.id ?? '';
+  }
+  segmentedCurrent(g: SegmentedBlock): string {
+    return this.segmentedSelected() ?? g.selected ?? g.options[0]?.id ?? '';
+  }
+  languageCurrent(l: LanguageSwitchBlock): string {
+    return this.languageSelected() ?? l.selected ?? l.languages[0]?.code ?? '';
+  }
 
   // ---- labels of the editors (they follow the language of the demo) ----------------------------------------------------
   private t(key: string): string {

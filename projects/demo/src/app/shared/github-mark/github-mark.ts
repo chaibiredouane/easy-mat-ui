@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 /** The GitHub mark (Material Icons has none). It takes the colour of the surrounding text. */
 @Component({
+  changeDetection: ChangeDetectionStrategy.Default,
   selector: 'app-github-mark',
   template: `
     <svg viewBox="0 0 16 16" width="1em" height="1em" aria-hidden="true" focusable="false">

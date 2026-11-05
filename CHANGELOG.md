@@ -6,18 +6,61 @@ follows [Semantic Versioning](https://semver.org/) (see [Versioning](README.md#v
 
 ## [Unreleased]
 
+## [20.0.7] - 2026-11-05
+
+### Added
+- The `Release` workflow creates the GitHub release with the section of the version in `CHANGELOG.md` as its notes
+  (`scripts/release-notes.cjs`, tested in the CI), and skips `npm publish` when that version is already on npm, so a
+  run can be repeated. Before, the release was only created after a successful publish, with generated notes.
+- Dependabot (`.github/dependabot.yml`): weekly pull requests for the npm dependencies and the GitHub Actions. The
+  Angular packages update together, and a major update of the Angular packages, TypeScript, RxJS, ngx-translate,
+  Bootstrap or flag-icons is left to a human.
+- CodeQL (`.github/workflows/codeql.yml`): static analysis of the TypeScript and JavaScript code on every push and
+  pull request, and every Monday.
+- An `Audit` workflow (`npm audit --audit-level=high`) on every push and pull request, and every Monday. It is not a
+  required check.
+- Support for **Angular 21 and 22** in the same package. The peer dependencies of the Angular packages are now
+  `^20.0.0 || ^21.0.0 || ^22.0.0`. CI builds the library, runs its unit tests, tests the page generator and compiles
+  the generated pages and the documentation examples against Angular 21 and 22 as well as 20
+  (`scripts/use-angular-version.cjs` switches the workspace to a given major). The demo was compared by screenshot
+  on the three majors (light and dark themes, five pages): identical, except that the Arabic names of the cities
+  table are aligned to the right of their cell on 21 and 22 and to the left on 20. The cause is Angular Material, not the library: the demo's `.rtl` class only sets `direction`, and the
+  `text-align` of a table cell went from `left` (Material 20) to `start` (Material 21 and later), which is the right
+  edge for a right-to-left cell.
+
 ### Security
 - The repository and the demo site now build with Angular 20.3.35, Angular Material and CDK 20.2.14 and the Angular CLI
   20.3.42 (they were on 20.3.9 and 20.2.9). This clears the high-severity advisories that `npm audit` reported for the
   Angular packages used to build the demo (the XSS, XSRF and denial-of-service issues fixed up to 20.3.25). `npm audit`
   now reports no critical and no high vulnerability, and none in production dependencies. The published package is
-  unchanged: its peer dependency range stays `^20.0.0`, so applications keep choosing their own Angular version, and
+  unchanged: its peer dependency range was still `^20.0.0` at that point, so applications keep choosing their own Angular version, and
   should be on a patched 20.3.x.
 
+### Fixed
+- `package-lock.json` pointed one package (`@angular/build`) at a private registry mirror, so `npm ci` failed on the CI and
+  on any machine that cannot reach it. The address is now the public registry, and a new CI step
+  (`scripts/check-lock-registry.cjs`) fails early, with a clear message, when the lock file uses any other registry.
+
 ### Changed
+- README: the Angular badge shows 20, 21 and 22.
 - README: a logo, real screenshots and a short demonstration taken from the live demo, a one-paragraph summary of
   what the library is for, and a "Status and limits" section (young project, Angular 20, data handled in the browser,
   click-to-sort off with header filters). The screenshots and the logo are in `docs/images`.
+- The workspace builds, tests and serves with `@angular/build` (the library build, Karma, the demo build and the dev
+  server) instead of `@angular-devkit/build-angular`, whose webpack support Angular 22 deprecates. The published
+  package is unchanged (same files, same compiled code). `@angular-devkit/build-angular` is no longer a dependency of
+  the workspace, which removes about 400 packages from the install.
+- The components of the demo declare `ChangeDetectionStrategy.Default` explicitly. On Angular 22 the Cities page stayed
+  empty, because a plain field set at the end of an asynchronous `ngOnInit` does not refresh an `OnPush` view.
+- `lib-table-toolbar` and the placeholder `EasyMatUiComponent` declare `ChangeDetectionStrategy.Default`
+  explicitly. Angular 22 makes `OnPush` the default, and these components relied on the default strategy. `ChangeDetectionStrategy.Default` is
+  deprecated in Angular 22 in favour of `Eager`, which does not exist in Angular 20: `Default` stays while Angular 20
+  is supported.
+- The page generator CLI is marked as CommonJS by a `package.json` in `dist/easy-mat-ui/page-generator`, so
+  `npx easy-mat-ui add-page` keeps working when the package is built with ng-packagr 21 or later (which writes
+  `"type": "module"` in the package manifest).
+- The type-check configuration of the documentation examples and of the generated-pages check sets `rootDir`, which
+  TypeScript 6 (used by Angular 22) requires.
 
 ## [20.0.6] - 2026-11-04
 

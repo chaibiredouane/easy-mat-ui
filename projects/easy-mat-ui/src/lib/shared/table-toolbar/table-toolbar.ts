@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 import {Dictionary} from '../../model/dictionary.model';
 import {TranslatePipe} from '@ngx-translate/core';
 import {MatColumn} from '../../model/mat-column.model';
@@ -12,6 +12,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {ToolbarConfig} from '../../model/toolbar-config.model';
 
 @Component({
+  // Explicit: Angular 22 makes OnPush the default, and this component relies on the default strategy.
+  changeDetection: ChangeDetectionStrategy.Default,
   selector: 'lib-table-toolbar',
   standalone: true,
   imports: [

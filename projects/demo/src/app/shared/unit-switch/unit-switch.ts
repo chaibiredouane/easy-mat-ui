@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { EasySegmented, EasySegmentedOption } from 'easy-mat-ui-ng20';
 import { DisplaySettings } from '../../services/display-settings';
@@ -10,6 +10,7 @@ import { POPULATION_UNITS, PopulationUnit } from '../population';
  * digits) follows the language of the demo. The buttons are the `lib-easy-segmented` of easy-mat-ui.
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.Default,
   selector: 'app-unit-switch',
   imports: [EasySegmented, TranslatePipe],
   templateUrl: './unit-switch.html',

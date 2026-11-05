@@ -29,7 +29,7 @@ const PAGES = [
         { links: [['Open the starter project on StackBlitz', STACKBLITZ]] }
       ] },
       { h2: 'Requirements', items: [
-        { ul: ['Angular 20 (package easy-mat-ui-ng20). Angular 19 and 21 build and run but are not officially supported.', 'Angular Material and CDK 20, @ngx-translate/core 16, Bootstrap 5, RxJS 7.', 'Optional: flag-icons for country flags.'] }
+        { ul: ['Angular 20, 21 and 22 (package easy-mat-ui-ng20). Angular 19 builds and runs but is not officially supported.', 'Angular Material and CDK 20, 21 or 22, @ngx-translate/core 16, Bootstrap 5, RxJS 7.', 'Optional: flag-icons for country flags.'] }
       ] },
       { h2: 'Install', items: [
         { code: 'ng add @angular/material\nnpm install easy-mat-ui-ng20 @ngx-translate/core@^16 bootstrap', lang: 'bash' },
@@ -135,17 +135,17 @@ const PAGES = [
   {
     slug: 'angular-compatibility',
     title: 'Angular version compatibility of Easy Mat UI',
-    description: 'Which Angular versions easy-mat-ui-ng20 supports: Angular 20 officially, Angular 19 and 21 tested, Angular 18 and older not working.',
-    intro: 'Each Angular major version has its own package. The first number of the package version is the Angular major it targets. Compatibility was tested by building and running the packaged library in clean applications.',
+    description: 'Which Angular versions easy-mat-ui-ng20 supports: Angular 20, 21 and 22, Angular 19 tested, Angular 18 and older not working.',
+    intro: 'One package, easy-mat-ui-ng20, supports Angular 20, 21 and 22. CI builds the library, runs its tests and compiles the generated pages and the documentation examples against each of them. The demo was also compared by screenshot on the three versions: identical, except the alignment of the Arabic names in the cities table.',
     blocks: [
       { h2: 'Compatibility', items: [
         { table: { head: ['Angular', 'Status', 'Details'], rows: [
-          ['20', 'Supported', 'Package easy-mat-ui-ng20, peer range ^20.0.0.'],
-          ['19 and 21', 'Works, not official', 'Builds and runs; install with --legacy-peer-deps.'],
+          ['20, 21 and 22', 'Supported', 'Package easy-mat-ui-ng20, peer range ^20.0.0 || ^21.0.0 || ^22.0.0. Checked in CI on each.'],
+          ['19', 'Works, not official', 'Builds and runs; install with --legacy-peer-deps.'],
           ['18', 'Does not work', 'The table fails at runtime with Material 18.'],
           ['16 and 17', 'Does not work', 'The build fails (the library needs @let, Angular 18.1 or later).']
         ] } },
-        { p: 'A package for Angular 21 (easy-mat-ui-ng21) is planned.' }
+        { p: 'The package keeps ng20 in its name for compatibility; a separate package per Angular version is not planned.' }
       ] }
     ]
   }
@@ -160,7 +160,7 @@ const FAQ = [
   ['What is Easy Mat UI?', 'An open-source (MIT) Angular library built on Angular Material: one configuration object gives a data table with column filters, pagination, expandable rows, child tables and tabs, a dialog and a multi-select.'],
   ['How do I install it?', 'npm install easy-mat-ui-ng20 in an Angular 20 project, then import EasyTableComponent, EasyTableConfig and MatColumnTyped.'],
   ['Does it support dark mode?', 'Yes: EasyThemeService.setTheme("light" | "dark" | "system") switches at runtime; the themes are CSS variables you can override.'],
-  ['Which Angular versions are supported?', 'Angular 20 officially (easy-mat-ui-ng20). Angular 19 and 21 build and run but are not official; 18 and older do not work.'],
+  ['Which Angular versions are supported?', 'Angular 20, 21 and 22 (easy-mat-ui-ng20, one package, checked in CI on each). Angular 19 builds and runs but is not official; 18 and older do not work.'],
   ['Is it free?', 'Yes, MIT license. Source: ' + GITHUB],
   ...EXTRA_FAQ
 ];
