@@ -8,7 +8,7 @@ Describe a table in one configuration object: column filters, pagination, a crea
 
 [![npm](https://img.shields.io/npm/v/easy-mat-ui-ng20.svg)](https://www.npmjs.com/package/easy-mat-ui-ng20)
 [![CI](https://github.com/chaibiredouane/easy-mat-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/chaibiredouane/easy-mat-ui/actions/workflows/ci.yml)
-[![Angular](https://img.shields.io/badge/Angular-20-dd0031.svg)](https://angular.dev)
+[![Angular](https://img.shields.io/badge/Angular-20%20%7C%2021%20%7C%2022-dd0031.svg)](https://angular.dev)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/chaibiredouane/easy-mat-ui/blob/main/LICENSE)
 
 **[Live demo](https://easy-mat-ui.web.app/)** · **[Try it on StackBlitz](https://stackblitz.com/github/chaibiredouane/easy-mat-ui/tree/main/examples/stackblitz-starter)** · **[Documentation](https://easy-mat-ui.web.app/docs/)** · [npm](https://www.npmjs.com/package/easy-mat-ui-ng20) · [Changelog](https://github.com/chaibiredouane/easy-mat-ui/blob/main/CHANGELOG.md)
