@@ -7,6 +7,16 @@ follows [Semantic Versioning](https://semver.org/) (see [Versioning](README.md#v
 ## [Unreleased]
 
 ### Added
+- The `Release` workflow creates the GitHub release with the section of the version in `CHANGELOG.md` as its notes
+  (`scripts/release-notes.cjs`, tested in the CI), and skips `npm publish` when that version is already on npm, so a
+  run can be repeated. Before, the release was only created after a successful publish, with generated notes.
+- Dependabot (`.github/dependabot.yml`): weekly pull requests for the npm dependencies and the GitHub Actions. The
+  Angular packages update together, and a major update of the Angular packages, TypeScript, RxJS, ngx-translate,
+  Bootstrap or flag-icons is left to a human.
+- CodeQL (`.github/workflows/codeql.yml`): static analysis of the TypeScript and JavaScript code on every push and
+  pull request, and every Monday.
+- An `Audit` workflow (`npm audit --audit-level=high`) on every push and pull request, and every Monday. It is not a
+  required check.
 - Support for **Angular 21 and 22** in the same package. The peer dependencies of the Angular packages are now
   `^20.0.0 || ^21.0.0 || ^22.0.0`. CI builds the library, runs its unit tests, tests the page generator and compiles
   the generated pages and the documentation examples against Angular 21 and 22 as well as 20
@@ -16,7 +26,18 @@ follows [Semantic Versioning](https://semver.org/) (see [Versioning](README.md#v
   `text-align` of a table cell went from `left` (Material 20) to `start` (Material 21 and later), which is the right
   edge for a right-to-left cell.
 
+### Security
+- The repository and the demo site now build with Angular 20.3.35, Angular Material and CDK 20.2.14 and the Angular CLI
+  20.3.42 (they were on 20.3.9 and 20.2.9). This clears the high-severity advisories that `npm audit` reported for the
+  Angular packages used to build the demo (the XSS, XSRF and denial-of-service issues fixed up to 20.3.25). `npm audit`
+  now reports no critical and no high vulnerability, and none in production dependencies. The published package is
+  unchanged: its peer dependency range was still `^20.0.0` at that point, so applications keep choosing their own Angular version, and
+  should be on a patched 20.3.x.
+
 ### Changed
+- README: a logo, real screenshots and a short demonstration taken from the live demo, a one-paragraph summary of
+  what the library is for, and a "Status and limits" section (young project, Angular 20, data handled in the browser,
+  click-to-sort off with header filters). The screenshots and the logo are in `docs/images`.
 - The workspace builds, tests and serves with `@angular/build` (the library build, Karma, the demo build and the dev
   server) instead of `@angular-devkit/build-angular`, whose webpack support Angular 22 deprecates. The published
   package is unchanged (same files, same compiled code). `@angular-devkit/build-angular` is no longer a dependency of
@@ -32,19 +53,6 @@ follows [Semantic Versioning](https://semver.org/) (see [Versioning](README.md#v
   `"type": "module"` in the package manifest).
 - The type-check configuration of the documentation examples and of the generated-pages check sets `rootDir`, which
   TypeScript 6 (used by Angular 22) requires.
-
-### Security
-- The repository and the demo site now build with Angular 20.3.35, Angular Material and CDK 20.2.14 and the Angular CLI
-  20.3.42 (they were on 20.3.9 and 20.2.9). This clears the high-severity advisories that `npm audit` reported for the
-  Angular packages used to build the demo (the XSS, XSRF and denial-of-service issues fixed up to 20.3.25). `npm audit`
-  now reports no critical and no high vulnerability, and none in production dependencies. The published package is
-  unchanged: its peer dependency range was still `^20.0.0` at that point, so applications keep choosing their own Angular version, and
-  should be on a patched 20.3.x.
-
-### Changed
-- README: a logo, real screenshots and a short demonstration taken from the live demo, a one-paragraph summary of
-  what the library is for, and a "Status and limits" section (young project, Angular 20, data handled in the browser,
-  click-to-sort off with header filters). The screenshots and the logo are in `docs/images`.
 
 ## [20.0.6] - 2026-11-04
 

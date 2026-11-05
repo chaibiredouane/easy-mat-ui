@@ -1,0 +1,47 @@
+# Weekly dependency updates, as pull requests against the default branch (develop).
+# See https://docs.github.com/en/code-security/dependabot/working-with-dependabot/dependabot-options-reference
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    groups:
+      # The Angular packages pin each other to the same exact version (@angular/common needs the same @angular/core),
+      # so they only update together.
+      angular:
+        patterns:
+          - "@angular/*"
+          - "@angular-devkit/*"
+          - "ng-packagr"
+    ignore:
+      # The major version of these is tied to the Angular line this package supports (easy-mat-ui-ng20, Angular 20),
+      # or is a peer dependency range of the library. A major update is decided by hand, not proposed by a bot.
+      - dependency-name: "@angular/*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@angular-devkit/*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "ng-packagr"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "rxjs"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@ngx-translate/*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "bootstrap"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "flag-icons"
+        update-types: ["version-update:semver-major"]
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    groups:
+      actions:
+        patterns:
+          - "*"

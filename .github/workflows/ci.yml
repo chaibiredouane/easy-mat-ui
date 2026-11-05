@@ -25,6 +25,8 @@ jobs:
           CHROME_BIN: /usr/bin/google-chrome
       - name: Test the page generator
         run: npm run test:generator
+      - name: Test the release notes script
+        run: npm run test:release-notes
       - name: Check that the generated pages compile
         run: npm run check:generated
       - name: Check that the documentation examples compile
