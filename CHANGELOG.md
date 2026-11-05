@@ -34,6 +34,11 @@ follows [Semantic Versioning](https://semver.org/) (see [Versioning](README.md#v
   unchanged: its peer dependency range was still `^20.0.0` at that point, so applications keep choosing their own Angular version, and
   should be on a patched 20.3.x.
 
+### Fixed
+- `package-lock.json` pointed one package (`@angular/build`) at a private registry mirror, so `npm ci` failed on the CI and
+  on any machine that cannot reach it. The address is now the public registry, and a new CI step
+  (`scripts/check-lock-registry.cjs`) fails early, with a clear message, when the lock file uses any other registry.
+
 ### Changed
 - README: a logo, real screenshots and a short demonstration taken from the live demo, a one-paragraph summary of
   what the library is for, and a "Status and limits" section (young project, Angular 20, data handled in the browser,
