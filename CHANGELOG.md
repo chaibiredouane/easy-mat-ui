@@ -6,12 +6,28 @@ follows [Semantic Versioning](https://semver.org/) (see [Versioning](README.md#v
 
 ## [Unreleased]
 
+### Added
+- Support for **Angular 21 and 22** in the same package. The peer dependencies of the Angular packages are now
+  `^20.0.0 || ^21.0.0 || ^22.0.0`. CI builds the library, runs its unit tests, tests the page generator and compiles
+  the generated pages and the documentation examples against Angular 21 and 22 as well as 20
+  (`scripts/use-angular-version.cjs` switches the workspace to a given major). Not covered by the checks: the visual
+  rendering with the Angular Material 21 and 22 themes.
+
+### Changed
+- `lib-table-toolbar` and the placeholder `EasyMatUiComponent` declare `ChangeDetectionStrategy.Default`
+  explicitly. Angular 22 makes `OnPush` the default, and these components relied on the default strategy.
+- The page generator CLI is marked as CommonJS by a `package.json` in `dist/easy-mat-ui/page-generator`, so
+  `npx easy-mat-ui add-page` keeps working when the package is built with ng-packagr 21 or later (which writes
+  `"type": "module"` in the package manifest).
+- The type-check configuration of the documentation examples and of the generated-pages check sets `rootDir`, which
+  TypeScript 6 (used by Angular 22) requires.
+
 ### Security
 - The repository and the demo site now build with Angular 20.3.35, Angular Material and CDK 20.2.14 and the Angular CLI
   20.3.42 (they were on 20.3.9 and 20.2.9). This clears the high-severity advisories that `npm audit` reported for the
   Angular packages used to build the demo (the XSS, XSRF and denial-of-service issues fixed up to 20.3.25). `npm audit`
   now reports no critical and no high vulnerability, and none in production dependencies. The published package is
-  unchanged: its peer dependency range stays `^20.0.0`, so applications keep choosing their own Angular version, and
+  unchanged: its peer dependency range was still `^20.0.0` at that point, so applications keep choosing their own Angular version, and
   should be on a patched 20.3.x.
 
 ### Changed

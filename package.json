@@ -7,7 +7,7 @@
     "start": "npm run snippets && ng serve demo",
     "build:demo": "npm run snippets && ng build demo --configuration development",
     "build": "ng build easy-mat-ui && npm run build:cli",
-    "build:cli": "tsc -p tools/page-generator/tsconfig.cli.json",
+    "build:cli": "tsc -p tools/page-generator/tsconfig.cli.json && node scripts/mark-cli-commonjs.cjs",
     "watch": "ng build easy-mat-ui --watch --configuration development",
     "test": "ng test --watch=false --browsers=ChromeHeadless",
     "test:generator": "tsc -p tools/page-generator/tsconfig.json && node --test \"dist/page-generator/test/*.test.js\"",

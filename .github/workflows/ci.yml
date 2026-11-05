@@ -31,3 +31,31 @@ jobs:
         run: npm run check:examples
       - name: Inspect package contents
         run: cd dist/easy-mat-ui && npm pack --dry-run
+
+  # The library is built against Angular 20 above. The same source must also build, pass its tests and generate
+  # compilable pages with the newer Angular majors its peer dependencies accept.
+  compatibility:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        angular: [21, 22]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Use Angular ${{ matrix.angular }}
+        run: |
+          node scripts/use-angular-version.cjs ${{ matrix.angular }}
+          npm install --legacy-peer-deps --no-package-lock --no-audit --no-fund
+      - run: npm run build
+      - run: npm test
+        env:
+          CHROME_BIN: /usr/bin/google-chrome
+      - run: npm run test:generator
+      - run: npm run check:generated
+      - run: npm run check:examples
+      - name: Build the demo
+        run: npx ng build demo --configuration development

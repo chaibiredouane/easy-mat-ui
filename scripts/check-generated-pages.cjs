@@ -44,7 +44,7 @@ try {
 
   fs.writeFileSync(
     tsconfig,
-    JSON.stringify({ extends: '../../tsconfig.json', compilerOptions: { noEmit: true, types: [], resolveJsonModule: true }, include: ['src/app/_generated-check/**/*.ts'] }, null, 2)
+    JSON.stringify({ extends: '../../tsconfig.json', compilerOptions: { noEmit: true, rootDir: '../..', types: [], resolveJsonModule: true }, include: ['src/app/_generated-check/**/*.ts'] }, null, 2)
   );
   try {
     execFileSync(process.execPath, [ngc, '-p', tsconfig], { cwd: root, stdio: 'pipe' });
