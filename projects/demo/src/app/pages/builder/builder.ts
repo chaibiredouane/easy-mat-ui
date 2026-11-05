@@ -200,6 +200,17 @@ export class Builder {
   readonly segmentedSelected = signal<string | null>(null);
   readonly languageSelected = signal<string | null>(null);
 
+  /** What the preview shows as chosen: the user's pick, else the block's own choice, else its first entry (none if empty). */
+  navCurrent(n: ChipNavBlock): string {
+    return this.navSelected() ?? n.selected ?? n.items[0]?.id ?? '';
+  }
+  segmentedCurrent(g: SegmentedBlock): string {
+    return this.segmentedSelected() ?? g.selected ?? g.options[0]?.id ?? '';
+  }
+  languageCurrent(l: LanguageSwitchBlock): string {
+    return this.languageSelected() ?? l.selected ?? l.languages[0]?.code ?? '';
+  }
+
   // ---- labels of the editors (they follow the language of the demo) ----------------------------------------------------
   private t(key: string): string {
     return this.translate.instant(key);
