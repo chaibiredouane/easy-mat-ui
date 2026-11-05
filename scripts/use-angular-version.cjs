@@ -24,7 +24,7 @@ const pkg = JSON.parse(fs.readFileSync(file, 'utf8'));
 const dev = pkg.devDependencies;
 
 for (const name of Object.keys(dev)) {
-  if (name.startsWith('@angular/') || name === '@angular-devkit/build-angular' || name === 'ng-packagr') {
+  if (name.startsWith('@angular/') || name === 'ng-packagr') {
     dev[name] = `^${major}.0.0`;
     console.log(`${name} ${dev[name]}`);
   }

@@ -17,6 +17,10 @@ follows [Semantic Versioning](https://semver.org/) (see [Versioning](README.md#v
   edge for a right-to-left cell.
 
 ### Changed
+- The workspace builds, tests and serves with `@angular/build` (the library build, Karma, the demo build and the dev
+  server) instead of `@angular-devkit/build-angular`, whose webpack support Angular 22 deprecates. The published
+  package is unchanged (same files, same compiled code). `@angular-devkit/build-angular` is no longer a dependency of
+  the workspace, which removes about 400 packages from the install.
 - The components of the demo declare `ChangeDetectionStrategy.Default` explicitly. On Angular 22 the Cities page stayed
   empty, because a plain field set at the end of an asynchronous `ngOnInit` does not refresh an `OnPush` view.
 - `lib-table-toolbar` and the placeholder `EasyMatUiComponent` declare `ChangeDetectionStrategy.Default`
