@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EasyPageHeaderConfig } from '../model/easy-page-header.model';
 import { EasyPageHeader } from './easy-page-header';
 
 @Component({
+  // Explicit: Angular 22 makes OnPush the default, and this test host mutates a plain property.
+  changeDetection: ChangeDetectionStrategy.Default,
   imports: [EasyPageHeader],
   template: `<lib-easy-page-header [config]="config"><button id="control">Export</button></lib-easy-page-header>`
 })

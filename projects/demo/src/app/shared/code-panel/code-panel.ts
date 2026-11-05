@@ -1,4 +1,4 @@
-import { afterNextRender, Component, computed, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, afterNextRender, Component, computed, input, signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -8,6 +8,7 @@ import { TranslatePipe } from '@ngx-translate/core';
  * weigh on the start of the application.
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.Default,
   selector: 'app-code-panel',
   imports: [MatIconModule, TranslatePipe],
   templateUrl: './code-panel.html',

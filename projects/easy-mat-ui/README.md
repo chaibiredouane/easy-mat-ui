@@ -53,22 +53,28 @@ Taken from the [live demo](https://easy-mat-ui.web.app/) (version 20.0.6), not m
 
 ## Requirements and supported versions
 
-This package targets **Angular 20**. Each Angular major version has its own package so that applications
-are never forced to upgrade:
+`easy-mat-ui-ng20` supports **Angular 20, 21 and 22** with the same code. Despite the `ng20` in its name, the
+peer dependencies accept all three majors. Every pull request builds the library, runs its unit tests, and compiles
+the pages the generator writes and the documentation examples against each of them (see [CI](https://github.com/chaibiredouane/easy-mat-ui/blob/main/.github/workflows/ci.yml)).
 
-| Angular | Package | Library version |
+| Angular | Checked by CI | Package |
 |---|---|---|
-| 20 | `easy-mat-ui-ng20` | `20.x.x` |
-| 21 | `easy-mat-ui-ng21` | `21.x.x` (planned) |
+| 20 | build, unit tests, generator, examples | `easy-mat-ui-ng20` |
+| 21 | same | `easy-mat-ui-ng20` |
+| 22 | same | `easy-mat-ui-ng20` |
+
+The demo was also compared by screenshot (light and dark themes, five pages) on Angular 20, 21 and 22 on 5 November 2026: the
+pages are identical, except that the Arabic names of the cities table are aligned to the right of their cell on 21 and
+22 and to the left on 20. If you see another visual difference, please [open an issue](https://github.com/chaibiredouane/easy-mat-ui/issues/new?template=bug_report.yml).
 
 Peer dependencies: `@angular/core`, `@angular/common`, `@angular/forms`, `@angular/cdk`,
-`@angular/material`, `@angular/platform-browser` (all `^20.0.0`), `@ngx-translate/core` `^16`,
+`@angular/material`, `@angular/platform-browser` (all `^20.0.0 || ^21.0.0 || ^22.0.0`), `@ngx-translate/core` `^16`,
 `bootstrap` `^5`, `rxjs` `^7`. Optional: `@ngx-translate/http-loader`, `flag-icons` (country columns).
 
 ## Status and limits
 
 - **A young project.** The first release (20.0.0) is from 3 November 2026, and the library is maintained by one person. Feedback and [contributions](https://github.com/chaibiredouane/easy-mat-ui/blob/main/CONTRIBUTING.md) are welcome; security reports go through [SECURITY.md](https://github.com/chaibiredouane/easy-mat-ui/blob/main/SECURITY.md).
-- **Angular 20.** There is one package per Angular major version (`easy-mat-ui-ng20`). `ng21` is planned, not released.
+- **Angular 20, 21 and 22.** One package, `easy-mat-ui-ng20`, for all three (see [Requirements](#requirements-and-supported-versions)). The name keeps `ng20` for compatibility.
 - **Data is handled in the browser.** There is no server-side paging and no virtual scrolling. For hundreds of thousands of rows, or spreadsheet-style editing, use a grid built for that, such as AG Grid or TanStack Table.
 - **Click-to-sort is off when header filters are on** (`withFilterInHeader: true`). Use the global search, or leave the header filters off, if you need sorting.
 - **Checked on every pull request:** the build, the unit tests, a compile check of the pages the generator writes and of the code examples of the documentation.
@@ -325,10 +331,10 @@ spacing and Material overrides), add the stylesheet to the `styles` array of you
 
 ## Versioning
 
-The first number of the library version is the supported Angular major version (`20.x.x` supports
-Angular 20). The remaining numbers follow [Semantic Versioning](https://semver.org/):
-PATCH for bug fixes, MINOR for backward-compatible features, MAJOR for breaking changes within the
-same Angular line. See [CHANGELOG.md](CHANGELOG.md).
+The library version follows [Semantic Versioning](https://semver.org/): PATCH for bug fixes, MINOR for
+backward-compatible features, MAJOR for breaking changes. Up to `20.0.x` the first number was the Angular major the
+package was built for. The package now supports several Angular majors, so the first number no longer implies one:
+the supported range is in the peer dependencies. See [CHANGELOG.md](https://github.com/chaibiredouane/easy-mat-ui/blob/main/CHANGELOG.md).
 
 ## Development
 

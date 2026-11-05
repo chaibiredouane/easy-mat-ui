@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, OnInit, signal, untracked } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, OnInit, signal, untracked } from '@angular/core';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { firstValueFrom } from 'rxjs';
 import {
@@ -23,6 +23,7 @@ import { UnitSwitch } from '../../shared/unit-switch/unit-switch';
 import { cityRows, cityTable, toCity } from './cities.config';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Default,
   selector: 'app-cities',
   imports: [EasyTableComponent, EasyMultiSelect, EasyPageHeader, EasyStat, UnitSwitch, ContinentNav, CodePanel, TranslatePipe],
   templateUrl: './cities.html',
