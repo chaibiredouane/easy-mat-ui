@@ -12,13 +12,17 @@ follows [Semantic Versioning](https://semver.org/) (see [Versioning](README.md#v
   the generated pages and the documentation examples against Angular 21 and 22 as well as 20
   (`scripts/use-angular-version.cjs` switches the workspace to a given major). The demo was compared by screenshot
   on the three majors (light and dark themes, five pages): identical, except that the Arabic names of the cities
-  table are aligned to the right of their cell on 21 and 22 and to the left on 20.
+  table are aligned to the right of their cell on 21 and 22 and to the left on 20. The cause is Angular Material, not the library: the demo's `.rtl` class only sets `direction`, and the
+  `text-align` of a table cell went from `left` (Material 20) to `start` (Material 21 and later), which is the right
+  edge for a right-to-left cell.
 
 ### Changed
 - The components of the demo declare `ChangeDetectionStrategy.Default` explicitly. On Angular 22 the Cities page stayed
   empty, because a plain field set at the end of an asynchronous `ngOnInit` does not refresh an `OnPush` view.
 - `lib-table-toolbar` and the placeholder `EasyMatUiComponent` declare `ChangeDetectionStrategy.Default`
-  explicitly. Angular 22 makes `OnPush` the default, and these components relied on the default strategy.
+  explicitly. Angular 22 makes `OnPush` the default, and these components relied on the default strategy. `ChangeDetectionStrategy.Default` is
+  deprecated in Angular 22 in favour of `Eager`, which does not exist in Angular 20: `Default` stays while Angular 20
+  is supported.
 - The page generator CLI is marked as CommonJS by a `package.json` in `dist/easy-mat-ui/page-generator`, so
   `npx easy-mat-ui add-page` keeps working when the package is built with ng-packagr 21 or later (which writes
   `"type": "module"` in the package manifest).
