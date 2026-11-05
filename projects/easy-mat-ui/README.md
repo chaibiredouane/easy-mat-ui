@@ -63,8 +63,9 @@ the pages the generator writes and the documentation examples against each of th
 | 21 | same | `easy-mat-ui-ng20` |
 | 22 | same | `easy-mat-ui-ng20` |
 
-What these checks do not cover is how the components *look* with the Angular Material 21 and 22 themes. If you see a
-visual difference, please [open an issue](https://github.com/chaibiredouane/easy-mat-ui/issues/new?template=bug_report.yml).
+The demo was also compared by screenshot (light and dark themes, five pages) on Angular 20, 21 and 22 on 5 November 2026: the
+pages are identical, except that the Arabic names of the cities table are aligned to the right of their cell on 21 and
+22 and to the left on 20. If you see another visual difference, please [open an issue](https://github.com/chaibiredouane/easy-mat-ui/issues/new?template=bug_report.yml).
 
 Peer dependencies: `@angular/core`, `@angular/common`, `@angular/forms`, `@angular/cdk`,
 `@angular/material`, `@angular/platform-browser` (all `^20.0.0 || ^21.0.0 || ^22.0.0`), `@ngx-translate/core` `^16`,

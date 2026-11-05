@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import {
@@ -85,6 +85,7 @@ const orUndefined = (value: unknown): string | undefined => text(value).trim() |
  * here with simple controls, shown live with the real components, and turned into code by the same generator.
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.Default,
   selector: 'app-builder',
   imports: [
     MatIconModule,

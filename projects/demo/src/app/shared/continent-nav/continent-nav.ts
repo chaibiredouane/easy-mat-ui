@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, model } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, model } from '@angular/core';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { EasyChipNav, EasyChipNavItem } from 'easy-mat-ui-ng20';
 import { CONTINENTS, ContinentFilter, inContinent } from '../../data/continents';
@@ -9,6 +9,7 @@ import { LanguageService } from '../../services/language.service';
  * turns the continents of the demo (name in the current language, icon, colour, number of countries) into its items.
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.Default,
   selector: 'app-continent-nav',
   imports: [EasyChipNav, TranslatePipe],
   templateUrl: './continent-nav.html',

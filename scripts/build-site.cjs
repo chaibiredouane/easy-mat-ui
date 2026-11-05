@@ -136,7 +136,7 @@ const PAGES = [
     slug: 'angular-compatibility',
     title: 'Angular version compatibility of Easy Mat UI',
     description: 'Which Angular versions easy-mat-ui-ng20 supports: Angular 20, 21 and 22, Angular 19 tested, Angular 18 and older not working.',
-    intro: 'One package, easy-mat-ui-ng20, supports Angular 20, 21 and 22. CI builds the library, runs its tests and compiles the generated pages and the documentation examples against each of them. Visual rendering with the Angular Material 21 and 22 themes is not covered by those checks.',
+    intro: 'One package, easy-mat-ui-ng20, supports Angular 20, 21 and 22. CI builds the library, runs its tests and compiles the generated pages and the documentation examples against each of them. The demo was also compared by screenshot on the three versions: identical, except the alignment of the Arabic names in the cities table.',
     blocks: [
       { h2: 'Compatibility', items: [
         { table: { head: ['Angular', 'Status', 'Details'], rows: [

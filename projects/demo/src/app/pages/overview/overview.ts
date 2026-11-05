@@ -1,4 +1,4 @@
-import { Component, computed, inject, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, output, signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { EasyCardConfig, EasyCardGrid } from 'easy-mat-ui-ng20';
@@ -11,6 +11,7 @@ import { LINKS } from '../../shared/links';
  * language of the demo. Only code samples and package names stay as they are.
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.Default,
   selector: 'app-overview',
   imports: [MatIconModule, TranslatePipe, GithubMark, EasyCardGrid],
   templateUrl: './overview.html',

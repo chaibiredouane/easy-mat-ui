@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -17,6 +17,7 @@ export type Row = Record<string, string | number | boolean | undefined>;
  * inputs that wraps on a narrow screen. It never changes its input: it emits a new list.
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.Default,
   selector: 'app-rows-editor',
   imports: [MatIconModule, TranslatePipe],
   template: `

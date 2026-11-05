@@ -1,4 +1,4 @@
-import { Component, effect, inject, OnInit, signal, untracked } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, OnInit, signal, untracked } from '@angular/core';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { firstValueFrom } from 'rxjs';
 import { EasyPageHeader, EasyTableComponent, EasyTableConfig, EasyTableDialogResult } from 'easy-mat-ui-ng20';
@@ -15,6 +15,7 @@ import { cityRows, cityTable, toCity } from '../cities/cities.config';
 import { countryTable } from './countries.config';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Default,
   selector: 'app-countries',
   imports: [EasyTableComponent, EasyPageHeader, UnitSwitch, ContinentNav, CodePanel, TranslatePipe],
   templateUrl: './countries.html',
