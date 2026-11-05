@@ -6,6 +6,8 @@ follows [Semantic Versioning](https://semver.org/) (see [Versioning](README.md#v
 
 ## [Unreleased]
 
+## [20.0.7] - 2026-11-05
+
 ### Added
 - The `Release` workflow creates the GitHub release with the section of the version in `CHANGELOG.md` as its notes
   (`scripts/release-notes.cjs`, tested in the CI), and skips `npm publish` when that version is already on npm, so a
@@ -40,6 +42,7 @@ follows [Semantic Versioning](https://semver.org/) (see [Versioning](README.md#v
   (`scripts/check-lock-registry.cjs`) fails early, with a clear message, when the lock file uses any other registry.
 
 ### Changed
+- README: the Angular badge shows 20, 21 and 22.
 - README: a logo, real screenshots and a short demonstration taken from the live demo, a one-paragraph summary of
   what the library is for, and a "Status and limits" section (young project, Angular 20, data handled in the browser,
   click-to-sort off with header filters). The screenshots and the logo are in `docs/images`.
