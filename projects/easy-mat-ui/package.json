@@ -1,6 +1,6 @@
 {
   "name": "easy-mat-ui",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Angular 20, 21 and 22 data table and reusable UI components on Angular Material: filters, pagination, CRUD dialog, child tables, themes, page generator CLI",
   "keywords": [
     "angular",
