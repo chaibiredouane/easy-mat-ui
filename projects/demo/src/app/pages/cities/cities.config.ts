@@ -1,4 +1,4 @@
-import { ColumnType, CRUD, EasyDialogInit, EasyTableConfig, EasyTableDialogRequest, MatColumnTyped, ToolbarConfig, ToolbarTranslations } from 'easy-mat-ui-ng20';
+import { ColumnType, CRUD, EasyDialogInit, EasyTableConfig, EasyTableDialogRequest, MatColumnTyped, ToolbarConfig, ToolbarTranslations } from 'easy-mat-ui';
 import { City, CityRow } from '../../models/geo.model';
 import { formatPopulation, isRtlLocale, keepLtr, PopulationUnit } from '../../shared/population';
 

@@ -11,7 +11,7 @@ import {
   EasySegmentedOption,
   EasyThemeMode,
   EasyThemeService
-} from 'easy-mat-ui-ng20';
+} from 'easy-mat-ui';
 import { map } from 'rxjs';
 import { LANGUAGES } from './i18n/languages';
 import { Builder } from './pages/builder/builder';

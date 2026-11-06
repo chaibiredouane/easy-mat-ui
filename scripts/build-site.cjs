@@ -11,7 +11,7 @@ const path = require('path');
 const SITE = (process.env.SITE_URL || 'https://easy-mat-ui.web.app').replace(/\/+$/, '');
 const OUT = path.join(__dirname, '..', 'dist', 'demo', 'browser');
 const GITHUB = 'https://github.com/chaibiredouane/easy-mat-ui';
-const NPM = 'https://www.npmjs.com/package/easy-mat-ui-ng20';
+const NPM = 'https://www.npmjs.com/package/easy-mat-ui';
 const STACKBLITZ = 'https://stackblitz.com/github/chaibiredouane/easy-mat-ui/tree/main/examples/stackblitz-starter';
 const TODAY = new Date().toISOString().slice(0, 10);
 const NAME = 'Easy Mat UI';
@@ -21,7 +21,7 @@ const PAGES = [
   {
     slug: 'getting-started',
     title: 'Getting started with Easy Mat UI',
-    description: 'Install easy-mat-ui-ng20, provide ngx-translate and render your first Angular Material data table from one configuration object.',
+    description: 'Install easy-mat-ui, provide ngx-translate and render your first Angular Material data table from one configuration object.',
     intro: 'Easy Mat UI is an Angular library built on Angular Material. This page installs it and renders a first table.',
     blocks: [
       { h2: 'Try it online first', items: [
@@ -29,10 +29,10 @@ const PAGES = [
         { links: [['Open the starter project on StackBlitz', STACKBLITZ]] }
       ] },
       { h2: 'Requirements', items: [
-        { ul: ['Angular 20, 21 and 22 (package easy-mat-ui-ng20). Angular 19 builds and runs but is not officially supported.', 'Angular Material and CDK 20, 21 or 22, @ngx-translate/core 16, Bootstrap 5, RxJS 7.', 'Optional: flag-icons for country flags.'] }
+        { ul: ['Angular 20, 21 and 22 (package easy-mat-ui). Angular 19 builds and runs but is not officially supported.', 'Angular Material and CDK 20, 21 or 22, @ngx-translate/core 16, Bootstrap 5, RxJS 7.', 'Optional: flag-icons for country flags.'] }
       ] },
       { h2: 'Install', items: [
-        { code: 'ng add @angular/material\nnpm install easy-mat-ui-ng20 @ngx-translate/core@^16 bootstrap', lang: 'bash' },
+        { code: 'ng add @angular/material\nnpm install easy-mat-ui @ngx-translate/core@^16 bootstrap', lang: 'bash' },
         { p: 'Add the Material Icons font to index.html (ng add @angular/material normally does it):' },
         { code: '<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">', lang: 'html' }
       ] },
@@ -41,11 +41,11 @@ const PAGES = [
         { code: "import { ApplicationConfig } from '@angular/core';\nimport { provideTranslateService } from '@ngx-translate/core';\n\nexport const appConfig: ApplicationConfig = {\n  providers: [provideTranslateService({ defaultLanguage: 'en' })]\n};", lang: 'typescript' }
       ] },
       { h2: 'Your first table', items: [
-        { code: "import { Component } from '@angular/core';\nimport { EasyTableComponent, EasyTableConfig, MatColumnTyped } from 'easy-mat-ui-ng20';\n\n@Component({\n  selector: 'app-users',\n  standalone: true,\n  imports: [EasyTableComponent],\n  template: `<lib-easy-table [config]=\"config\"></lib-easy-table>`\n})\nexport class UsersComponent {\n  config: Partial<EasyTableConfig> = {\n    data: [{ id: 1, name: 'Alice' }, { id: 2, name: 'Bob' }],\n    displayedColumns: [\n      new MatColumnTyped({ name: 'id' }),\n      new MatColumnTyped({ name: 'name' })\n    ],\n    canCreate: true,\n    canUpdate: true,\n    canDelete: true\n  };\n}", lang: 'typescript' }
+        { code: "import { Component } from '@angular/core';\nimport { EasyTableComponent, EasyTableConfig, MatColumnTyped } from 'easy-mat-ui';\n\n@Component({\n  selector: 'app-users',\n  standalone: true,\n  imports: [EasyTableComponent],\n  template: `<lib-easy-table [config]=\"config\"></lib-easy-table>`\n})\nexport class UsersComponent {\n  config: Partial<EasyTableConfig> = {\n    data: [{ id: 1, name: 'Alice' }, { id: 2, name: 'Bob' }],\n    displayedColumns: [\n      new MatColumnTyped({ name: 'id' }),\n      new MatColumnTyped({ name: 'name' })\n    ],\n    canCreate: true,\n    canUpdate: true,\n    canDelete: true\n  };\n}", lang: 'typescript' }
       ] },
       { h2: 'Optional global stylesheet', items: [
         { p: 'Add the shared stylesheet (colors, buttons, spacing, Material overrides and the theme variables) to the styles array of angular.json:' },
-        { code: '"styles": [\n  "node_modules/easy-mat-ui-ng20/styles/styles.scss",\n  "node_modules/flag-icons/css/flag-icons.min.css"\n]', lang: 'json' }
+        { code: '"styles": [\n  "node_modules/easy-mat-ui/styles/styles.scss",\n  "node_modules/flag-icons/css/flag-icons.min.css"\n]', lang: 'json' }
       ] }
     ]
   },
@@ -98,7 +98,7 @@ const PAGES = [
     intro: 'lib-easy-multi-select is a standalone Angular Material multi-select with search and select-all.',
     blocks: [
       { h2: 'Usage', items: [
-        { code: "import { Dictionary, EasyMultiSelect } from 'easy-mat-ui-ng20';\n\n@Component({\n  standalone: true,\n  imports: [EasyMultiSelect],\n  template: `\n    <lib-easy-multi-select\n      title=\"Countries\"\n      [data]=\"countries\"\n      valueField=\"key\"\n      displayField=\"value\"\n      [clearable]=\"true\"\n      (change)=\"selected = $event\">\n    </lib-easy-multi-select>`\n})\nexport class Demo {\n  countries = [new Dictionary('dz', 'Algeria'), new Dictionary('fr', 'France')];\n  selected: string[] = [];\n}", lang: 'typescript' }
+        { code: "import { Dictionary, EasyMultiSelect } from 'easy-mat-ui';\n\n@Component({\n  standalone: true,\n  imports: [EasyMultiSelect],\n  template: `\n    <lib-easy-multi-select\n      title=\"Countries\"\n      [data]=\"countries\"\n      valueField=\"key\"\n      displayField=\"value\"\n      [clearable]=\"true\"\n      (change)=\"selected = $event\">\n    </lib-easy-multi-select>`\n})\nexport class Demo {\n  countries = [new Dictionary('dz', 'Algeria'), new Dictionary('fr', 'France')];\n  selected: string[] = [];\n}", lang: 'typescript' }
       ] },
       { h2: 'Inputs and output', items: [
         { table: { head: ['Name', 'Description'], rows: [
@@ -123,7 +123,7 @@ const PAGES = [
     intro: 'The library is themed with CSS variables. EasyThemeService switches between light, dark and the operating system preference without reloading the page.',
     blocks: [
       { h2: 'Switch the theme', items: [
-        { code: "import { inject } from '@angular/core';\nimport { EasyThemeService } from 'easy-mat-ui-ng20';\n\nconst theme = inject(EasyThemeService);\ntheme.setTheme('dark');   // 'light' | 'dark' | 'system'\ntheme.toggle();\ntheme.theme();            // the applied theme, as a signal", lang: 'typescript' },
+        { code: "import { inject } from '@angular/core';\nimport { EasyThemeService } from 'easy-mat-ui';\n\nconst theme = inject(EasyThemeService);\ntheme.setTheme('dark');   // 'light' | 'dark' | 'system'\ntheme.toggle();\ntheme.theme();            // the applied theme, as a signal", lang: 'typescript' },
         { p: 'The service does nothing until you call it. In dark mode it adds the dark-theme class to body and sets a data-easy-theme attribute and the CSS color-scheme on html. Pass a storageKey through EASY_THEME_OPTIONS if you want the choice remembered.' }
       ] },
       { h2: 'Customize with CSS variables', items: [
@@ -135,17 +135,17 @@ const PAGES = [
   {
     slug: 'angular-compatibility',
     title: 'Angular version compatibility of Easy Mat UI',
-    description: 'Which Angular versions easy-mat-ui-ng20 supports: Angular 20, 21 and 22, Angular 19 tested, Angular 18 and older not working.',
-    intro: 'One package, easy-mat-ui-ng20, supports Angular 20, 21 and 22. CI builds the library, runs its tests and compiles the generated pages and the documentation examples against each of them. The demo was also compared by screenshot on the three versions: identical, except the alignment of the Arabic names in the cities table.',
+    description: 'Which Angular versions easy-mat-ui supports: Angular 20, 21 and 22, Angular 19 tested, Angular 18 and older not working.',
+    intro: 'One package, easy-mat-ui, supports Angular 20, 21 and 22. CI builds the library, runs its tests and compiles the generated pages and the documentation examples against each of them. The demo was also compared by screenshot on the three versions: identical, except the alignment of the Arabic names in the cities table.',
     blocks: [
       { h2: 'Compatibility', items: [
         { table: { head: ['Angular', 'Status', 'Details'], rows: [
-          ['20, 21 and 22', 'Supported', 'Package easy-mat-ui-ng20, peer range ^20.0.0 || ^21.0.0 || ^22.0.0. Checked in CI on each.'],
+          ['20, 21 and 22', 'Supported', 'Package easy-mat-ui, peer range ^20.0.0 || ^21.0.0 || ^22.0.0. Checked in CI on each.'],
           ['19', 'Works, not official', 'Builds and runs; install with --legacy-peer-deps.'],
           ['18', 'Does not work', 'The table fails at runtime with Material 18.'],
           ['16 and 17', 'Does not work', 'The build fails (the library needs @let, Angular 18.1 or later).']
         ] } },
-        { p: 'The package keeps ng20 in its name for compatibility; a separate package per Angular version is not planned.' }
+        { p: 'One package, easy-mat-ui, covers Angular 20, 21 and 22; a separate package per Angular version is not planned.' }
       ] }
     ]
   }
@@ -158,9 +158,9 @@ PAGES.splice(PAGES.length - 1, 0, ...BEFORE_COMPATIBILITY);
 
 const FAQ = [
   ['What is Easy Mat UI?', 'An open-source (MIT) Angular library built on Angular Material: one configuration object gives a data table with column filters, pagination, expandable rows, child tables and tabs, a dialog and a multi-select.'],
-  ['How do I install it?', 'npm install easy-mat-ui-ng20 in an Angular 20 project, then import EasyTableComponent, EasyTableConfig and MatColumnTyped.'],
+  ['How do I install it?', 'npm install easy-mat-ui in an Angular 20 project, then import EasyTableComponent, EasyTableConfig and MatColumnTyped.'],
   ['Does it support dark mode?', 'Yes: EasyThemeService.setTheme("light" | "dark" | "system") switches at runtime; the themes are CSS variables you can override.'],
-  ['Which Angular versions are supported?', 'Angular 20, 21 and 22 (easy-mat-ui-ng20, one package, checked in CI on each). Angular 19 builds and runs but is not official; 18 and older do not work.'],
+  ['Which Angular versions are supported?', 'Angular 20, 21 and 22 (easy-mat-ui, one package, checked in CI on each). Angular 19 builds and runs but is not official; 18 and older do not work.'],
   ['Is it free?', 'Yes, MIT license. Source: ' + GITHUB],
   ...EXTRA_FAQ
 ];
@@ -218,7 +218,7 @@ ${crumbs}<style>${CSS}</style>
 <main>
 ${body}
 </main>
-<footer><span>MIT licensed. Package <code>easy-mat-ui-ng20</code>.</span><a href="${SITE}/llms.txt">llms.txt</a><a href="${GITHUB}">Source on GitHub</a></footer>
+<footer><span>MIT licensed. Package <code>easy-mat-ui</code>.</span><a href="${SITE}/llms.txt">llms.txt</a><a href="${GITHUB}">Source on GitHub</a></footer>
 </body>
 </html>
 `;
@@ -262,7 +262,7 @@ write('docs/index.html', layout({
 // 2. llms.txt and llms-full.txt (https://llmstxt.org)
 const llms = `# ${NAME}
 
-> Open-source (MIT) Angular library built on Angular Material. One configuration object gives a data table with column filters, pagination, expandable rows, child tables and tabs, a create/edit/view dialog, a multi-select, and light and dark themes. It also ships reusable standalone components (category buttons, segmented control, language picker, cards, key figures, page header) and a command, npx easy-mat-ui add-page, that generates a page from them. Package: easy-mat-ui-ng20 (Angular 20).
+> Open-source (MIT) Angular library built on Angular Material. One configuration object gives a data table with column filters, pagination, expandable rows, child tables and tabs, a create/edit/view dialog, a multi-select, and light and dark themes. It also ships reusable standalone components (category buttons, segmented control, language picker, cards, key figures, page header) and a command, npx easy-mat-ui add-page, that generates a page from them. Package: easy-mat-ui (Angular 20).
 
 Easy Mat UI is maintained by Redouane Chaibi. Each Angular major version has its own npm package; the first number of the package version is the Angular version it targets. It is a young project (first release November 2026) with a single maintainer.
 
@@ -277,7 +277,7 @@ ${PAGES.map((p) => `- [${p.title}](${url(p.slug)}): ${p.description}`).join('\n'
 
 ## Source and package
 - [GitHub repository](${GITHUB}): source code, README, changelog, issues
-- [npm package](${NPM}): easy-mat-ui-ng20
+- [npm package](${NPM}): easy-mat-ui
 - [Live demo](${SITE}/): interactive demo with the source of every page
 - [Starter project on StackBlitz](${STACKBLITZ}): a minimal Angular 20 project to edit in the browser, nothing to install
 
@@ -294,7 +294,7 @@ const md = (page) => `## ${page.title}\n\n${page.intro}\n\n` + page.blocks.map((
   if (it.table) return `| ${it.table.head.join(' | ')} |\n| ${it.table.head.map(() => '---').join(' | ')} |\n` + it.table.rows.map((r) => `| ${r.join(' | ')} |`).join('\n');
   return '';
 }).join('\n\n')).join('\n\n');
-write('llms-full.txt', `# ${NAME}: full documentation\n\n> Open-source (MIT) Angular library built on Angular Material. Package: easy-mat-ui-ng20. Source: ${GITHUB}. Demo: ${SITE}/\n\n${PAGES.map(md).join('\n\n')}\n\n## Frequently asked questions\n\n${FAQ.map(([q, a]) => `**${q}** ${a}`).join('\n\n')}\n`);
+write('llms-full.txt', `# ${NAME}: full documentation\n\n> Open-source (MIT) Angular library built on Angular Material. Package: easy-mat-ui. Source: ${GITHUB}. Demo: ${SITE}/\n\n${PAGES.map(md).join('\n\n')}\n\n## Frequently asked questions\n\n${FAQ.map(([q, a]) => `**${q}** ${a}`).join('\n\n')}\n`);
 
 // 2b. 404 page (the app has no routes, so an unknown address must not answer 200)
 write('404.html', layout({

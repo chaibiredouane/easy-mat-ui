@@ -10,7 +10,7 @@ import {
   MatColumnTyped,
   ToolbarConfig,
   ToolbarTranslations
-} from 'easy-mat-ui-ng20';
+} from 'easy-mat-ui';
 
 interface User {
   id: number;

@@ -1,6 +1,6 @@
 import { ApplicationConfig } from '@angular/core';
 import { provideTranslateService } from '@ngx-translate/core';
-import { provideEasyPaginatorIntl } from 'easy-mat-ui-ng20';
+import { provideEasyPaginatorIntl } from 'easy-mat-ui';
 
 export const appConfig: ApplicationConfig = {
   providers: [

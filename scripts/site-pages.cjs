@@ -21,7 +21,7 @@ const AFTER_GETTING_STARTED = [
         { p: 'With mat-table alone you write the template of every column, create a MatTableDataSource, connect MatSort and MatPaginator, write the filter predicate, and build the dialog and its form yourself. That freedom is useful, but the same wiring is repeated on every list screen of an application.' }
       ] },
       { h2: 'The same table with one configuration object', items: [
-        { p: 'This component is complete: copy it into an Angular 20 project that has Angular Material and easy-mat-ui-ng20. The table, its filters, the paginator and the dialog all come from the EasyTableConfig object.' },
+        { p: 'This component is complete: copy it into an Angular 20 project that has Angular Material and easy-mat-ui. The table, its filters, the paginator and the dialog all come from the EasyTableConfig object.' },
         { code: example('users-table.ts'), lang: 'typescript' },
         { p: 'Register ngx-translate once in the application configuration. No dictionary is needed to start: the texts you pass are shown as they are.' },
         { code: example('app.config.ts'), lang: 'typescript' }
@@ -94,7 +94,7 @@ const BEFORE_COMPATIBILITY = [
     intro: 'Besides the data table, Easy Mat UI ships small standalone components that every business application ends up rewriting. Each one takes its data with inputs, reports with outputs and has a typed model. None of them contains business logic.',
     blocks: [
       { h2: 'Six components in one component', items: [
-        { p: 'This complete example uses all of them. Copy it into an Angular 20 project that has Angular Material and easy-mat-ui-ng20.' },
+        { p: 'This complete example uses all of them. Copy it into an Angular 20 project that has Angular Material and easy-mat-ui.' },
         { code: example('toolbox.ts'), lang: 'typescript' }
       ] },
       { h2: 'The components', items: [
@@ -111,7 +111,7 @@ const BEFORE_COMPATIBILITY = [
         { ul: [
           'Standalone components with OnPush change detection: import the class and use the selector.',
           'Data goes in through inputs and interactions come out through outputs. Nothing reads a service or a route.',
-          'Every shape of data is a TypeScript interface exported from easy-mat-ui-ng20, for example EasyChipNavItem or EasyCardConfig.',
+          'Every shape of data is a TypeScript interface exported from easy-mat-ui, for example EasyChipNavItem or EasyCardConfig.',
           'The language picker knows nothing about any translation library: you give it languages and react to selectedChange.',
           'Colours come from the CSS variables of the theme, so the components follow the light and dark themes.'
         ] }

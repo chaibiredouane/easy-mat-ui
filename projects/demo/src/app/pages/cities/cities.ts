@@ -9,7 +9,7 @@ import {
   EasyTableComponent,
   EasyTableConfig,
   EasyTableDialogResult
-} from 'easy-mat-ui-ng20';
+} from 'easy-mat-ui';
 import { inContinent } from '../../data/continents';
 import { City, CityRow, Country } from '../../models/geo.model';
 import { DisplaySettings } from '../../services/display-settings';

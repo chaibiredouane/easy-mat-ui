@@ -1,6 +1,6 @@
 {
   "name": "easy-mat-ui-workspace",
-  "version": "20.0.7",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "ng": "ng",

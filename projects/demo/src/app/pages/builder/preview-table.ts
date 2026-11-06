@@ -1,4 +1,4 @@
-import { ColumnType, EasyTableConfig, MatColumnTyped, ToolbarConfig, ToolbarTranslations } from 'easy-mat-ui-ng20';
+import { ColumnType, EasyTableConfig, MatColumnTyped, ToolbarConfig, ToolbarTranslations } from 'easy-mat-ui';
 import { sampleRecords, TableBlock } from '@easy-mat-ui/page-generator';
 
 /**

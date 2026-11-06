@@ -2,12 +2,12 @@
 
 ## Supported versions
 
-Each Angular major version has its own package (`easy-mat-ui-ng20`, ...). Only the latest minor release
+Each Angular major version has its own package (`easy-mat-ui`, ...). Only the latest minor release
 of each supported Angular line receives security fixes.
 
 | Package | Version | Supported |
 |---|---|---|
-| `easy-mat-ui-ng20` | 20.x | Yes |
+| `easy-mat-ui` | 20.x | Yes |
 
 ## Reporting a vulnerability
 

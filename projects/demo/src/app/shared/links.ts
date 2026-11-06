@@ -7,5 +7,5 @@ export const LINKS = {
   newIssue: `${REPO}/issues/new/choose`,
   contributing: `${REPO}/blob/main/CONTRIBUTING.md`,
   license: `${REPO}/blob/main/LICENSE`,
-  npm: 'https://www.npmjs.com/package/easy-mat-ui-ng20'
+  npm: 'https://www.npmjs.com/package/easy-mat-ui'
 } as const;

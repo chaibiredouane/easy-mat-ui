@@ -6,6 +6,23 @@ follows [Semantic Versioning](https://semver.org/) (see [Versioning](README.md#v
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-11-06
+
+### Changed
+- **The package is now published as `easy-mat-ui`.** It replaces `easy-mat-ui-ng20`, whose `-ng20` suffix suggested a
+  single Angular version although the library supports several.
+- One package supports **Angular 20, 21 and 22** (peer dependencies `^20.0.0 || ^21.0.0 || ^22.0.0`). CI builds the
+  library, runs its tests, and compiles the generated pages and the documentation examples on each major.
+- The version number no longer follows the Angular major. See the compatibility table in the README.
+
+### Migration
+- `npm uninstall easy-mat-ui-ng20 && npm install easy-mat-ui`, then replace `easy-mat-ui-ng20` with `easy-mat-ui` in
+  your imports. The API is unchanged.
+
+### Deprecated
+- `easy-mat-ui-ng20` (all versions). No further release is published under that name. The changes prepared as 20.0.7
+  below were never published under it and ship in 1.0.0.
+
 ## [20.0.7] - 2026-11-05
 
 ### Added
