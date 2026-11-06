@@ -1,7 +1,8 @@
 name: Release
 
 # Publishes the package to npm when a version tag (vX.Y.Z) is pushed.
-# Requires an npm automation token stored as the repository secret NPM_TOKEN.
+# Authentication uses npm trusted publishing (OIDC): no token and no one-time password are needed. The trusted publisher
+# of the package on npmjs.com must name this repository and this workflow file (release.yml).
 on:
   push:
     tags: ['v*.*.*']
@@ -48,11 +49,13 @@ jobs:
           else
             echo "published=false" >> "$GITHUB_OUTPUT"
           fi
+      # Trusted publishing needs npm 11.5.1 or later; the one shipped with Node 22 is older.
+      - name: Use a recent npm
+        if: steps.npm.outputs.published != 'true'
+        run: npm install -g npm@^11.5.1 && npm --version
       - name: Publish to npm
         if: steps.npm.outputs.published != 'true'
         run: cd dist/easy-mat-ui && npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - uses: softprops/action-gh-release@v2
         with:
           body_path: release-notes.md

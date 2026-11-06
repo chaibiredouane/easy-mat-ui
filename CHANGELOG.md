@@ -6,6 +6,13 @@ follows [Semantic Versioning](https://semver.org/) (see [Versioning](README.md#v
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-11-06
+
+### Fixed
+- The `Release` workflow now publishes with npm trusted publishing (OIDC) instead of an `NPM_TOKEN` secret that did not
+  exist, which made the publication of 1.0.0 fail. No library code changed: **1.0.1 is the first version published as
+  `easy-mat-ui`**, with the content described under 1.0.0 below. 1.0.0 was tagged but never published to npm.
+
 ## [1.0.0] - 2026-11-06
 
 ### Changed
