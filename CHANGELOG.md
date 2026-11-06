@@ -11,7 +11,7 @@ follows [Semantic Versioning](https://semver.org/) (see [Versioning](README.md#v
 ### Fixed
 - The `Release` workflow now publishes with npm trusted publishing (OIDC) instead of an `NPM_TOKEN` secret that did not
   exist, which made the publication of 1.0.0 fail. No library code changed: **1.0.1 is the first version published as
-  `easy-mat-ui`**, with the content described under 1.0.0 below. 1.0.0 was tagged but never published to npm.
+  `easy-mat-ui`**, with the content described under 1.0.0 below. 1.0.0 was tagged but its publication failed, so it is not on npm.
 
 ## [1.0.0] - 2026-11-06
 
@@ -27,8 +27,8 @@ follows [Semantic Versioning](https://semver.org/) (see [Versioning](README.md#v
   your imports. The API is unchanged.
 
 ### Deprecated
-- `easy-mat-ui-ng20` (all versions). No further release is published under that name. The changes prepared as 20.0.7
-  below were never published under it and ship in 1.0.0.
+- `easy-mat-ui-ng20` (all versions). No further release is published under that name. The last version published under that name
+  is 20.0.7 (5 November 2026); its code is the base of `easy-mat-ui` 1.0.1.
 
 ## [20.0.7] - 2026-11-05
 
