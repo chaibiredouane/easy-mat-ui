@@ -1,6 +1,6 @@
 import { ApplicationConfig, inject, provideAppInitializer, provideZoneChangeDetection } from '@angular/core';
 import { provideTranslateService } from '@ngx-translate/core';
-import { provideEasyPaginatorIntl } from 'easy-mat-ui-ng20';
+import { provideEasyPaginatorIntl } from 'easy-mat-ui';
 import { DEFAULT_LANGUAGE } from './i18n/languages';
 import { LanguageService } from './services/language.service';
 

@@ -32,10 +32,10 @@ function dependencies(root: string): Record<string, string> {
   return { ...pkg.devDependencies, ...pkg.dependencies };
 }
 
-/** The package the components are imported from: the one that is installed, `easy-mat-ui-ng20` otherwise. */
+/** The package the components are imported from: the one that is installed, `easy-mat-ui` otherwise. */
 export function detectLibrary(root: string): string {
   const deps = dependencies(root);
-  return ['easy-mat-ui-ng20', '@lih/easy-mat-ui', 'easy-mat-ui'].find((name) => name in deps) ?? 'easy-mat-ui-ng20';
+  return ['easy-mat-ui', '@lih/easy-mat-ui', 'easy-mat-ui'].find((name) => name in deps) ?? 'easy-mat-ui';
 }
 
 export const usesNgxTranslate = (root: string): boolean => '@ngx-translate/core' in dependencies(root);

@@ -56,8 +56,14 @@ test('refuses something that is not a version', () => {
 test('adds the install line and the link to the changelog', () => {
   const text = notes(CHANGELOG, '20.0.2', 'easy-mat-ui-ng20');
   assert.match(text, /npm install easy-mat-ui-ng20@20\.0\.2/);
-  assert.match(text, /Angular 20/);
+  assert.match(text, /\(Angular 20;/);
   assert.match(text, /CHANGELOG\.md/);
+});
+
+test('the unsuffixed package name lists every supported Angular major', () => {
+  const text = notes(CHANGELOG, '20.0.2');
+  assert.match(text, /npm install easy-mat-ui@20\.0\.2/);
+  assert.match(text, /Angular 20, 21 and 22/);
 });
 
 test('the real changelog has a section for the version of the package', () => {

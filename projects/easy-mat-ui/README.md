@@ -6,12 +6,12 @@
 
 Describe a table in one configuration object: column filters, pagination, a create / edit / view dialog, child tables and light and dark themes.
 
-[![npm](https://img.shields.io/npm/v/easy-mat-ui-ng20.svg)](https://www.npmjs.com/package/easy-mat-ui-ng20)
+[![npm](https://img.shields.io/npm/v/easy-mat-ui.svg)](https://www.npmjs.com/package/easy-mat-ui)
 [![CI](https://github.com/chaibiredouane/easy-mat-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/chaibiredouane/easy-mat-ui/actions/workflows/ci.yml)
 [![Angular](https://img.shields.io/badge/Angular-20%20%7C%2021%20%7C%2022-dd0031.svg)](https://angular.dev)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/chaibiredouane/easy-mat-ui/blob/main/LICENSE)
 
-**[Live demo](https://easy-mat-ui.web.app/)** · **[Try it on StackBlitz](https://stackblitz.com/github/chaibiredouane/easy-mat-ui/tree/main/examples/stackblitz-starter)** · **[Documentation](https://easy-mat-ui.web.app/docs/)** · [npm](https://www.npmjs.com/package/easy-mat-ui-ng20) · [Changelog](https://github.com/chaibiredouane/easy-mat-ui/blob/main/CHANGELOG.md)
+**[Live demo](https://easy-mat-ui.web.app/)** · **[Try it on StackBlitz](https://stackblitz.com/github/chaibiredouane/easy-mat-ui/tree/main/examples/stackblitz-starter)** · **[Documentation](https://easy-mat-ui.web.app/docs/)** · [npm](https://www.npmjs.com/package/easy-mat-ui) · [Changelog](https://github.com/chaibiredouane/easy-mat-ui/blob/main/CHANGELOG.md)
 
 <img src="https://raw.githubusercontent.com/chaibiredouane/easy-mat-ui/main/docs/images/demo.gif" alt="Easy Mat UI demo: filtering a table from its column headers, editing a row in a dialog, switching to dark mode, and the page builder" width="860">
 
@@ -53,15 +53,14 @@ Taken from the [live demo](https://easy-mat-ui.web.app/) (version 20.0.6), not m
 
 ## Requirements and supported versions
 
-`easy-mat-ui-ng20` supports **Angular 20, 21 and 22** with the same code. Despite the `ng20` in its name, the
+`easy-mat-ui` supports **Angular 20, 21 and 22** with the same code. The
 peer dependencies accept all three majors. Every pull request builds the library, runs its unit tests, and compiles
 the pages the generator writes and the documentation examples against each of them (see [CI](https://github.com/chaibiredouane/easy-mat-ui/blob/main/.github/workflows/ci.yml)).
 
-| Angular | Checked by CI | Package |
-|---|---|---|
-| 20 | build, unit tests, generator, examples | `easy-mat-ui-ng20` |
-| 21 | same | `easy-mat-ui-ng20` |
-| 22 | same | `easy-mat-ui-ng20` |
+| easy-mat-ui | Angular | Checked by CI | Status |
+|---|---|---|---|
+| **1.x** | 20, 21, 22 | build, unit tests, generator, examples, on each major | Active |
+| `easy-mat-ui-ng20` 20.x | 20 | n/a | Deprecated, replaced by `easy-mat-ui` 1.x |
 
 The demo was also compared by screenshot (light and dark themes, five pages) on Angular 20, 21 and 22 on 5 November 2026: the
 pages are identical, except that the Arabic names of the cities table are aligned to the right of their cell on 21 and
@@ -73,8 +72,8 @@ Peer dependencies: `@angular/core`, `@angular/common`, `@angular/forms`, `@angul
 
 ## Status and limits
 
-- **A young project.** The first release (20.0.0) is from 3 November 2026, and the library is maintained by one person. Feedback and [contributions](https://github.com/chaibiredouane/easy-mat-ui/blob/main/CONTRIBUTING.md) are welcome; security reports go through [SECURITY.md](https://github.com/chaibiredouane/easy-mat-ui/blob/main/SECURITY.md).
-- **Angular 20, 21 and 22.** One package, `easy-mat-ui-ng20`, for all three (see [Requirements](#requirements-and-supported-versions)). The name keeps `ng20` for compatibility.
+- **A young project.** The first release (as `easy-mat-ui-ng20` 20.0.0) is from 3 November 2026, and the library is maintained by one person. Feedback and [contributions](https://github.com/chaibiredouane/easy-mat-ui/blob/main/CONTRIBUTING.md) are welcome; security reports go through [SECURITY.md](https://github.com/chaibiredouane/easy-mat-ui/blob/main/SECURITY.md).
+- **Angular 20, 21 and 22.** One package, `easy-mat-ui`, for all three (see [Requirements](#requirements-and-supported-versions)). It replaces `easy-mat-ui-ng20`, see [Migrating](#migrating-from-easy-mat-ui-ng20).
 - **Data is handled in the browser.** There is no server-side paging and no virtual scrolling. For hundreds of thousands of rows, or spreadsheet-style editing, use a grid built for that, such as AG Grid or TanStack Table.
 - **Click-to-sort is off when header filters are on** (`withFilterInHeader: true`). Use the global search, or leave the header filters off, if you need sorting.
 - **Checked on every pull request:** the build, the unit tests, a compile check of the pages the generator writes and of the code examples of the documentation.
@@ -84,7 +83,7 @@ Peer dependencies: `@angular/core`, `@angular/common`, `@angular/forms`, `@angul
 Want to see it first? The [starter project on StackBlitz](https://stackblitz.com/github/chaibiredouane/easy-mat-ui/tree/main/examples/stackblitz-starter) runs in your browser, with nothing to install. Its source is in [`examples/stackblitz-starter`](https://github.com/chaibiredouane/easy-mat-ui/tree/main/examples/stackblitz-starter).
 
 ```bash
-npm install easy-mat-ui-ng20
+npm install easy-mat-ui
 ```
 
 Install the peer dependencies if your project does not have them yet:
@@ -116,6 +115,14 @@ initial budget in `angular.json` (measured: about 1.9 MB raw, 254 kB transferred
 ]
 ```
 
+## Migrating from `easy-mat-ui-ng20`
+
+The package was renamed; the API is unchanged.
+
+1. `npm uninstall easy-mat-ui-ng20 && npm install easy-mat-ui`
+2. Replace `easy-mat-ui-ng20` with `easy-mat-ui` in your imports (and in `angular.json` if a style path mentions it).
+3. `ng build`
+
 ## Quick start
 
 Provide ngx-translate once in your application config:
@@ -133,7 +140,7 @@ Use the table in a standalone component:
 
 ```typescript
 import { Component } from '@angular/core';
-import { EasyTableComponent, EasyTableConfig, MatColumnTyped } from 'easy-mat-ui-ng20';
+import { EasyTableComponent, EasyTableConfig, MatColumnTyped } from 'easy-mat-ui';
 
 @Component({
   selector: 'app-users',
@@ -165,7 +172,7 @@ Table events are exposed as outputs: `addItem`, `editItem`, `viewItem`, `deleteI
 
 ```typescript
 import { inject } from '@angular/core';
-import { CRUD, EasyDialogService, MatColumnTyped } from 'easy-mat-ui-ng20';
+import { CRUD, EasyDialogService, MatColumnTyped } from 'easy-mat-ui';
 
 const dialog = inject(EasyDialogService);
 
@@ -237,7 +244,7 @@ the safe way to try it. `--help` lists every option.
 
 - It generates a **starting point, not a finished screen**: the logic and the data calls are yours.
 - It does not call an API and does not create routes for you.
-- It generates code for the components of `easy-mat-ui-ng20`, not generic Angular Material code.
+- It generates code for the components of `easy-mat-ui`, not generic Angular Material code.
 
 ## Demo application
 
@@ -291,7 +298,7 @@ library. `EasyThemeService` switches theme at runtime, without reloading the pag
 
 ```typescript
 import { inject } from '@angular/core';
-import { EasyThemeService } from 'easy-mat-ui-ng20';
+import { EasyThemeService } from 'easy-mat-ui';
 
 const theme = inject(EasyThemeService);
 theme.setTheme('dark');     // 'light' | 'dark' | 'system' (follows the operating system, live)
@@ -317,7 +324,7 @@ spacing and Material overrides), add the stylesheet to the `styles` array of you
 
 ```json
 "styles": [
-  "node_modules/easy-mat-ui-ng20/styles/styles.scss",
+  "node_modules/easy-mat-ui/styles/styles.scss",
   "node_modules/flag-icons/css/flag-icons.min.css"
 ]
 ```
@@ -332,9 +339,8 @@ spacing and Material overrides), add the stylesheet to the `styles` array of you
 ## Versioning
 
 The library version follows [Semantic Versioning](https://semver.org/): PATCH for bug fixes, MINOR for
-backward-compatible features, MAJOR for breaking changes. Up to `20.0.x` the first number was the Angular major the
-package was built for. The package now supports several Angular majors, so the first number no longer implies one:
-the supported range is in the peer dependencies. See [CHANGELOG.md](https://github.com/chaibiredouane/easy-mat-ui/blob/main/CHANGELOG.md).
+backward-compatible features, MAJOR for breaking changes. The first number is the major version of this library, not of Angular: the supported Angular range is in the peer
+dependencies. Support for a new Angular major is added in a minor release; dropping the oldest one is a major release. See [CHANGELOG.md](https://github.com/chaibiredouane/easy-mat-ui/blob/main/CHANGELOG.md).
 
 ## Development
 

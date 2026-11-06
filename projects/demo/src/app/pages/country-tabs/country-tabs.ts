@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, effect, inject, OnInit, untracked } from '@angular/core';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { firstValueFrom } from 'rxjs';
-import { EasyPageHeader, EasyTableComponent, EasyTableConfig, EasyTableDialogResult } from 'easy-mat-ui-ng20';
+import { EasyPageHeader, EasyTableComponent, EasyTableConfig, EasyTableDialogResult } from 'easy-mat-ui';
 import { City, CityRow, Country } from '../../models/geo.model';
 import { DisplaySettings } from '../../services/display-settings';
 import { GeoService } from '../../services/geo.service';

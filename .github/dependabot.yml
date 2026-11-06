@@ -17,7 +17,7 @@ updates:
           - "@angular-devkit/*"
           - "ng-packagr"
     ignore:
-      # The major version of these is tied to the Angular line this package supports (easy-mat-ui-ng20, Angular 20),
+      # The major version of these is tied to the Angular line this package supports (easy-mat-ui, Angular 20),
       # or is a peer dependency range of the library. A major update is decided by hand, not proposed by a bot.
       - dependency-name: "@angular/*"
         update-types: ["version-update:semver-major"]

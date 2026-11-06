@@ -19,7 +19,7 @@
             "tsConfig": "tsconfig.app.json",
             "styles": [
               "node_modules/flag-icons/css/flag-icons.min.css",
-              "node_modules/easy-mat-ui-ng20/styles/styles.scss",
+              "node_modules/easy-mat-ui/styles/styles.scss",
               "src/styles.scss"
             ]
           },

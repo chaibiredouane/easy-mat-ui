@@ -5,7 +5,7 @@ import { isIdentifier, kebab, pascal } from './naming';
 import { renderTable } from './table';
 import { Block, GeneratedFile, GenerationResult, ModelSpec, PageConfig } from './types';
 
-const DEFAULT_LIB = 'easy-mat-ui-ng20';
+const DEFAULT_LIB = 'easy-mat-ui';
 
 function validateModel(model: ModelSpec, where: string): void {
   if (!isIdentifier(model.className)) throw new Error(`${where}: "${model.className}" is not a valid class name.`);

@@ -10,7 +10,7 @@ import {
   EasySegmented,
   EasySegmentedOption,
   EasyStat
-} from 'easy-mat-ui-ng20';
+} from 'easy-mat-ui';
 
 /** Six reusable components, each fed by its inputs and reporting by its outputs. No business logic inside. */
 @Component({

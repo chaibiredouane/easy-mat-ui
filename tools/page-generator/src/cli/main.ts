@@ -37,7 +37,7 @@ Options:
   --i18n-dir <folder>      folder of the translation files (default: public/assets/i18n or src/assets/i18n)
   --i18n-root <KEY>        first part of the translation keys (default: PAGES)
   --prefix <prefix>        prefix of the selector (default: the one of angular.json, or app)
-  --lib <package>          package to import from (default: the installed one, easy-mat-ui-ng20)
+  --lib <package>          package to import from (default: the installed one, easy-mat-ui)
   --config <file.json>     a complete page description, for example exported by the Builder of the demo
   --dry-run                show what would be done, write nothing
   --print                  with --dry-run, show the content of the files

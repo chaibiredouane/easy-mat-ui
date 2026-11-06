@@ -2,7 +2,7 @@ import { Component, signal } from '@angular/core';
 import { Toolbox } from './toolbox';
 import { Users } from './users-table';
 
-/** Two examples of easy-mat-ui-ng20, one at a time: open users-table.ts or toolbox.ts to read the code. */
+/** Two examples of easy-mat-ui, one at a time: open users-table.ts or toolbox.ts to read the code. */
 @Component({
   selector: 'app-root',
   imports: [Users, Toolbox],
@@ -10,7 +10,7 @@ import { Users } from './users-table';
     <main>
       <h1>Easy Mat UI starter</h1>
       <p>
-        Angular 20 and <a href="https://github.com/chaibiredouane/easy-mat-ui" target="_blank" rel="noopener">easy-mat-ui-ng20</a>.
+        Angular 20 and <a href="https://github.com/chaibiredouane/easy-mat-ui" target="_blank" rel="noopener">easy-mat-ui</a>.
         Edit <code>src/app/users-table.ts</code> and watch the table change.
       </p>
       <nav aria-label="Examples">

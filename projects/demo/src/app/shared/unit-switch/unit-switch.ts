@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
-import { EasySegmented, EasySegmentedOption } from 'easy-mat-ui-ng20';
+import { EasySegmented, EasySegmentedOption } from 'easy-mat-ui';
 import { DisplaySettings } from '../../services/display-settings';
 import { LanguageService } from '../../services/language.service';
 import { POPULATION_UNITS, PopulationUnit } from '../population';

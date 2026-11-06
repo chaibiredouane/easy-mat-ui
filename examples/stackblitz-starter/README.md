@@ -1,6 +1,6 @@
 # Easy Mat UI starter
 
-The smallest Angular 20 project that uses [easy-mat-ui-ng20](https://github.com/chaibiredouane/easy-mat-ui).
+The smallest Angular 20 project that uses [easy-mat-ui](https://github.com/chaibiredouane/easy-mat-ui).
 It has two examples:
 
 - **Data table** (`src/app/users-table.ts`): a table with text and multi-select column filters, pagination, an icon

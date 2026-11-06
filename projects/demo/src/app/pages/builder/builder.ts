@@ -10,7 +10,7 @@ import {
   EasySegmentedOption,
   EasyStat,
   EasyTableComponent
-} from 'easy-mat-ui-ng20';
+} from 'easy-mat-ui';
 import {
   BLOCK_CATALOG,
   BLOCK_CATEGORIES,

@@ -4,7 +4,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
-      "easy-mat-ui-ng20": [
+      "easy-mat-ui": [
         "./projects/easy-mat-ui/src/public-api.ts"
       ],
       "@easy-mat-ui/page-generator": [

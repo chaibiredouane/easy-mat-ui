@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, inject, output, signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
-import { EasyCardConfig, EasyCardGrid } from 'easy-mat-ui-ng20';
+import { EasyCardConfig, EasyCardGrid } from 'easy-mat-ui';
 import { LanguageService } from '../../services/language.service';
 import { GithubMark } from '../../shared/github-mark/github-mark';
 import { LINKS } from '../../shared/links';
@@ -85,7 +85,7 @@ export class Overview {
     if (page) this.open.emit(page);
   }
 
-  readonly installCommand = 'npm install easy-mat-ui-ng20';
+  readonly installCommand = 'npm install easy-mat-ui';
 
   readonly config = [
     'export const countryTable = (data: Country[]) =>',

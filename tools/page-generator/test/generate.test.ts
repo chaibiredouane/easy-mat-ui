@@ -47,7 +47,7 @@ describe('without translations', () => {
   });
 
   test('imports what it uses from the library and from Angular', () => {
-    assert.match(ts, /import \{ EasyChipNav, EasyChipNavItem, EasyPageHeader \} from 'easy-mat-ui-ng20';/);
+    assert.match(ts, /import \{ EasyChipNav, EasyChipNavItem, EasyPageHeader \} from 'easy-mat-ui';/);
     assert.match(ts, /import \{ Component, signal \} from '@angular\/core';/);
     assert.match(ts, /selector: 'app-stock'/);
     assert.match(ts, /imports: \[EasyChipNav, EasyPageHeader\]/);
@@ -220,7 +220,7 @@ describe('long import lists', () => {
     const blocks = (['page-header', 'stat', 'chip-nav', 'segmented', 'language-switch', 'card-grid', 'table'] as const).map((type) => defaultBlock(type, 'x'));
     const ts = file(generatePage({ name: 'x', i18n: true, blocks }), 'x.ts').content;
     assert.match(ts, /import \{\n {2}CRUD,\n/);
-    assert.match(ts, /\} from 'easy-mat-ui-ng20';/);
+    assert.match(ts, /\} from 'easy-mat-ui';/);
     assert.match(ts, /import \{ map \} from 'rxjs';/);
   });
 });

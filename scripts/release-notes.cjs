@@ -18,7 +18,7 @@ function section(changelog, version) {
   return { heading: lines[start], body: lines.slice(start + 1, end).join('\n').trim() };
 }
 
-function notes(changelog, version, packageName = 'easy-mat-ui-ng20') {
+function notes(changelog, version, packageName = 'easy-mat-ui') {
   if (!/^\d+\.\d+\.\d+(-[0-9A-Za-z.-]+)?$/.test(version)) {
     throw new Error(`"${version}" is not a version such as 20.0.6.`);
   }
@@ -27,12 +27,16 @@ function notes(changelog, version, packageName = 'easy-mat-ui-ng20') {
   if (!found.body) throw new Error(`The section of ${version} in CHANGELOG.md is empty.`);
   const angular = packageName.match(/ng(\d+)$/);
   const requirements = `${REPO}#requirements-and-supported-versions`;
+  // A name with an -ngN suffix targets one Angular major; the unsuffixed name covers every major of the peer range.
+  const support = angular
+    ? ` (Angular ${angular[1]}; see the [requirements](${requirements}))`
+    : ` (Angular 20, 21 and 22; see the [requirements](${requirements}))`;
   return [
     found.body,
     '',
     '---',
     '',
-    `**Install:** \`npm install ${packageName}@${version}\`${angular ? ` (Angular ${angular[1]}; see the [requirements](${requirements}))` : ''}.`,
+    `**Install:** \`npm install ${packageName}@${version}\`${support}.`,
     '',
     `**Full changelog:** ${REPO}/blob/main/CHANGELOG.md`,
     ''

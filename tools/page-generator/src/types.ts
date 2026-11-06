@@ -99,7 +99,7 @@ export interface PageConfig {
   name: string;
   /** Prefix of the selector of the component (`app` gives `<app-stock>`). */
   selectorPrefix?: string;
-  /** Package the components are imported from. Default `easy-mat-ui-ng20`. */
+  /** Package the components are imported from. Default `easy-mat-ui`. */
   libPackage?: string;
   /** `true`: texts go through ngx-translate (keys + entries for the translation file). `false`: plain texts. */
   i18n: boolean;
