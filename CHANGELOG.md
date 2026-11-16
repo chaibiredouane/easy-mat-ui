@@ -6,6 +6,13 @@ follows [Semantic Versioning](https://semver.org/) (see [Versioning](README.md#v
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-11-16
+
+### Added
+- Each group header of `lib-easy-table` and `lib-easy-table-basic` shows the selection ratio `n/m` (checked rows over rows of the
+  group) when `groupBy.selectionField` is set. The label after the ratio is `groupBy.selectedLabel` (translation key,
+  default `selected`). Ported from the LIH repository.
+
 ## [1.1.1] - 2026-11-16
 
 ### Fixed
