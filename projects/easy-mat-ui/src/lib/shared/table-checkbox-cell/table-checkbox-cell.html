@@ -1,0 +1,5 @@
+<lib-table-check-mark [state]="checked ? 'all' : 'none'"
+                      [disabled]="!editable"
+                      [readonlyLook]="!interactive"
+                      [label]="column.translateTitle || column.name"
+                      (toggled)="toggle()"></lib-table-check-mark>

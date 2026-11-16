@@ -6,6 +6,28 @@ follows [Semantic Versioning](https://semver.org/) (see [Versioning](README.md#v
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-11-16
+
+### Added
+- **Row grouping** for `lib-easy-table` and `lib-easy-table-basic` (`EasyTableConfig.groupBy`): collapsible group headers
+  with a row count, an empty-value label, *Expand all* / *Collapse all* controls, and an optional group column.
+- **Checkbox columns** (`ColumnType.Checkbox` with `MatColumnTyped.selection`): per-row selection, disabled rows
+  (`disabledFn`) and header alignment. New output `selectionChange`, and `childSelectionChange` for the child table.
+- **Hierarchical selection**: with `groupBy.selectionField`, the group header has a checkbox that is checked, unchecked or
+  indeterminate and selects or clears the whole group. New output `groupSelectionChange`.
+- `lib-easy-file-upload` (`EasyFileUpload`): button, drag and drop or both, file type, size and count validation,
+  duplicate handling, a `ControlValueAccessor` and `Validator`, and CSV parsing into an `EasyTableConfig`
+  (`outputMode`). The CSV parser is exported (`parseCsv`, `detectCsvDelimiter`, `detectCsvHeader`).
+- Toolbar: an import button (`canImport`, output `importData`) and a save button with states (`ToolbarConfig.saveState`,
+  with the matching `ToolbarTranslations` keys).
+- Two demo pages, *Selection* and *Upload*.
+
+### Changed
+- The confirmation dialog can offer several choices (`ConfirmChoice`, `confirmChoice()`), and has its own styles.
+
+### Compatibility
+- Backward compatible: every new option is optional and a configuration written for 1.0.1 behaves the same.
+
 ## [1.0.1] - 2026-11-06
 
 ### Fixed

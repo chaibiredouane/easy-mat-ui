@@ -1,0 +1,46 @@
+<lib-easy-page-header
+  [config]="{ icon: 'cloud_upload', title: ('pages.upload.title' | translate), subtitle: ('pages.upload.subtitle' | translate) }" />
+
+<p><a class="sample" [href]="sampleUrl" download="sample.csv">{{ 'pages.upload.SAMPLE' | translate }}</a></p>
+
+<section class="card">
+  <h2>{{ 'pages.upload.BOTH' | translate }}</h2>
+  <lib-easy-file-upload
+    mode="both"
+    accept=".csv"
+    outputMode="easy-basic-table"
+    [maxFileSize]="1048576"
+    [tableConfig]="{ changePageSize: 5, readonly: true }"
+    (resultChange)="onParsed($event)"
+    (fileRejected)="onRejected($event)" />
+  @for (message of rejected(); track message) {
+    <p class="error" role="alert">{{ message }}</p>
+  }
+  @if (parsedTable(); as config) {
+    <div class="table-wrap">
+      <lib-easy-table-basic [config]="config" [dataSource]="$any(config.dataSource)" />
+    </div>
+  }
+</section>
+
+<section class="card">
+  <h2>{{ 'pages.upload.BUTTON' | translate }}</h2>
+  <lib-easy-file-upload
+    mode="button"
+    accept=".csv,.txt"
+    [multiple]="true"
+    [maxFiles]="3"
+    buttonAppearance="outlined"
+    buttonSize="small"
+    (resultChange)="onRaw($event)" />
+  @if (rawFileNames().length) {
+    <p>{{ rawFileNames().join(', ') }}</p>
+  }
+</section>
+
+<section class="card">
+  <h2>{{ 'pages.upload.DRAG_DROP' | translate }}</h2>
+  <lib-easy-file-upload mode="drag-drop" accept=".csv" duplicates="replace" [compact]="true" />
+</section>
+
+<app-code-panel folder="pages/upload" />

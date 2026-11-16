@@ -11,7 +11,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {DateAdapter, NativeDateAdapter, provideNativeDateAdapter} from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
-import {EMPTY, filter, map, merge, Observable, startWith} from 'rxjs';
+import {EMPTY, filter, map, merge, Observable, startWith, Subject} from 'rxjs';
 import {ColumnSize, CRUD, InputType, ScreenSize} from '../utils/enums';
 import {EasyMultiSelect} from '../easy-multi-select/easy-multi-select';
 import {Utils} from '../utils/utils';
@@ -121,6 +121,7 @@ export class EasyDialogComponent {
   readonly isReadOnly = this.config.action === CRUD.READ;
   readonly data: Record<string, any> = {...this.config.data};
   readonly groupedFields = this.groupFieldsByRow(this.config.fields);
+  private readonly dropdownChanged = new Subject<void>();
   readonly dropdowns = this.createDropdowns(this.config.fields);
   readonly dateControls = this.createDateControls(this.config.fields);
   readonly confirmingClose = signal(false);
@@ -372,24 +373,39 @@ export class EasyDialogComponent {
   }
 
   private createDropdown(field: EasyDialogField): DropdownState {
-    const options = field.filterList ?? [];
+    const allOptions = field.filterList ?? [];
+    const isFiltered = !!field.optionsFilter && !this.isReadOnly && !field.readonly;
     const valueKey = field.filterValue ?? field.name;
+    const availableOptions = () =>
+      isFiltered
+        ? allOptions.filter((option, index) => field.optionsFilter!(option, this.data) && allOptions.findIndex(other => other[valueKey] === option[valueKey]) === index)
+        : allOptions;
     const displayKey = field.displayColumn ?? field.name;
     const currentValue = this.data[field.name];
-    const selected = currentValue == null ? null : options.find(option => option[valueKey] == currentValue) ?? null;
+    const selected = currentValue == null ? null : allOptions.find(option => option[valueKey] == currentValue) ?? null;
 
     const validators = this.isRequired(field) ? [requireSelection] : [];
     const control = new FormControl<any>({value: selected, disabled: this.isReadOnly || !!field.readonly}, validators);
 
     control.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(value => {
       this.data[field.name] = typeof value === 'string' ? null : (value?.[valueKey] ?? null);
+      this.dropdownChanged.next();
     });
+
+    if (isFiltered) {
+      this.dropdownChanged.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+        const value = control.value;
+        if (value && typeof value === 'object' && !availableOptions().includes(value)) {
+          control.setValue(null);
+        }
+      });
+    }
 
     return {
       control,
-      options$: control.valueChanges.pipe(
+      options$: merge(control.valueChanges, this.dropdownChanged).pipe(
         startWith(control.value),
-        map(search => filterOptions(options, search, displayKey))
+        map(() => filterOptions(availableOptions(), control.value, displayKey))
       ),
       displayFn: (item: any) => (item && typeof item === 'object' ? String(item[displayKey] ?? '') : (item ?? ''))
     };

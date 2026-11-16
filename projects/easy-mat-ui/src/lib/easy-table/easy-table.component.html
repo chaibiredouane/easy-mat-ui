@@ -6,6 +6,7 @@
     [readonly]="config.readonly"
     [canCreate]="config.canCreate"
     [canExport]="config.canExport"
+    [canImport]="config.canImport"
     [customColumnFilter]="config.customColumnFilter"
     (searchTableFieldChange)="searchTableField = $event; applyFilterFromToolbar()"
     (applyFilterEvent)="applyFilter($event)"
@@ -14,6 +15,7 @@
     (clearTableFilterEvent)="clearTableFilter()"
     (addItem)="onAddItem()"
     (exportToCsv)="onExportToCsv()"
+    (importData)="importData.emit()"
     (customAction)="onCustomAction()"
     (close)="close()"
     (toggleChanged)="OnToggleChanged($event)">
@@ -45,6 +47,11 @@
         </div>
       }
 
+      @if (config.groupBy; as groupBy) {
+        <lib-table-group-controls [groupBy]="groupBy" [allExpanded]="groupExpansion.allExpanded" [allCollapsed]="groupExpansion.allCollapsed"
+                                  (expandAll)="setAllRowGroups(true)"
+                                  (collapseAll)="setAllRowGroups(false)"></lib-table-group-controls>
+      }
       <table mat-table [dataSource]="dataSource" matSort [class.filters-open]="filtersOpen" [class.has-filters]="config.withFilterInHeader && hasColumnFilters" multiTemplateDataRows
              [class.mat-elevation-z2]="config.isPreview"
              [class.mat-elevation-z8]="!config.isPreview" class="mat-mdc-table w-100"
@@ -69,7 +76,7 @@
                 <th mat-header-cell *matHeaderCellDef
                     mat-sort-header
                     [disabled]="config.withFilterInHeader || col.name === '#' || col.name === 'actions'"
-                    [ngClass]="[col.size, col.stickyClass, col.headerClass, col.groupClass || ('group' + getGroupIndex(grouped[0]))]"
+                    [ngClass]="[col.size, col.stickyClass, col.headerClass, col.checkboxHeaderAlignClass, col.groupClass || ('group' + getGroupIndex(grouped[0]))]"
                     [class.has-header-class]="!!col.headerClass"
                     class="custom-th-cell">
                   <div class="header-label">
@@ -223,6 +230,12 @@
                           </button>
                         </td>
                       }
+                      @case (ColumnType.Checkbox) {
+                        <td mat-cell *matCellDef="let element" class="text-center checkbox-cell" [ngClass]="[col.stickyClass, col.cssClass]">
+                          <lib-table-checkbox-cell [column]="col" [row]="element" [tableReadonly]="config.readonly"
+                                                   (selectionChange)="selectionChange.emit($event)"></lib-table-checkbox-cell>
+                        </td>
+                      }
                       @case (ColumnType.IMAGE) {
                         <td mat-cell *matCellDef="let element" class="text-center" [ngClass]="[col.stickyClass]">
                         <span [class]="'fi fi-' + (element[col.name] | lowercase)" [title]="element[col.name]"> </span>
@@ -254,8 +267,10 @@
                   @if (childTabs; as tabs) {
                     <mat-tab-group class="child-tabs" mat-stretch-tabs="false" mat-align-tabs="center"
                                    animationDuration="0ms"
+                                   #childTabGroup
+                                   [preserveContent]="hasTabLeaveGuard"
                                    [selectedIndex]="childTabIndex"
-                                   (selectedIndexChange)="onChildTabChange($event)">
+                                   (selectedIndexChange)="onChildTabChange($event, childTabGroup)">
                       @for (tab of tabs; track $index) {
                         <mat-tab>
                           <ng-template mat-tab-label>
@@ -265,7 +280,11 @@
                             {{ (tab.tabTitle ?? '') | translate }}
                           </ng-template>
                           <ng-template matTabContent>
-                            <ng-container *ngTemplateOutlet="childTable; context: {$implicit: tab}"></ng-container>
+                            @if (tab.tabContent; as customContent) {
+                              <ng-container *ngComponentOutlet="customContent; inputs: tab.tabContentInputs"></ng-container>
+                            } @else {
+                              <ng-container *ngTemplateOutlet="childTable; context: {$implicit: tab}"></ng-container>
+                            }
                           </ng-template>
                         </mat-tab>
                       }
@@ -279,16 +298,32 @@
           </td>
         </ng-container>
 
+        <ng-container matColumnDef="groupHeader">
+          <td mat-cell *matCellDef="let element" [attr.colspan]="getDisplayedColumnNames().length" class="group-header-cell-row">
+            @if (config.groupBy; as groupBy) {
+              <lib-table-group-header [group]="element.__rowGroup"
+                                      [groupBy]="groupBy"
+                                      [columns]="displayedColumns"
+                                      [tableReadonly]="config.readonly"
+                                      (toggleGroup)="toggleRowGroup($event)"
+                                      (selectionChange)="groupSelectionChange.emit($event)"></lib-table-group-header>
+            }
+          </td>
+        </ng-container>
+
         <tr mat-header-row *matHeaderRowDef="getDisplayedColumnNames()"></tr>
 
-        <tr mat-row *matRowDef="let row; columns: getDisplayedColumnNames(); let i = dataIndex"
+        <tr mat-row *matRowDef="let row; columns: getDisplayedColumnNames(); when: isDataRow; let i = dataIndex"
             class="example-element-row"
+            [class.group-child]="!!config.groupBy?.field"
             [class.zebra-odd]="i % 2 === 0"
             [class.zebra-even]="i % 2 === 1"
             [class.example-expanded-row]="expandedElement === row"
             [class.selected-row-green-bg]="getSelectedRow(row)"
             (click)="manageSelectedRow(row)">
         </tr>
+
+        <tr mat-row *matRowDef="let row; columns: ['groupHeader']; when: isGroupRow" class="row-group-header"></tr>
 
         <tr mat-row
             *matRowDef="let row; columns: ['expandedDetail']; when: isExpansionDetailRow"
@@ -313,6 +348,7 @@
                         (viewItem)="onViewChildItem($event)"
                         (dialogAction)="childDialogAction.emit($event)"
                         (dialogResult)="childDialogResult.emit($event)"
-                        (clickField)="clickChildField.emit($event)">
+                        (clickField)="clickChildField.emit($event)"
+                        (selectionChange)="childSelectionChange.emit($event)">
   </lib-easy-table-basic>
 </ng-template>

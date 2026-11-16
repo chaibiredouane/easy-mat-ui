@@ -69,7 +69,17 @@ export const EN = {
     FOOTER_CONTRIBUTE: 'Contributions are welcome.',
     FOOTER_DATA: 'Demo data: GeoNames (CC BY 4.0) and Wikipedia (CC BY-SA 4.0).'
   },
-  nav: { overview: 'Overview', countries: 'Countries & cities', tabs: 'Child tabs', cities: 'Cities', builder: 'Page builder' },
+  nav: { overview: 'Overview', countries: 'Countries & cities', tabs: 'Child tabs', cities: 'Cities', builder: 'Page builder', grouping: 'Selection', upload: 'Upload' },
+  grouping: {
+    TITLE: 'Countries by continent',
+    EXPAND_ALL: 'Expand all',
+    COLLAPSE_ALL: 'Collapse all',
+    selected: 'Selected',
+    continent: 'Continent',
+    code: 'Flag',
+    name: 'Name',
+    capital: 'Capital'
+  },
   continents: {
     ARIA: 'Browse by continent',
     all: 'All',
@@ -107,6 +117,20 @@ export const EN = {
     scss: 'Styles'
   },
   pages: {
+    grouping: {
+      title: 'Grouping and selection',
+      subtitle: 'Countries grouped by continent. Expand or collapse one group or all of them, tick a country, or tick a whole group: its box is checked, unchecked or indeterminate.',
+      SELECTED: 'Selected',
+      LAST_EVENT: 'Last event'
+    },
+    upload: {
+      title: 'File upload',
+      subtitle: 'The same component as a drop area with a button, as a button alone, and as a drop area alone. A CSV file becomes a table.',
+      SAMPLE: 'Download a sample CSV file',
+      BOTH: 'Drop area and button, parsed into a table',
+      BUTTON: 'Button only, several files',
+      DRAG_DROP: 'Drop area only'
+    },
     countries: {
       title: 'Countries and their cities',
       subtitle: 'Every country of the world, Algeria first. Click the expand button of a row: the child table is loaded on demand with the cities of that country.'

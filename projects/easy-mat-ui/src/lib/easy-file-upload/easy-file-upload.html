@@ -1,0 +1,172 @@
+@if (label) {
+  <label class="label" [attr.for]="inputId">
+    {{ label }}@if (required) {<span class="required" aria-hidden="true">*</span>}
+  </label>
+}
+
+<input
+  #fileInput
+  class="native-input"
+  type="file"
+  tabindex="-1"
+  [id]="inputId"
+  [accept]="accept"
+  [multiple]="multiple"
+  [disabled]="!isInteractive"
+  (change)="onInputChange($event)"
+/>
+
+<ng-template #pickerButton>
+  <button
+    type="button"
+    class="picker-button size-{{ buttonSize }} variant-{{ buttonAppearance }}"
+    [disabled]="!isInteractive"
+    [attr.aria-describedby]="hint ? hintId : null"
+    (click)="$event.stopPropagation(); open()"
+    (blur)="markAsTouched()"
+  >
+    @if (resolvedButtonIcon) {
+      <mat-icon>{{ resolvedButtonIcon }}</mat-icon>
+    }
+    <span>{{ resolvedButtonLabel }}</span>
+  </button>
+</ng-template>
+
+<ng-template #fileChips>
+  @for (item of items(); track item.id) {
+    <span class="chip" [class.chip-error]="item.status === 'error'" [matTooltip]="showFilePreview ? fileTooltip(item) : ''">
+      <mat-icon class="chip-icon">{{ iconFor(item) }}</mat-icon>
+      <span class="chip-name">{{ item.name }}</span>
+      @if (showFileSize) {
+        <span class="chip-size">{{ sizeLabel(item) }}</span>
+      }
+      @if (showRemoveButton) {
+        <button type="button" class="icon-button" aria-label="Remove {{ item.name }}" [disabled]="!isInteractive" (click)="removeFile(item, $event)">
+          <mat-icon>close</mat-icon>
+        </button>
+      }
+    </span>
+  }
+</ng-template>
+
+@if (!showsDropArea) {
+  <div class="button-row">
+    <ng-container *ngTemplateOutlet="pickerButton"></ng-container>
+    @if (layout === 'field') {
+      <div class="field-content">
+        <ng-container *ngTemplateOutlet="fileChips"></ng-container>
+      </div>
+    } @else if (constraintsSummary) {
+      <span class="zone-meta">{{ constraintsSummary }}</span>
+    }
+    @if (isBusy && showProgress) {
+      <mat-progress-bar class="progress inline-progress" mode="indeterminate" aria-label="Processing"></mat-progress-bar>
+    }
+  </div>
+} @else {
+  <div
+    class="surface"
+    [style.height]="surfaceHeight"
+    [style.min-height]="surfaceMinHeight"
+    [style.max-height]="surfaceMaxHeight"
+    (click)="open()"
+    (dragenter)="onDragOver($event)"
+    (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave($event)"
+    (drop)="onDrop($event)"
+  >
+    @if (layout === 'area') {
+      <div
+        class="zone"
+        [attr.role]="showsButton ? null : 'button'"
+        [attr.tabindex]="showsButton || !isInteractive ? null : 0"
+        [attr.aria-describedby]="hint ? hintId : null"
+        (keydown.enter)="onZoneKey($event)"
+        (keydown.space)="onZoneKey($event)"
+        (blur)="markAsTouched()"
+      >
+        <span class="zone-icon"><mat-icon>{{ dragActive() ? 'download' : icon }}</mat-icon></span>
+        <span class="zone-text">
+          <span class="zone-title">{{ dragActive() ? 'Drop to upload' : resolvedDropTitle }}</span>
+          @if (dropDescription) {
+            <span class="zone-description">{{ dropDescription }}</span>
+          }
+          @if (constraintsSummary) {
+            <span class="zone-meta">{{ constraintsSummary }}</span>
+          }
+        </span>
+        @if (showsButton) {
+          <ng-container *ngTemplateOutlet="pickerButton"></ng-container>
+        }
+      </div>
+    } @else {
+      <mat-icon class="field-icon">{{ icon }}</mat-icon>
+      <div class="field-content">
+        @if (items().length === 0) {
+          <span class="field-placeholder">{{ dragActive() ? 'Drop to upload' : resolvedDropTitle }}</span>
+        } @else {
+          <ng-container *ngTemplateOutlet="fileChips"></ng-container>
+        }
+      </div>
+      @if (showsButton) {
+        <ng-container *ngTemplateOutlet="pickerButton"></ng-container>
+      }
+    }
+    @if (isBusy && showProgress) {
+      <mat-progress-bar class="progress" mode="indeterminate" aria-label="Processing"></mat-progress-bar>
+    }
+  </div>
+}
+
+@if (hint && !hasError) {
+  <div class="hint" [id]="hintId">{{ hint }}</div>
+}
+
+@if (visibleErrors.length > 0) {
+  <ul class="errors" role="alert" [id]="errorsId">
+    @for (error of visibleErrors; track $index) {
+      <li><mat-icon>error_outline</mat-icon><span>{{ error.message }}</span></li>
+    }
+  </ul>
+}
+
+@if (layout === 'area' && items().length > 0) {
+  <ul class="files">
+    @for (item of items(); track item.id) {
+      <li class="file" [class.file-error]="item.status === 'error'" [class.file-parsed]="item.status === 'parsed'">
+        <span class="file-icon"><mat-icon>{{ iconFor(item) }}</mat-icon></span>
+        <span class="file-body">
+          <span class="file-name" [matTooltip]="item.name">{{ item.name }}</span>
+          @if (showFilePreview) {
+            <span class="file-meta">
+              @if (item.extension) {<span class="badge">{{ item.extension }}</span>}
+              @if (showFileSize) {<span>{{ sizeLabel(item) }}</span>}
+              @if (item.type) {<span class="file-type">{{ item.type }}</span>}
+              @if (showParseInfo && parseInfo(item); as info) {
+                <span class="badge badge-info">{{ info.delimiter }}</span>
+                <span class="badge badge-info">{{ info.header }}</span>
+              }
+            </span>
+          }
+          @if (item.error) {
+            <span class="file-error-text">{{ item.error }}</span>
+          }
+        </span>
+        <span class="file-state" aria-hidden="true">
+          @if (item.status === 'processing') {
+            <mat-icon class="state-processing">sync</mat-icon>
+          } @else if (item.status === 'parsed') {
+            <mat-icon class="state-success">check_circle</mat-icon>
+          } @else if (item.status === 'error') {
+            <mat-icon class="state-error">error</mat-icon>
+          }
+        </span>
+        @if (showRemoveButton) {
+          <button type="button" class="icon-button" aria-label="Remove {{ item.name }}" matTooltip="Remove" [disabled]="!isInteractive" (click)="removeFile(item, $event)">
+            <mat-icon>close</mat-icon>
+          </button>
+        }
+      </li>
+    }
+  </ul>
+}

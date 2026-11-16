@@ -40,6 +40,7 @@ export class TableToolbarComponent {
   @Input() readonly = false;
   @Input() canCreate = true;
   @Input() canExport = true;
+  @Input() canImport = false;
   @Input() showFilterOperator = true;
   @Input() customColumnFilter: Dictionary[] = [];
 
@@ -50,7 +51,9 @@ export class TableToolbarComponent {
   @Output() filterTypeEvent = new EventEmitter<void>();
   @Output() clearTableFilterEvent = new EventEmitter<void>();
   @Output() addItem = new EventEmitter<void>();
+  @Output() save = new EventEmitter<void>();
   @Output() exportToCsv = new EventEmitter<void>();
+  @Output() importData = new EventEmitter<void>();
   @Output() customAction = new EventEmitter<void>();
   @Output() close = new EventEmitter<void>();
   @Output() toggleChanged = new EventEmitter<any>();
@@ -80,6 +83,45 @@ export class TableToolbarComponent {
 
   onAddItem() {
     this.addItem.emit();
+  }
+
+  onSave() {
+    if (this.config.saveState === 'pending' || this.config.saveState === 'error') {
+      this.save.emit();
+    }
+  }
+
+  get saveIcon(): string {
+    switch (this.config.saveState) {
+      case 'saving':
+        return 'sync';
+      case 'saved':
+        return 'check';
+      case 'error':
+        return 'priority_high';
+      default:
+        return 'save';
+    }
+  }
+
+  get saveTitle(): string {
+    const translations = this.config.translations;
+    switch (this.config.saveState) {
+      case 'saving':
+        return translations.savingBtn;
+      case 'saved':
+        return translations.savedBtn;
+      case 'error':
+        return translations.saveErrorBtn;
+      case 'pending':
+        return translations.savePendingBtn;
+      default:
+        return translations.saveBtn;
+    }
+  }
+
+  onImportData() {
+    this.importData.emit();
   }
 
   onExportToCsv() {

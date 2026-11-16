@@ -33,13 +33,19 @@ import {MatColumnTyped} from '../model/mat-column-typed.model';
 import {MatTabCommon} from '../utils/matTabCommon';
 import {sortRows} from '../utils/sort-rows';
 import {MatSelectModule} from '@angular/material/select';
-import {MatTabsModule} from '@angular/material/tabs';
+import {MatTabGroup, MatTabsModule} from '@angular/material/tabs';
 import {EasyMultiSelect} from '../easy-multi-select/easy-multi-select';
 import {EasyTableBasicComponent} from '../easy-table-basic/easy-table-basic.component';
 import {EasyTableConfig} from '../model/easy-table-config.model';
 import {EasyTableDialogRequest, EasyTableDialogResult} from '../model/easy-table-dialog.model';
 import {triggerTableDialog} from '../shared/table-dialog/table-dialog';
 import {confirmDelete} from '../shared/confirm-dialog/confirm-dialog';
+import {EasyTableSelectionChange} from '../model/easy-table-selection.model';
+import {TableCheckboxCell} from '../shared/table-checkbox-cell/table-checkbox-cell';
+import {EasyTableGroupSelectionChange} from '../model/easy-table-grouping.model';
+import {TableGroupControls} from '../shared/table-group-controls/table-group-controls';
+import {TableGroupHeader} from '../shared/table-group-header/table-group-header';
+import {buildGroupedRows, createRowDataSource, isDataRow, isGroupColumnHidden, isGroupRow, listGroupKeys, RowGroupingState, summarizeGroupExpansion} from '../utils/row-grouping';
 
 @Component({
   selector: 'lib-easy-table',
@@ -62,7 +68,10 @@ import {confirmDelete} from '../shared/confirm-dialog/confirm-dialog';
     FormsModule,
     TableToolbarComponent,
     EasyMultiSelect,
-    EasyTableBasicComponent
+    EasyTableBasicComponent,
+    TableCheckboxCell,
+    TableGroupHeader,
+    TableGroupControls
   ],
   templateUrl: './easy-table.component.html',
   styleUrls: ['./easy-table.component.css', '../styles.scss'],
@@ -165,10 +174,13 @@ export class EasyTableComponent<T extends Record<string, any>> implements OnInit
   @Output() logout = new EventEmitter<String>();
   @Output() titleIconClick = new EventEmitter<void>();
   @Output() customAction = new EventEmitter<void>();
+  @Output() importData = new EventEmitter<void>();
   @Output() auditTrail = new EventEmitter<object>();
   @Output() dialogAction = new EventEmitter<EasyTableDialogRequest>();
   @Output() dialogResult = new EventEmitter<EasyTableDialogResult>();
   @Output() extendRow = new EventEmitter<any | null>();
+  @Output() groupSelectionChange = new EventEmitter<EasyTableGroupSelectionChange<T>>();
+  @Output() selectionChange = new EventEmitter<EasyTableSelectionChange<T>>();
   @Output() clickField = new EventEmitter<{ columnName: string; row: T }>();
 
   @Output() addChildItem = new EventEmitter<CRUD>();
@@ -178,6 +190,7 @@ export class EasyTableComponent<T extends Record<string, any>> implements OnInit
   @Output() childDialogAction = new EventEmitter<EasyTableDialogRequest>();
   @Output() childDialogResult = new EventEmitter<EasyTableDialogResult>();
   @Output() clickChildField = new EventEmitter<{ columnName: string; row: any }>();
+  @Output() childSelectionChange = new EventEmitter<EasyTableSelectionChange>();
 
   searchTableField = '';
   /**
@@ -203,18 +216,39 @@ export class EasyTableComponent<T extends Record<string, any>> implements OnInit
     return Array.isArray(this.childConfig) ? this.childConfig : null;
   }
 
-  onChildTabChange(index: number): void {
-    this.childTabIndex = index;
+  async onChildTabChange(index: number, tabGroup: MatTabGroup): Promise<void> {
+    const previousIndex = this.childTabIndex;
+    if (index === previousIndex) {
+      return;
+    }
+    const canLeaveTab = this.childTabs?.[previousIndex]?.canLeaveTab;
+    if (canLeaveTab) {
+      tabGroup.selectedIndex = previousIndex;
+      if (!(await canLeaveTab())) {
+        return;
+      }
+      this.childTabIndex = index;
+      tabGroup.selectedIndex = index;
+    } else {
+      this.childTabIndex = index;
+    }
     this.childTabChange.emit(index);
   }
+
+  get hasTabLeaveGuard(): boolean {
+    return !!this.childTabs?.some(tab => tab.canLeaveTab);
+  }
   selectedRow: any;
+  readonly rowGrouping = new RowGroupingState();
+  readonly isGroupRow = isGroupRow;
+  readonly isDataRow = isDataRow;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator = new MatPaginator();
   @ViewChild(MatSort) sort: MatSort = new MatSort();
   @ViewChild(MatTable, {static: true}) table: MatTable<any> | undefined;
   @ViewChildren('multiSelectDropdown') multiSelectDropdowns!: QueryList<EasyMultiSelect>;
 
-  isExpansionDetailRow = (index: number, row: any) => true;
+  isExpansionDetailRow = isDataRow;
 
   private readonly injector = inject(Injector);
   private readonly destroyRef = inject(DestroyRef);
@@ -243,7 +277,7 @@ export class EasyTableComponent<T extends Record<string, any>> implements OnInit
     const cols: string[] = [];
     this.groupedColumns.forEach(([groupName, columns]) => {
       if (groupName === '_ungrouped' || this.expandedGroups[groupName]) {
-        columns.forEach(col => cols.push(col.name));
+        columns.filter(col => !isGroupColumnHidden(this.config.groupBy, col.name)).forEach(col => cols.push(col.name));
       }
     });
     return cols;
@@ -277,7 +311,7 @@ export class EasyTableComponent<T extends Record<string, any>> implements OnInit
   }
 
   loadData() {
-    this.dataSource = new MatTableDataSource<any>(this.displayRows());
+    this.dataSource = this.createDataSource(this.displayRows());
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.dataSource.filter = this.searchText;
@@ -287,7 +321,33 @@ export class EasyTableComponent<T extends Record<string, any>> implements OnInit
 
   /** The rows in display order: always a sorted copy, the array of the application is not reordered. */
   private displayRows(): any[] {
-    return sortRows(this.config?.data, this.config?.sortedBy);
+    return this.groupRows(sortRows(this.config?.data, this.config?.sortedBy));
+  }
+
+  private groupRows(rows: any[]): any[] {
+    return buildGroupedRows(rows, this.config?.groupBy, this.rowGrouping);
+  }
+
+  private createDataSource(rows: any[]): MatTableDataSource<any> {
+    return createRowDataSource(rows, this.config?.groupBy);
+  }
+
+  get groupExpansion() {
+    return summarizeGroupExpansion(this.dataSource?.data);
+  }
+
+  setAllRowGroups(expanded: boolean): void {
+    if (this.config.groupBy) {
+      this.rowGrouping.setAll(listGroupKeys(this.config.data, this.config.groupBy), expanded);
+      this.dataSource.data = this.displayRows();
+    }
+  }
+
+  toggleRowGroup(key: string): void {
+    if (this.config.groupBy) {
+      this.rowGrouping.toggle(key, this.config.groupBy);
+      this.dataSource.data = this.displayRows();
+    }
   }
 
   syncFiltersWithData(): void {
@@ -299,7 +359,7 @@ export class EasyTableComponent<T extends Record<string, any>> implements OnInit
       const field = column.name;
       const displayField = column.displayColumn ?? column.name;
 
-      const dataValues = this.displayRows()
+      const dataValues = sortRows(this.config.data, this.config.sortedBy)
         .map(item => item[field])
         .filter(val => val != null);
 
@@ -417,7 +477,7 @@ export class EasyTableComponent<T extends Record<string, any>> implements OnInit
   onOverwrite(element: any, col: MatColumnTyped, event: Event) {
     const input = event.target as HTMLInputElement | null;
     this.config.data.find(x => x[col.id] === element[col.id])[col.name] = input?.value ?? '';
-    this.dataSource = new MatTableDataSource<any>(this.displayRows());
+    this.dataSource = this.createDataSource(this.displayRows());
     this.overwrite.emit({source: col.name, value: input?.value ?? element[col.name], item: element});
   }
 
@@ -426,7 +486,7 @@ export class EasyTableComponent<T extends Record<string, any>> implements OnInit
   }
 
   onCustomAction() {
-    if (this.config.customActionEnable) {
+    if (this.config.customActionEnable || this.config.toolbarConfig?.customActionEnable) {
       this.customAction.emit();
     }
   }
@@ -471,7 +531,7 @@ export class EasyTableComponent<T extends Record<string, any>> implements OnInit
   }
 
   getData(data: any[]) {
-    this.dataSource = new MatTableDataSource<any>(data);
+    this.dataSource = this.createDataSource(this.groupRows(data));
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.dataSource.filter = this.searchText;
@@ -490,7 +550,7 @@ export class EasyTableComponent<T extends Record<string, any>> implements OnInit
 
   async onChangeDdl(element: any, col: MatColumnTyped, value: any) {
     this.config.data.find(x => x[col.id] === element[col.id])[col.name] = value;
-    this.dataSource = new MatTableDataSource<any>(this.displayRows());
+    this.dataSource = this.createDataSource(this.displayRows());
     this.overwrite.emit({source: col.name, value: value[col.name], item: element});
   }
 

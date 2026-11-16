@@ -18,7 +18,8 @@ export enum ColumnType {
   PASSWORD = 'password',
   BUTTON = 'button',
   DROPDOWNLIST = 'dropdownlist',
-  IMAGE = 'image'
+  IMAGE = 'image',
+  Checkbox = 'checkbox'
 }
 
 export enum ColumnSize {

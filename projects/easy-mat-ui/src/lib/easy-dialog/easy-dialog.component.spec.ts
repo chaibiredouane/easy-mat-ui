@@ -221,4 +221,50 @@ describe('EasyDialogComponent', () => {
     expect(component.getDateValue(col)).toBe('2026-10-07');
     expect(component.getHeaderName('name')).toBe('name');
   });
+
+  describe('dependent dropdown options', () => {
+    const roles = [{id: 1, name: 'Admin'}, {id: 2, name: 'Reader'}];
+    const users = [{id: 10, name: 'Alice'}, {id: 20, name: 'Bob'}];
+    const activeRoleByUser: Record<number, number[]> = {10: [1]};
+
+    const dependentConfig = (): EasyDialogInit => ({
+      title: 'TITLE',
+      action: CRUD.CREATE,
+      data: {},
+      fields: [
+        new MatColumnTyped({name: 'userId', order: 1, inputType: InputType.Dropdown, filterList: users, filterValue: 'id', displayColumn: 'name'}),
+        new MatColumnTyped({
+          name: 'roleId', order: 2, inputType: InputType.Dropdown, filterList: roles, filterValue: 'id', displayColumn: 'name',
+          optionsFilter: (role, data) => !(activeRoleByUser[data.userId] ?? []).includes(role.id)
+        })
+      ]
+    });
+
+    const roleOptions = (): string[] => {
+      let names: string[] = [];
+      component.dropdowns['roleId'].options$.subscribe(options => names = options.map(option => option.name)).unsubscribe();
+      return names;
+    };
+
+    it('filters the options according to the other field value', () => {
+      create(dependentConfig());
+
+      component.dropdowns['userId'].control.setValue(users[0]);
+      expect(roleOptions()).toEqual(['Reader']);
+
+      component.dropdowns['userId'].control.setValue(users[1]);
+      expect(roleOptions()).toEqual(['Admin', 'Reader']);
+    });
+
+    it('clears a selection that is no longer available', () => {
+      create(dependentConfig());
+      component.dropdowns['userId'].control.setValue(users[1]);
+      component.dropdowns['roleId'].control.setValue(roles[0]);
+
+      component.dropdowns['userId'].control.setValue(users[0]);
+
+      expect(component.dropdowns['roleId'].control.value).toBeNull();
+      expect(component.data['roleId']).toBeNull();
+    });
+  });
 });

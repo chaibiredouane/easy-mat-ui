@@ -256,3 +256,27 @@ tr.example-detail-row td {
     display: inline-flex !important;
   }
 }
+
+th.checkbox-header-align-left { text-align: left; }
+th.checkbox-header-align-center { text-align: center; }
+th.checkbox-header-align-right { text-align: right; }
+
+th.checkbox-header-align-left ::ng-deep .mat-sort-header-container { justify-content: flex-start; }
+th.checkbox-header-align-center ::ng-deep .mat-sort-header-container { justify-content: center; }
+th.checkbox-header-align-right ::ng-deep .mat-sort-header-container { justify-content: flex-end; }
+
+.row-group-header td {
+  padding: 6px 12px;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  background: var(--table-header-bg);
+}
+
+.group-child td:first-child {
+  padding-left: 48px;
+  box-shadow: inset 3px 0 0 var(--border-color);
+}
+
+.group-child:hover td:first-child {
+  box-shadow: inset 3px 0 0 var(--color-primary-blue-strong);
+}

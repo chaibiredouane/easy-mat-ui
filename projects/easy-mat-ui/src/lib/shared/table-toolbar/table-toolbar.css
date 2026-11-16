@@ -254,3 +254,77 @@
     flex-wrap: nowrap;
   }
 }
+
+.toolbar-save {
+  --toolbar-save-color: var(--color-success, #16a34a);
+  position: relative;
+  background-color: var(--toolbar-save-color);
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease, opacity 0.2s ease;
+}
+
+.toolbar-save:hover:not(:disabled) {
+  background-color: color-mix(in srgb, var(--toolbar-save-color) 86%, #000000);
+  box-shadow: 0 4px 10px -4px color-mix(in srgb, var(--toolbar-save-color) 60%, transparent);
+}
+
+.toolbar-save:active:not(:disabled) {
+  transform: scale(0.94);
+  box-shadow: none;
+}
+
+.toolbar-save:focus-visible {
+  outline: 2px solid var(--toolbar-save-color);
+  outline-offset: 2px;
+}
+
+.toolbar-save.save-saving {
+  opacity: 0.8;
+}
+
+.toolbar-save.save-pending::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--color-warning, #f59e0b);
+  border: 2px solid var(--card-bg, #ffffff);
+  animation: toolbar-save-pulse 1.8s ease-out infinite;
+}
+
+.toolbar-save.save-error {
+  --toolbar-save-color: var(--color-red, #f44438);
+}
+
+.toolbar-save:disabled {
+  cursor: default;
+}
+
+.toolbar-save .spin {
+  animation: toolbar-save-spin 1s linear infinite;
+}
+
+@keyframes toolbar-save-spin {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes toolbar-save-pulse {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-warning, #f59e0b) 55%, transparent);
+  }
+  70%,
+  100% {
+    box-shadow: 0 0 0 8px transparent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toolbar-save.save-pending::after,
+  .toolbar-save .spin {
+    animation: none;
+  }
+}

@@ -1,4 +1,5 @@
 import {Tuple} from './tuple.model';
+import {EasyColumnSelection} from './easy-table-selection.model';
 import {ColumnSize, ColumnType, InputType} from '../utils/enums';
 
 /** How a column is filtered from the table header: a multi-select of its values, or a free text input. */
@@ -16,7 +17,8 @@ export class MatColumnTyped {
     PASSWORD: 'password',
     BUTTON: 'button',
     DROPDOWNLIST: 'dropdownlist',
-    IMAGE: 'image'
+    IMAGE: 'image',
+    CHECKBOX: 'checkbox'
   } as const;
 
   static readonly ColumnSize = {
@@ -53,6 +55,7 @@ export class MatColumnTyped {
   /** Kind of header filter shown when `enableFilter` is on (and `withFilterInHeader` for the table). */
   filterType: ColumnFilterType = 'select';
   filterList: any[] = [];
+  optionsFilter?: (option: any, data: any) => boolean;
   isOverwriting = false;
   readonly = false;
   stickyClass = '';
@@ -83,9 +86,14 @@ export class MatColumnTyped {
   title?: string | null = null;
   titleFallback?: string | null = null;
   headerIcon?: string | null = null;
+  selection?: EasyColumnSelection;
 
   constructor(init?: Partial<MatColumnTyped>) {
     Object.assign(this, init);
+  }
+
+  get checkboxHeaderAlignClass(): string {
+    return this.type === ColumnType.Checkbox ? `checkbox-header-align-${this.selection?.headerAlign ?? 'center'}` : '';
   }
 
   static allColumnTypes(): string[] {
