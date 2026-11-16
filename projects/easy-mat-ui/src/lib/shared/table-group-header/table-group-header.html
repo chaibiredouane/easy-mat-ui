@@ -16,4 +16,10 @@
     <span class="group-title">{{ group.label }}</span>
     <span class="group-count">{{ group.rows.length }}</span>
   </button>
+  @if (selectionColumn) {
+    <span class="group-selected" [class.has-selection]="checkedCount > 0">
+      <span class="group-ratio">{{ checkedCount }}/{{ group.rows.length }}</span>
+      <span class="group-selected-label">{{ (groupBy.selectedLabel ?? 'selected') | translate }}</span>
+    </span>
+  }
 </div>

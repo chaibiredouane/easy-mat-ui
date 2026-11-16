@@ -5,8 +5,12 @@ export function isCheckboxEditable(column: MatColumnTyped, row: any, tableReadon
   return !!column.selection?.enabled && !column.readonly && !tableReadonly && !column.selection.disabledFn?.(row);
 }
 
+export function countChecked(rows: any[], field: string): number {
+  return rows.filter(row => row?.[field] === true).length;
+}
+
 export function aggregateCheckState(rows: any[], field: string): EasyCheckState {
-  const checkedCount = rows.filter(row => row?.[field] === true).length;
+  const checkedCount = countChecked(rows, field);
   if (checkedCount === 0) {
     return 'none';
   }

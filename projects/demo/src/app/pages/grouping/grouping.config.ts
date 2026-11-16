@@ -53,7 +53,8 @@ export function groupingTable(data: SelectableCountry[]): EasyTableConfig<Select
       selectionField: 'selected',
       showToggleAll: true,
       expandAllLabel: t('EXPAND_ALL'),
-      collapseAllLabel: t('COLLAPSE_ALL')
+      collapseAllLabel: t('COLLAPSE_ALL'),
+      selectedLabel: t('SELECTED')
     },
     toolbarConfig: new ToolbarConfig({ icon: 'groups', translations: new ToolbarTranslations({ title: t('TITLE') }) }),
     data

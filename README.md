@@ -51,7 +51,7 @@ a configurable **create / edit / view dialog** and a **multi-select** control, w
 
 ## Screenshots
 
-Taken from the [live demo](https://easy-mat-ui.web.app/) (version 1.1.1), not mocked up.
+Taken from the [live demo](https://easy-mat-ui.web.app/) (version 1.2.0), not mocked up.
 
 | Light | Dark |
 |---|---|
@@ -241,6 +241,7 @@ const config = new EasyTableConfig({
 | `groupBy.collapsible` / `groupBy.expanded` | Whether a group can be collapsed, and whether groups start open. |
 | `groupBy.showToggleAll` | Shows the *Expand all* / *Collapse all* controls (`expandAllLabel` and `collapseAllLabel` are translation keys). |
 | `groupBy.selectionField` | The checkbox column that the group checkbox drives. A group is checked, unchecked or indeterminate depending on its rows. |
+| `groupBy.selectedLabel` | Translation key of the label after the `n/m` selected ratio shown in each group header when `selectionField` is set (default `selected`). |
 | `groupBy.showGroupColumn` | Keeps the grouping column visible (it is hidden by default). |
 | `groupBy.emptyLabel` | Title of the group of rows that have no value for `groupBy.field`. |
 | `selection.enabled` | Makes the checkbox column interactive; without it the column only displays the value. |

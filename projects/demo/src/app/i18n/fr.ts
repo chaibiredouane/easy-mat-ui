@@ -67,6 +67,7 @@ export const FR: Dictionary = {
     TITLE: 'Pays par continent',
     EXPAND_ALL: 'Tout ouvrir',
     COLLAPSE_ALL: 'Tout fermer',
+    SELECTED: 'sélectionnés',
     selected: 'Sélection',
     continent: 'Continent',
     code: 'Drapeau',

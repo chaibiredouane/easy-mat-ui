@@ -6,6 +6,7 @@ export interface EasyTableGroupBy {
   emptyLabel?: string;
   showGroupColumn?: boolean;
   showToggleAll?: boolean;
+  selectedLabel?: string;
   expandAllLabel?: string;
   collapseAllLabel?: string;
 }
