@@ -67,6 +67,7 @@ export const DE: Dictionary = {
     TITLE: 'Länder nach Kontinent',
     EXPAND_ALL: 'Alle aufklappen',
     COLLAPSE_ALL: 'Alle zuklappen',
+    SELECTED: 'ausgewählt',
     selected: 'Auswahl',
     continent: 'Kontinent',
     code: 'Flagge',

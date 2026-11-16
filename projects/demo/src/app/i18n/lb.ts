@@ -67,6 +67,7 @@ export const LB: Dictionary = {
     TITLE: 'Länner no Kontinent',
     EXPAND_ALL: 'All opmaachen',
     COLLAPSE_ALL: 'All zoumaachen',
+    SELECTED: 'ausgewielt',
     selected: 'Selektioun',
     continent: 'Kontinent',
     code: 'Fändel',

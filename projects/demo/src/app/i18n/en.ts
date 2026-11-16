@@ -74,6 +74,7 @@ export const EN = {
     TITLE: 'Countries by continent',
     EXPAND_ALL: 'Expand all',
     COLLAPSE_ALL: 'Collapse all',
+    SELECTED: 'selected',
     selected: 'Selected',
     continent: 'Continent',
     code: 'Flag',

@@ -53,6 +53,27 @@
   font-weight: 500;
 }
 
+.group-selected {
+  color: var(--input-placeholder);
+  font-size: 0.78rem;
+  white-space: nowrap;
+
+  &.has-selection .group-ratio {
+    color: var(--color-green);
+    font-weight: 600;
+  }
+}
+
+.group-selected-label {
+  margin-left: 4px;
+}
+
+@media (max-width: 480px) {
+  .group-selected-label {
+    display: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .chevron {
     transition: none;

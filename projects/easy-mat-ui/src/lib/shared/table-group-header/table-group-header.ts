@@ -2,7 +2,8 @@ import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@
 import {EasyCheckState, EasyTableGroupBy, EasyTableGroupSelectionChange} from '../../model/easy-table-grouping.model';
 import {MatColumnTyped} from '../../model/mat-column-typed.model';
 import {ColumnType} from '../../utils/enums';
-import {aggregateCheckState, isCheckboxEditable} from '../../utils/checkbox-selection';
+import {aggregateCheckState, countChecked, isCheckboxEditable} from '../../utils/checkbox-selection';
+import {TranslatePipe} from '@ngx-translate/core';
 import {RowGroup} from '../../utils/row-grouping';
 import {TableCheckMark} from '../table-check-mark/table-check-mark';
 
@@ -10,7 +11,7 @@ import {TableCheckMark} from '../table-check-mark/table-check-mark';
   selector: 'lib-table-group-header',
   changeDetection: ChangeDetectionStrategy.Default,
   standalone: true,
-  imports: [TableCheckMark],
+  imports: [TableCheckMark, TranslatePipe],
   templateUrl: './table-group-header.html',
   styleUrl: './table-group-header.scss'
 })
@@ -30,6 +31,10 @@ export class TableGroupHeader {
 
   get state(): EasyCheckState {
     return this.selectionColumn ? aggregateCheckState(this.group.rows, this.selectionColumn.name) : 'none';
+  }
+
+  get checkedCount(): number {
+    return this.selectionColumn ? countChecked(this.group.rows, this.selectionColumn.name) : 0;
   }
 
   get editableRows(): any[] {

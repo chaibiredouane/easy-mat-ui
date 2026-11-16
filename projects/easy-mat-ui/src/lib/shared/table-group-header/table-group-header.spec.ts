@@ -61,6 +61,7 @@ componentTypes.forEach(componentType => {
     const toggleButton = (index: number): HTMLButtonElement => headers()[index].querySelector('.group-toggle') as HTMLButtonElement;
     const groupCheck = (index: number): HTMLButtonElement | null => headers()[index].querySelector('lib-table-check-mark button');
     const redraw = () => fixture.detectChanges();
+    const ratios = (): string[] => headers().map(h => h.querySelector('.group-ratio')!.textContent!.trim());
 
     beforeEach(() => TestBed.configureTestingModule({imports: [componentType, TranslateModule.forRoot()]}));
 
@@ -118,6 +119,26 @@ componentTypes.forEach(componentType => {
       expect(groupCheck(0)!.getAttribute('aria-checked')).toBe('mixed');
       expect(groupCheck(1)!.getAttribute('aria-checked')).toBe('true');
       expect(groupCheck(2)!.getAttribute('aria-checked')).toBe('false');
+      expect(ratios()).toEqual(['1/2', '2/2', '0/1']);
+    });
+
+    it('shows no ratio without a selection field', () => {
+      create({field: 'form'});
+      expect(fixture.nativeElement.querySelector('.group-ratio')).toBeNull();
+    });
+
+    it('updates the ratio after row and group changes', () => {
+      create({field: 'form', selectionField: 'isActive'});
+      const rowCheck = fixture.nativeElement.querySelector('tr.group-child lib-table-checkbox-cell button') as HTMLButtonElement;
+      rowCheck.click();
+      redraw();
+      expect(ratios()[0]).toBe('0/2');
+      groupCheck(0)!.click();
+      redraw();
+      expect(ratios()[0]).toBe('2/2');
+      groupCheck(1)!.click();
+      redraw();
+      expect(ratios()[1]).toBe('0/2');
     });
 
     it('selects then deselects every row of a group with a single event, even when collapsed', () => {

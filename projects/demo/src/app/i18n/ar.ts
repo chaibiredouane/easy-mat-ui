@@ -67,6 +67,7 @@ export const AR: Dictionary = {
     TITLE: 'الدول حسب القارة',
     EXPAND_ALL: 'فتح الكل',
     COLLAPSE_ALL: 'إغلاق الكل',
+    SELECTED: 'محدد',
     selected: 'تحديد',
     continent: 'القارة',
     code: 'العلم',
