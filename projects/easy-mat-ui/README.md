@@ -32,6 +32,10 @@ a configurable **create / edit / view dialog** and a **multi-select** control, w
 - **Column filters** under the titles (a compact text input or a multi-select per column), global search, sorting,
   pagination, sticky columns and a header that stays pinned while the rows scroll.
 - Expandable rows with **child tables**, or several child tables in **tabs** (`childConfig`).
+- **Row grouping** by a column with collapsible groups and *Expand all* / *Collapse all*, **checkbox columns**, and
+  group checkboxes that are checked, unchecked or indeterminate (`groupBy`, `ColumnType.Checkbox`).
+- `lib-easy-file-upload`: a button, a drop area or both, with validation and CSV parsing into a table.
+- A configurable toolbar: search, add, save state, import, export and a custom action.
 - `EasyDialogService`: a configurable dialog to create, edit or view a record.
 - `lib-easy-multi-select`: a searchable multi-select with select-all, clear, read-only and compact modes, or a single-choice dropdown (`single`).
 - Reusable interface components, each with `@Input()` / `@Output()` and a typed model: `lib-easy-segmented`,
@@ -44,12 +48,16 @@ a configurable **create / edit / view dialog** and a **multi-select** control, w
 
 ## Screenshots
 
-Taken from the [live demo](https://easy-mat-ui.web.app/) (version 20.0.6), not mocked up.
+Taken from the [live demo](https://easy-mat-ui.web.app/) (version 1.1.0), not mocked up.
 
 | Light | Dark |
 |---|---|
 | <img src="https://raw.githubusercontent.com/chaibiredouane/easy-mat-ui/main/docs/images/table-light.png" alt="A cities table in light mode: typed columns, flags, header filters, search and row actions"> | <img src="https://raw.githubusercontent.com/chaibiredouane/easy-mat-ui/main/docs/images/table-dark.png" alt="The same table in dark mode"> |
 | <img src="https://raw.githubusercontent.com/chaibiredouane/easy-mat-ui/main/docs/images/dialog-light.png" alt="The edit dialog, built from the same column definitions as the table"> | <img src="https://raw.githubusercontent.com/chaibiredouane/easy-mat-ui/main/docs/images/page-builder-light.png" alt="The page builder, which generates a page from the components you choose"> |
+
+| Grouping and selection | File upload |
+|---|---|
+| <img src="https://raw.githubusercontent.com/chaibiredouane/easy-mat-ui/main/docs/images/grouping-dark.png" alt="Countries grouped by continent with checkbox columns and an indeterminate group"> | <img src="https://raw.githubusercontent.com/chaibiredouane/easy-mat-ui/main/docs/images/upload-dark.png" alt="The file upload component as a drop area with a button, a button, and a drop area"> |
 
 ## Requirements and supported versions
 
@@ -188,6 +196,117 @@ dialog.open({
 }).afterClosed().subscribe(result => console.log(result?.event, result?.data));
 ```
 
+## Grouping, checkboxes and selection
+
+Group the rows by a column, with a header per group that can be collapsed. Add a checkbox column to select rows, and
+give the group header a checkbox that selects or clears the whole group.
+
+```typescript
+import { ColumnType, EasyTableConfig, MatColumnTyped } from 'easy-mat-ui';
+
+const config = new EasyTableConfig({
+  data: countries,
+  displayedColumns: [
+    new MatColumnTyped({
+      name: 'selected',
+      type: ColumnType.Checkbox,
+      selection: { enabled: true, headerAlign: 'center', disabledFn: (row) => row.locked }
+    }),
+    new MatColumnTyped({ name: 'continent' }),
+    new MatColumnTyped({ name: 'name' })
+  ],
+  groupBy: {
+    field: 'continent',
+    collapsible: true,
+    expanded: false,
+    selectionField: 'selected',
+    showToggleAll: true
+  }
+});
+```
+
+```html
+<lib-easy-table
+  [config]="config"
+  (selectionChange)="onRow($event)"
+  (groupSelectionChange)="onGroup($event)" />
+```
+
+| Option | Effect |
+|---|---|
+| `groupBy.field` | The property the rows are grouped by. |
+| `groupBy.collapsible` / `groupBy.expanded` | Whether a group can be collapsed, and whether groups start open. |
+| `groupBy.showToggleAll` | Shows the *Expand all* / *Collapse all* controls (`expandAllLabel` and `collapseAllLabel` are translation keys). |
+| `groupBy.selectionField` | The checkbox column that the group checkbox drives. A group is checked, unchecked or indeterminate depending on its rows. |
+| `groupBy.showGroupColumn` | Keeps the grouping column visible (it is hidden by default). |
+| `groupBy.emptyLabel` | Title of the group of rows that have no value for `groupBy.field`. |
+| `selection.enabled` | Makes the checkbox column interactive; without it the column only displays the value. |
+| `selection.disabledFn` | Disables the checkbox of some rows. |
+
+Outputs: `selectionChange` emits `{ field, row, value, previousValue }` for one checkbox, and `groupSelectionChange`
+emits `{ field, groupKey, groupValue, rows, value, previousState }` for a group checkbox. The checkbox writes the
+boolean into the row property itself, so the rows of `config.data` always hold the current selection. Both
+`lib-easy-table` and `lib-easy-table-basic` support `groupBy` and checkbox columns; the child table of
+`lib-easy-table` reports its own checkboxes through `childSelectionChange`.
+
+## Toolbar
+
+`ToolbarConfig` and `ToolbarTranslations` control the toolbar of a table. The buttons depend on the `can*` flags of
+the table configuration (`canCreate`, `canExport`, `canImport`, ...). `ToolbarConfig.saveState`
+(`'pending' | 'saving' | 'saved' | 'error'`) drives the label and state of the save button, and
+`ToolbarTranslations` holds the label keys (`addBtn`, `saveBtn`, `importBtn`, `exportBtn`, ...), which are
+translated with ngx-translate. A custom button is added with `customActionEnable`, `customActionIcon` and
+`customActionTitle`. The table emits `addItem`, `save`, `importData` and `customAction`.
+
+```typescript
+const config = new EasyTableConfig({
+  data: rows,
+  displayedColumns: columns,
+  canCreate: true,
+  canImport: true,
+  toolbarConfig: new ToolbarConfig({
+    icon: 'groups',
+    saveState: 'pending',
+    translations: { title: 'MY_TABLE', importBtn: 'MY_IMPORT' }
+  })
+});
+```
+
+## File upload
+
+`lib-easy-file-upload` picks files with a button, a drop area, or both, validates them, and can parse a CSV file into
+a table configuration. It implements `ControlValueAccessor` and `Validator`, so it also works with `formControl` and
+`ngModel`.
+
+```typescript
+import { EasyFileUpload, EasyFileUploadResult, EasyFileUploadTableOutput } from 'easy-mat-ui';
+```
+
+```html
+<lib-easy-file-upload
+  mode="both"
+  accept=".csv"
+  outputMode="easy-basic-table"
+  [maxFileSize]="1048576"
+  [tableConfig]="{ changePageSize: 5, readonly: true }"
+  (resultChange)="onResult($event)"
+  (fileRejected)="onRejected($event)" />
+```
+
+| Input | Values and effect |
+|---|---|
+| `mode` | `'button'`, `'drag-drop'` or `'both'`. |
+| `accept`, `multiple`, `maxFiles`, `maxFileSize` | Constraints on the files. Rejected files are reported by `fileRejected` and shown under the control. |
+| `duplicates` | `'reject'` (default), `'replace'` or `'allow'`. |
+| `outputMode` | `'raw'` (the files only, default), `'easy-table'` or `'easy-basic-table'` (a CSV file is parsed into an `EasyTableConfig`). |
+| `delimiter`, `withHeader`, `encoding` | CSV parsing, `'auto'` by default. |
+| `layout`, `appearance`, `buttonAppearance`, `buttonSize`, `compact` | Look of the control. |
+| `label`, `hint`, `browseLabel`, `dropTitle`, `dropDescription`, `messages` | Texts. |
+| `autoProcess`, `parse`, `loading`, `disabled`, `required` | Behavior and state. |
+
+Outputs: `filesChange`, `resultChange` (an `EasyFileUploadResult` with `files`, `parsedFiles`, `output` and
+`errors`), `fileRejected` and `fileRemoved`. The CSV parser is exported too: `parseCsv`, `detectCsvDelimiter` and `detectCsvHeader`.
+
 ## Generate a page
 
 Every admin screen starts the same way: a header, a few figures, a table, a model, a table configuration, translations.
@@ -268,15 +387,17 @@ It shows what the library is for: **almost nothing to code**. Every page is four
 | `<page>.ts` | Loads data from the service and saves the dialog results |
 | `<page>.scss` | Page styles |
 
-Three pages, built on every country of the world (Algeria first) and their cities:
+Five pages, built on every country of the world (Algeria first) and their cities:
 
 1. **Countries and their cities**: expandable rows; the child table is loaded when a row opens.
 2. **Child tables in tabs**: `childConfig` as an array, one tab per configuration.
 3. **Cities of any country**: one full table with header filters, flags, status icons and a complete
    add / edit / view / delete dialog.
+4. **Selection**: countries grouped by continent, *Expand all* / *Collapse all*, checkbox columns, group checkboxes and the selection events.
+5. **Upload**: `lib-easy-file-upload` as a drop area with a button, as a button, and as a drop area, with a CSV file parsed into a table.
 
 Each page has a *Show the code of this page* panel with its real source files, and the header has a
-Light / Dark / System theme switcher.
+Light / Dark theme switcher.
 
 Key points of the configuration:
 
