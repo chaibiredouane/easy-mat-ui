@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 import {MatColumnTyped} from '../../model/mat-column-typed.model';
 import {EasyTableSelectionChange} from '../../model/easy-table-selection.model';
 import {isCheckboxEditable} from '../../utils/checkbox-selection';
@@ -6,6 +6,7 @@ import {TableCheckMark} from '../table-check-mark/table-check-mark';
 
 @Component({
   selector: 'lib-table-checkbox-cell',
+  changeDetection: ChangeDetectionStrategy.Default,
   standalone: true,
   imports: [TableCheckMark],
   templateUrl: './table-checkbox-cell.html'

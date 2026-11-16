@@ -6,6 +6,14 @@ follows [Semantic Versioning](https://semver.org/) (see [Versioning](README.md#v
 
 ## [Unreleased]
 
+## [1.1.1] - 2026-11-16
+
+### Fixed
+- On Angular 22, which makes `OnPush` the default change detection strategy, the group checkbox stayed checked after one
+  of its rows was unchecked, because the group header, the checkbox cell and the group controls read the rows through
+  getters without declaring a strategy. They now declare `ChangeDetectionStrategy.Default`, as `lib-table-toolbar` does.
+  Angular 20 and 21 were not affected in the unit tests. 1.1.0 is otherwise identical: prefer 1.1.1 on Angular 22.
+
 ## [1.1.0] - 2026-11-16
 
 ### Added

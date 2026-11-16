@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 import {EasyCheckState, EasyTableGroupBy, EasyTableGroupSelectionChange} from '../../model/easy-table-grouping.model';
 import {MatColumnTyped} from '../../model/mat-column-typed.model';
 import {ColumnType} from '../../utils/enums';
@@ -8,6 +8,7 @@ import {TableCheckMark} from '../table-check-mark/table-check-mark';
 
 @Component({
   selector: 'lib-table-group-header',
+  changeDetection: ChangeDetectionStrategy.Default,
   standalone: true,
   imports: [TableCheckMark],
   templateUrl: './table-group-header.html',
