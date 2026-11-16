@@ -48,7 +48,7 @@ a configurable **create / edit / view dialog** and a **multi-select** control, w
 
 ## Screenshots
 
-Taken from the [live demo](https://easy-mat-ui.web.app/) (version 1.1.0), not mocked up.
+Taken from the [live demo](https://easy-mat-ui.web.app/) (version 1.1.1), not mocked up.
 
 | Light | Dark |
 |---|---|
