@@ -16,6 +16,7 @@ export interface EasyDialogField {
   readonly?: boolean;
   size?: ColumnSize | string;
   filterList?: any[];
+  optionsFilter?: (option: any, data: any) => boolean;
   displayColumn?: string | null;
   filterValue?: string | null;
   isRequired?: boolean;

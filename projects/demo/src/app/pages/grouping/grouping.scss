@@ -1,0 +1,21 @@
+:host {
+  display: block;
+  min-width: 0;
+}
+
+.status {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin: 4px 0 12px;
+  color: var(--text-secondary, inherit);
+}
+
+.table-wrap {
+  max-width: 100%;
+  padding: 4px 8px 8px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  background: var(--card-bg);
+  box-shadow: var(--shadow-sm);
+}

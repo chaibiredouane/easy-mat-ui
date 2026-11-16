@@ -1,9 +1,17 @@
+export type ToolbarSaveState = 'pending' | 'saving' | 'saved' | 'error';
+
 export class ToolbarTranslations {
   title: string | null = null;
   search = 'SEARCH';
   clear = 'CLEAR';
   addBtn = 'ADD';
+  saveBtn = 'SAVE';
+  savePendingBtn = 'UNSAVED_CHANGES';
+  savingBtn = 'SAVING';
+  savedBtn = 'SAVED';
+  saveErrorBtn = 'SAVE_ERROR';
   exportBtn = 'DOWNLOAD';
+  importBtn = 'IMPORT';
   close = 'CLOSE';
   auditTrailBtn = 'AUDIT_TRAIL';
   linkBtn = 'link';
@@ -28,6 +36,7 @@ export class ToolbarConfig {
   isAndFilterOperator = true;
   logout = false;
   btnSize = 'btn-small';
+  saveState: ToolbarSaveState | null = null;
 
   customActionEnable = false;
   customActionIcon?: string;

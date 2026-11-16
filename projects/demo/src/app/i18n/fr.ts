@@ -62,7 +62,17 @@ export const FR: Dictionary = {
     FOOTER_CONTRIBUTE: 'Les contributions sont les bienvenues.',
     FOOTER_DATA: 'Données de démonstration : GeoNames (CC BY 4.0) et Wikipédia (CC BY-SA 4.0).'
   },
-  nav: { overview: 'Présentation', countries: 'Pays et villes', tabs: 'Onglets enfants', cities: 'Villes', builder: 'Constructeur' },
+  nav: { overview: 'Présentation', countries: 'Pays et villes', tabs: 'Onglets enfants', cities: 'Villes', builder: 'Constructeur', grouping: 'Sélection', upload: 'Dépôt' },
+  grouping: {
+    TITLE: 'Pays par continent',
+    EXPAND_ALL: 'Tout ouvrir',
+    COLLAPSE_ALL: 'Tout fermer',
+    selected: 'Sélection',
+    continent: 'Continent',
+    code: 'Drapeau',
+    name: 'Nom',
+    capital: 'Capitale'
+  },
   continents: {
     ARIA: 'Parcourir par continent',
     all: 'Tous',
@@ -100,6 +110,20 @@ export const FR: Dictionary = {
     scss: 'Styles'
   },
   pages: {
+    grouping: {
+      title: 'Regroupement et sélection',
+      subtitle: 'Les pays regroupés par continent. Ouvrez ou fermez un groupe ou tous les groupes, cochez un pays ou un groupe entier : sa case est cochée, décochée ou indéterminée.',
+      SELECTED: 'Sélectionnés',
+      LAST_EVENT: 'Dernier événement'
+    },
+    upload: {
+      title: 'Dépôt de fichiers',
+      subtitle: 'Le même composant en zone de dépôt avec bouton, en bouton seul et en zone de dépôt seule. Un fichier CSV devient un tableau.',
+      SAMPLE: 'Télécharger un fichier CSV d’exemple',
+      BOTH: 'Zone de dépôt et bouton, converti en tableau',
+      BUTTON: 'Bouton seul, plusieurs fichiers',
+      DRAG_DROP: 'Zone de dépôt seule'
+    },
     countries: {
       title: 'Les pays et leurs villes',
       subtitle: 'Tous les pays du monde, l’Algérie en premier. Cliquez sur le bouton d’expansion d’une ligne : le tableau enfant charge à la demande les villes de ce pays.'

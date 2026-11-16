@@ -62,7 +62,17 @@ export const AR: Dictionary = {
     FOOTER_CONTRIBUTE: 'المساهمات مرحّب بها.',
     FOOTER_DATA: 'بيانات العرض: GeoNames (CC BY 4.0) وويكيبيديا (CC BY-SA 4.0).'
   },
-  nav: { overview: 'نظرة عامة', countries: 'الدول والمدن', tabs: 'تبويبات فرعية', cities: 'المدن', builder: 'منشئ الصفحات' },
+  nav: { overview: 'نظرة عامة', countries: 'الدول والمدن', tabs: 'تبويبات فرعية', cities: 'المدن', builder: 'منشئ الصفحات', grouping: 'التحديد', upload: 'الرفع' },
+  grouping: {
+    TITLE: 'الدول حسب القارة',
+    EXPAND_ALL: 'فتح الكل',
+    COLLAPSE_ALL: 'إغلاق الكل',
+    selected: 'تحديد',
+    continent: 'القارة',
+    code: 'العلم',
+    name: 'الاسم',
+    capital: 'العاصمة'
+  },
   continents: {
     ARIA: 'التصفح حسب القارة',
     all: 'الكل',
@@ -100,6 +110,20 @@ export const AR: Dictionary = {
     scss: 'الأنماط'
   },
   pages: {
+    grouping: {
+      title: 'التجميع والتحديد',
+      subtitle: 'الدول مجمّعة حسب القارة. افتح مجموعة أو أغلقها أو افتحها كلها، وحدّد دولة أو مجموعة كاملة: يكون مربعها محدداً أو غير محدد أو غير مكتمل.',
+      SELECTED: 'المحدد',
+      LAST_EVENT: 'آخر حدث'
+    },
+    upload: {
+      title: 'رفع الملفات',
+      subtitle: 'المكوّن نفسه كمنطقة إسقاط مع زر، وكزر وحده، وكمنطقة إسقاط وحدها. يتحول ملف CSV إلى جدول.',
+      SAMPLE: 'تنزيل ملف CSV نموذجي',
+      BOTH: 'منطقة إسقاط وزر، يتحول إلى جدول',
+      BUTTON: 'زر فقط، عدة ملفات',
+      DRAG_DROP: 'منطقة إسقاط فقط'
+    },
     countries: {
       title: 'الدول ومدنها',
       subtitle: 'كل دول العالم، والجزائر أولاً. اضغط على زر التوسيع في أي صف: يحمّل الجدول الفرعي مدن هذه الدولة عند الطلب.'

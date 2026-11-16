@@ -8,7 +8,7 @@
       <a class="brand" href="#" (click)="$event.preventDefault(); index.set(0)">
         <mat-icon aria-hidden="true">widgets</mat-icon>
         <span>Easy Mat UI</span>
-        <span class="ver">1.0.1</span>
+        <span class="ver">1.1.0</span>
       </a>
     </h1>
 
@@ -53,6 +53,8 @@
         @case ('countries') { <app-countries /> }
         @case ('tabs') { <app-country-tabs /> }
         @case ('cities') { <app-cities /> }
+        @case ('grouping') { <app-grouping /> }
+        @case ('upload') { <app-upload /> }
         <!-- The builder and the page generator are loaded when the page is opened, not with the application. -->
         @case ('builder') {
           @defer {

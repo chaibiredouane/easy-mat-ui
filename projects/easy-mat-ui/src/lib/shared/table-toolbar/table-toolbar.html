@@ -46,6 +46,22 @@
               </button>
             }
 
+            @if (config.saveState; as saveState) {
+              <button class="btn-mini-fab toolbar-save" [ngClass]="[config.btnSize, 'save-' + saveState]"
+                      [title]="saveTitle | translate" [attr.aria-label]="saveTitle | translate"
+                      [disabled]="saveState === 'saving' || saveState === 'saved'"
+                      (click)="onSave()">
+                <mat-icon [class.spin]="saveState === 'saving'">{{ saveIcon }}</mat-icon>
+              </button>
+            }
+
+            @if (!readonly && canImport) {
+              <button class="btn-mini-fab bg-info" [ngClass]="[config.btnSize]" [title]="config.translations.importBtn | translate"
+                      [attr.aria-label]="config.translations.importBtn | translate" (click)="onImportData()">
+                <mat-icon>upload_file</mat-icon>
+              </button>
+            }
+
             @if (canExport) {
               <button class="btn-mini-fab bg-info" [ngClass]="[config.btnSize]" [title]="config.translations.exportBtn | translate"
                       (click)="onExportToCsv()">

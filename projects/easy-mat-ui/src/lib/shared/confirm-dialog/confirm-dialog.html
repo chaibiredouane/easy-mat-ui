@@ -5,12 +5,31 @@
   </span>
   <h2 class="easy-confirm-title" id="easy-confirm-title">{{ data.title | translate }}</h2>
   <p class="easy-confirm-message" id="easy-confirm-message">{{ data.message | translate }}</p>
-  <div class="easy-confirm-actions">
-    <button type="button" class="easy-confirm-btn easy-confirm-cancel" (click)="close(false)">
-      {{ data.cancel | translate }}
-    </button>
-    <button type="button" class="easy-confirm-btn easy-confirm-delete" (click)="close(true)">
-      {{ data.confirm | translate }}
-    </button>
-  </div>
+  @if (data.choices; as choices) {
+    <div class="easy-confirm-choices">
+      @for (choice of choices; track choice.value) {
+        <button type="button" class="easy-confirm-choice" (click)="close(choice.value)">
+          <mat-icon aria-hidden="true">{{ choice.icon }}</mat-icon>
+          <span class="easy-confirm-choice-text">
+            <span class="easy-confirm-choice-label">{{ choice.label | translate }}</span>
+            <span class="easy-confirm-choice-description">{{ choice.description | translate }}</span>
+          </span>
+        </button>
+      }
+    </div>
+    <div class="easy-confirm-actions">
+      <button type="button" class="easy-confirm-btn easy-confirm-cancel" (click)="close(false)">
+        {{ data.cancel | translate }}
+      </button>
+    </div>
+  } @else {
+    <div class="easy-confirm-actions">
+      <button type="button" class="easy-confirm-btn easy-confirm-cancel" (click)="close(false)">
+        {{ data.cancel | translate }}
+      </button>
+      <button type="button" class="easy-confirm-btn easy-confirm-delete" (click)="close(true)">
+        {{ data.confirm | translate }}
+      </button>
+    </div>
+  }
 </div>

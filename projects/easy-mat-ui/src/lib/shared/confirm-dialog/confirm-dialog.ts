@@ -13,6 +13,14 @@ export interface ConfirmDeleteData {
   confirm: string;
   cancel: string;
   icon?: string;
+  choices?: ConfirmChoice[];
+}
+
+export interface ConfirmChoice {
+  value: string;
+  label: string;
+  description: string;
+  icon: string;
 }
 
 @Component({
@@ -25,7 +33,7 @@ export interface ConfirmDeleteData {
 })
 export class ConfirmDialogComponent {
   readonly data = inject<ConfirmDeleteData>(MAT_DIALOG_DATA);
-  private readonly dialogRef = inject<MatDialogRef<ConfirmDialogComponent, boolean>>(MatDialogRef);
+  private readonly dialogRef = inject<MatDialogRef<ConfirmDialogComponent, boolean | string>>(MatDialogRef);
 
   constructor() {
     this.dialogRef
@@ -37,8 +45,8 @@ export class ConfirmDialogComponent {
       .subscribe(() => this.close(false));
   }
 
-  close(confirmed: boolean): void {
-    this.dialogRef.close(confirmed);
+  close(result: boolean | string): void {
+    this.dialogRef.close(result);
   }
 }
 
@@ -52,9 +60,17 @@ export function confirmDelete(injector: Injector, translations: ToolbarTranslati
 }
 
 export function confirmAction(injector: Injector, data: ConfirmDeleteData): Observable<boolean> {
+  return openConfirmDialog(injector, data).pipe(map(result => result === true));
+}
+
+export function confirmChoice(injector: Injector, data: ConfirmDeleteData): Observable<string | null> {
+  return openConfirmDialog(injector, data).pipe(map(result => (typeof result === 'string' ? result : null)));
+}
+
+function openConfirmDialog(injector: Injector, data: ConfirmDeleteData): Observable<boolean | string | undefined> {
   return injector
     .get(MatDialog)
-    .open<ConfirmDialogComponent, ConfirmDeleteData, boolean>(ConfirmDialogComponent, {
+    .open<ConfirmDialogComponent, ConfirmDeleteData, boolean | string>(ConfirmDialogComponent, {
       data,
       width: '400px',
       maxWidth: '92vw',
@@ -63,6 +79,5 @@ export function confirmAction(injector: Injector, data: ConfirmDeleteData): Obse
       disableClose: true,
       panelClass: 'easy-confirm-panel'
     })
-    .afterClosed()
-    .pipe(map(result => result === true));
+    .afterClosed();
 }

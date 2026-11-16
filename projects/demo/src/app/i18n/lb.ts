@@ -62,7 +62,17 @@ export const LB: Dictionary = {
     FOOTER_CONTRIBUTE: 'Bäiträg si wëllkomm.',
     FOOTER_DATA: 'Demodaten: GeoNames (CC BY 4.0) a Wikipedia (CC BY-SA 4.0).'
   },
-  nav: { overview: 'Iwwersiicht', countries: 'Länner a Stied', tabs: 'Ënnergeuerdnet Tabs', cities: 'Stied', builder: 'Säiten-Builder' },
+  nav: { overview: 'Iwwersiicht', countries: 'Länner a Stied', tabs: 'Ënnergeuerdnet Tabs', cities: 'Stied', builder: 'Säiten-Builder', grouping: 'Selektioun', upload: 'Eroplueden' },
+  grouping: {
+    TITLE: 'Länner no Kontinent',
+    EXPAND_ALL: 'All opmaachen',
+    COLLAPSE_ALL: 'All zoumaachen',
+    selected: 'Selektioun',
+    continent: 'Kontinent',
+    code: 'Fändel',
+    name: 'Numm',
+    capital: 'Haaptstad'
+  },
   continents: {
     ARIA: 'No Kontinent duerchsichen',
     all: 'All',
@@ -100,6 +110,20 @@ export const LB: Dictionary = {
     scss: 'Stiler'
   },
   pages: {
+    grouping: {
+      title: 'Gruppéierung a Selektioun',
+      subtitle: 'Länner no Kontinent gruppéiert. Gruppen opmaachen oder zoumaachen, e Land oder eng ganz Grupp ukräizen: d’Këscht ass ugekräizt, eidel oder onbestëmmt.',
+      SELECTED: 'Ausgewielt',
+      LAST_EVENT: 'Leschten Evenement'
+    },
+    upload: {
+      title: 'Fichier eroplueden',
+      subtitle: 'Datselwecht Element als Dropzone mat Knäppchen, als Knäppchen eleng an als Dropzone eleng. Eng CSV-Datei gëtt zu enger Tabell.',
+      SAMPLE: 'Beispill-CSV-Datei eroflueden',
+      BOTH: 'Dropzone a Knäppchen, als Tabell gelies',
+      BUTTON: 'Nëmmen d’Knäppchen, méi Fichieren',
+      DRAG_DROP: 'Nëmmen d’Dropzone'
+    },
     countries: {
       title: 'Länner an hir Stied',
       subtitle: 'All Länner vun der Welt, Algerien als Éischt. Klickt op den Knäppchen fir eng Zeil opzemaachen: D’ Ënnertabell lued bei Bedarf d’Stied vun deem Land.'

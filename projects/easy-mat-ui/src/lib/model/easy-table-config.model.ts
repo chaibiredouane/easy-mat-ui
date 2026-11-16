@@ -1,9 +1,11 @@
+import { Type } from '@angular/core';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { MatColumnTyped } from './mat-column-typed.model';
 import { Dictionary } from './dictionary.model';
 import { ToolbarConfig } from './toolbar-config.model';
 import {MatTableDataSource} from '@angular/material/table';
 import {EasyTableDialogConfig} from './easy-table-dialog.model';
+import {EasyTableGroupBy} from './easy-table-grouping.model';
 
 export class EasyTableConfig<T = any> {
   dataSource?: MatTableDataSource<T>;
@@ -66,8 +68,12 @@ export class EasyTableConfig<T = any> {
   extendableColumnCheck?: string;
   expandedIcon: string = 'addchart';
   dialog?: EasyTableDialogConfig;
+  groupBy?: EasyTableGroupBy;
   tabTitle?: string;
   tabIcon?: string;
+  tabContent?: Type<unknown>;
+  tabContentInputs?: Record<string, unknown>;
+  canLeaveTab?: () => boolean | Promise<boolean>;
 
   constructor(init?: Partial<EasyTableConfig>) {
     Object.assign(this, init);
