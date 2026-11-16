@@ -1,0 +1,19 @@
+<div class="group-header">
+  @if (selectionColumn) {
+    <lib-table-check-mark [state]="state"
+                          [disabled]="editableRows.length === 0"
+                          [readonlyLook]="editableRows.length === 0"
+                          [label]="group.label"
+                          (toggled)="toggleSelection()"></lib-table-check-mark>
+  }
+  <button type="button"
+          class="group-toggle"
+          [class.open]="group.expanded"
+          [disabled]="!group.collapsible"
+          [attr.aria-expanded]="group.expanded"
+          (click)="toggleGroup.emit(group.key)">
+    <span class="chevron"></span>
+    <span class="group-title">{{ group.label }}</span>
+    <span class="group-count">{{ group.rows.length }}</span>
+  </button>
+</div>
