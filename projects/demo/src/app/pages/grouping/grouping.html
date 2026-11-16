@@ -1,0 +1,19 @@
+<lib-easy-page-header
+  [config]="{ icon: 'groups', title: ('pages.grouping.title' | translate), subtitle: ('pages.grouping.subtitle' | translate) }" />
+
+@if (tableConfig) {
+  <p class="status" aria-live="polite">
+    <span>{{ 'pages.grouping.SELECTED' | translate }}: <strong>{{ selectedCount() }}</strong></span>
+    @if (lastEvent()) {
+      <span>{{ 'pages.grouping.LAST_EVENT' | translate }}: <code>{{ lastEvent() }}</code></span>
+    }
+  </p>
+  <div class="table-wrap">
+    <lib-easy-table
+      [config]="tableConfig"
+      (selectionChange)="onSelectionChange($event)"
+      (groupSelectionChange)="onGroupSelectionChange($event)" />
+  </div>
+}
+
+<app-code-panel folder="pages/grouping" />

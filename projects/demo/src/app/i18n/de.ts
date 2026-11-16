@@ -62,7 +62,17 @@ export const DE: Dictionary = {
     FOOTER_CONTRIBUTE: 'Beiträge sind willkommen.',
     FOOTER_DATA: 'Demodaten: GeoNames (CC BY 4.0) und Wikipedia (CC BY-SA 4.0).'
   },
-  nav: { overview: 'Übersicht', countries: 'Länder und Städte', tabs: 'Untergeordnete Tabs', cities: 'Städte', builder: 'Seiten-Builder' },
+  nav: { overview: 'Übersicht', countries: 'Länder und Städte', tabs: 'Untergeordnete Tabs', cities: 'Städte', builder: 'Seiten-Builder', grouping: 'Auswahl', upload: 'Upload' },
+  grouping: {
+    TITLE: 'Länder nach Kontinent',
+    EXPAND_ALL: 'Alle aufklappen',
+    COLLAPSE_ALL: 'Alle zuklappen',
+    selected: 'Auswahl',
+    continent: 'Kontinent',
+    code: 'Flagge',
+    name: 'Name',
+    capital: 'Hauptstadt'
+  },
   continents: {
     ARIA: 'Nach Kontinent stöbern',
     all: 'Alle',
@@ -100,6 +110,20 @@ export const DE: Dictionary = {
     scss: 'Stile'
   },
   pages: {
+    grouping: {
+      title: 'Gruppierung und Auswahl',
+      subtitle: 'Länder nach Kontinent gruppiert. Gruppen einzeln oder alle auf- und zuklappen, ein Land oder eine ganze Gruppe ankreuzen: Das Kästchen ist angekreuzt, leer oder unbestimmt.',
+      SELECTED: 'Ausgewählt',
+      LAST_EVENT: 'Letztes Ereignis'
+    },
+    upload: {
+      title: 'Datei-Upload',
+      subtitle: 'Dieselbe Komponente als Ablagefläche mit Schaltfläche, als Schaltfläche allein und als Ablagefläche allein. Eine CSV-Datei wird zur Tabelle.',
+      SAMPLE: 'Beispiel-CSV-Datei herunterladen',
+      BOTH: 'Ablagefläche und Schaltfläche, als Tabelle ausgelesen',
+      BUTTON: 'Nur Schaltfläche, mehrere Dateien',
+      DRAG_DROP: 'Nur Ablagefläche'
+    },
     countries: {
       title: 'Länder und ihre Städte',
       subtitle: 'Alle Länder der Welt, Algerien zuerst. Klicken Sie auf die Schaltfläche zum Aufklappen einer Zeile: Die untergeordnete Tabelle lädt bei Bedarf die Städte dieses Landes.'

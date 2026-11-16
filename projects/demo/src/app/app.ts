@@ -17,6 +17,8 @@ import { LANGUAGES } from './i18n/languages';
 import { Builder } from './pages/builder/builder';
 import { Cities } from './pages/cities/cities';
 import { Countries } from './pages/countries/countries';
+import { Grouping } from './pages/grouping/grouping';
+import { Upload } from './pages/upload/upload';
 import { CountryTabs } from './pages/country-tabs/country-tabs';
 import { Overview } from './pages/overview/overview';
 import { LanguageService } from './services/language.service';
@@ -29,6 +31,8 @@ const PAGES = [
   { id: 'countries', icon: 'public' },
   { id: 'tabs', icon: 'tab' },
   { id: 'cities', icon: 'map' },
+  { id: 'grouping', icon: 'groups' },
+  { id: 'upload', icon: 'cloud_upload' },
   { id: 'builder', icon: 'build' }
 ] as const;
 
@@ -41,7 +45,7 @@ const THEMES: { id: EasyThemeMode; icon: string }[] = [
 @Component({
   changeDetection: ChangeDetectionStrategy.Default,
   selector: 'app-root',
-  imports: [Dir, MatIconModule, TranslatePipe, GithubMark, EasySegmented, EasyLanguageSwitch, Overview, Countries, CountryTabs, Cities, Builder],
+  imports: [Dir, MatIconModule, TranslatePipe, GithubMark, EasySegmented, EasyLanguageSwitch, Overview, Countries, CountryTabs, Cities, Grouping, Upload, Builder],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
